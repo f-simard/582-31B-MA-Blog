@@ -1,0 +1,33 @@
+body{
+    max-width: 1440px;
+    margin-inline: auto;
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+
+    min-height: 100dvh;
+}
+
+body > *+* {
+    margin-top: 4rem;
+}
+body > footer {
+    align-self: center;
+
+    margin-top: auto;
+    margin-bottom: 2rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+
+    align-items: center;
+    justify-content: center;
+}
+

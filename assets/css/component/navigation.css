@@ -1,0 +1,19 @@
+.navigation{
+    display: flex;
+    gap: 4rem;
+    align-self: center;
+    justify-content: center;
+
+}
+
+.navigation a {
+    display: block;
+    min-width: max-content;
+
+    color: black;
+}
+
+.navigation a:visited {
+
+    color: black;
+}
