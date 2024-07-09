@@ -19,6 +19,33 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
 		exit;
 	}
 
+	
+
+	$getCategories = $crud->getArticleCategory($idArticle);
+	if ($getCategories){
+		$categories = [];
+		foreach($getCategories as $category){
+			$categories[] = $category['label'];
+		}
+		$categoriesString = implode(",", $categories);
+	} else {
+		$categoriesString  = "Sans catégorie";
+	}
+
+	$getTags = $crud->getArticleTag($idArticle);
+	if ($getTags){
+		$tags = [];
+		foreach($getTags as $tag){
+			$tags[] = $tag['label'];
+		}
+
+		$tagsString = implode(",", $tags);
+	} else {
+		$tagsString = "Sans tag";
+	}
+
+
+
 } else {
 	header('location:index.php');
 	exit;
@@ -52,9 +79,17 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
     <main>
         <section class="article">
         <h1><?= $title; ?> </h1>
-		<h3>By <?= $auteur[0]['firstName'];?> <?= $auteur[0]['lastName']; ?></h3>
-		<p><small>Catégorie: </small></p>
-		<p><small>Tags: </small></p>
+		<h3>By 
+			<?php
+				if (!$auteur){
+					?><?= $username; ?><?php
+				} else {
+					?><?= $auteur[0]['firstName'];?> <?= $auteur[0]['lastName']; ?> <?php
+				}
+			?>	
+		</h3>
+		<p><small>Catégorie: <?=$categoriesString;?></small></p>
+		<p><small>Tags: <?=$tagsString;?></small></p>
         <p><?= $content; ?></p>
         </section>
     </main>

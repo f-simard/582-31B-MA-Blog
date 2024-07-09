@@ -40,8 +40,6 @@ if($insert){
 				$relationTag['idTag'] = array_search($submittedTagClean, $tags);
 
 			} else {
-				echo 'new tag';
-				die();
 				$insertTag['label'] = $submittedTagClean;
 				$newTag = $crud->insert('Tag', $insertTag);
 				$relationTag['idTag'] = $newTag;
