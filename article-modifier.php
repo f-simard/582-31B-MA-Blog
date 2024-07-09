@@ -19,32 +19,6 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
 		exit;
 	}
 
-	
-
-	$getCategories = $crud->getArticleCategory($idArticle);
-	if ($getCategories){
-		$categories = [];
-		foreach($getCategories as $category){
-			$categories[] = $category['label'];
-		}
-		$categoriesString = implode(",", $categories);
-	} else {
-		$categoriesString  = "Sans catégorie";
-	}
-
-	$getTags = $crud->getArticleTag($idArticle);
-	if ($getTags){
-		$tags = [];
-		foreach($getTags as $tag){
-			$tags[] = $tag['label'];
-		}
-
-		$tagsString = implode(",", $tags);
-	} else {
-		$tagsString = "Sans tag";
-	}
-
-
 
 } else {
 	header('location:index.php');
@@ -77,25 +51,24 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
         </nav>
     </header>
     <main>
-        <section class="article">
-        <h1><?= $title; ?> </h1>
-		<h3>By 
-			<?php
-				if (!$auteur){
-					?><?= $username; ?><?php
-				} else {
-					?><?= $auteur[0]['firstName'];?> <?= $auteur[0]['lastName']; ?> <?php
-				}
-			?>	
-		</h3>
-		<p><small>Catégorie: <?=$categoriesString;?></small></p>
-		<p><small>Tags: <?=$tagsString;?></small></p>
-        <p><?= $content; ?></p>
-        </section>
-		<form action="article-modifier.php" method="get">
-				<input type="hidden" name="idArticle" value="<?= $idArticle; ?>">
-				<button class="bouton">Modifier</button>
-			</form>
+	<form id="modifier-article" action="article-update.php" method="post">
+			<label for="title">Titre de l'article</label>
+			<input type="hidden" name="idArticle" value="<?= $idArticle ?>">
+			<input required type="text" name="title" id="title" value="<?= $title; ?>">
+			<label for="content">Votre pensée</label>
+			<textarea required type="content" name="content" id="content" rows="6" col="75"><?= $content; ?></textarea>
+			<input type="hidden" name="username" value="<?= $username ?>">
+			<p>By 
+				<?php
+					if (!$auteur){
+						?><?= $username; ?><?php
+					} else {
+						?><?= $auteur[0]['firstName'];?> <?= $auteur[0]['lastName']; ?> <?php
+					}
+				?>	
+			</p>
+			<button class="bouton">Sauvegarder</button>
+		</form>
     </main>
     <footer>
         <h2>582-31B-MA</h2>
