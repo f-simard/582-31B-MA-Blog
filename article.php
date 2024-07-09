@@ -8,6 +8,8 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
 	$crud = new CRUD;
 	$select = $crud->selectByField('article', $idArticle , 'idArticle');
 
+	$auteur = $crud->getArticleAuthor($idArticle);
+
 	if ($select){
 		foreach($select as $key=>$value){
 			$$key = $value;
@@ -50,7 +52,7 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
     <main>
         <section class="article">
         <h1><?= $title; ?> </h1>
-		<h3>By <?= $username; ?></h3>
+		<h3>By <?= $auteur[0]['firstName'];?> <?= $auteur[0]['lastName']; ?></h3>
 		<p><small>Catégorie: </small></p>
 		<p><small>Tags: </small></p>
         <p><?= $content; ?></p>

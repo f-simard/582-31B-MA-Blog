@@ -36,6 +36,26 @@ class CRUD extends PDO{
 		return false;
 	}
 
+	public function getArticleAuthor($value){
+
+		$sql = "SELECT U.lastName as lastName, U.firstName as firstName
+				FROM Article A
+				INNER JOIN User U ON A.username = U.username
+				WHERE A.idArticle = :idArticle;
+				";
+		$stmt = $this->prepare($sql);
+		$stmt->bindValue(":idArticle", $value);
+		$stmt->execute();
+
+		$count = $stmt->rowCount();
+
+		if ($count > 0){
+			return $stmt->fetchAll();
+		} else
+		return false;
+	}
+
+
 	public function getArticleTag($value){
 		
 		$sql = "SELECT T.label AS Tag

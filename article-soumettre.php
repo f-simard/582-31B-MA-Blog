@@ -24,13 +24,13 @@
 		<section>
 		<h1>Partagez votre pensée</h1>
 		</section>
-		<form id="soumettre-article" action="" method="post">
+		<form id="soumettre-article" action="article-create.php" method="post">
 			<label for="title">Titre de l'article</label>
 			<input required type="text" name="title" id="title">
 			<label for="content">Votre pensée</label>
-			<textarea required type="content" id="content" rows="6" col="75"></textarea>
+			<textarea required type="content" name="content" id="content" rows="6" col="75"></textarea>
 			<label for="username">Nom d'utilisateur</label>
-			<input required type="text" for="username" id="username">
+			<input required type="text" name="username" id="username">
 			<fieldset>
 				<legend>Catégories</legend>
 				<div class="paire">
