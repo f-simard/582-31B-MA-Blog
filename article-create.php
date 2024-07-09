@@ -4,11 +4,25 @@ require_once("classes/CRUD.php");
 
 $data = [];
 
-$data['username'] = $_POST['username'];
 $data['content'] = $_POST['content'];
 $data['title'] = $_POST['title'];
 
 $crud = new CRUD();
+
+$selectUsers = $crud->select('User');
+$users = [];
+foreach($selectUsers as $row) {
+	$users[$row['idUser']] = $row['username'];
+}
+
+if(in_array($_POST['username'],$users)){
+	$data['idUser'] = array_search($_POST['username'], $users);
+} else {
+	$userData['username'] = $_POST['username'];
+	$insertUser = $crud->insert('User', $userData);
+	$data['idUser'] = $insertUser;
+}
+
 $insert = $crud->insert('article', $data);
 $selectTags = $crud->select('Tag');
 $tags = [];

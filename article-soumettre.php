@@ -3,16 +3,8 @@
 require_once("classes/CRUD.php");
 
 $crud = new CRUD;
-$select = $crud->select('Category', "idCategory");
+$select = $crud->select('Category', 'idCategory');
 
-if ($select){
-	foreach($select as $key=>$value){
-		$$key = $value;
-	}
-} else {
-	header('location:admin.php');
-	exit;
-}
 ?>
 
 
@@ -52,13 +44,18 @@ if ($select){
 			<input required type="text" name="username" id="username">
 			<fieldset>
 				<legend>Catégories</legend>
-				<?php foreach($select as $category){
-					?>
-				<div class="paire">
-					<input type="checkbox" name="cat<?= $category['idCategory'];?>" id="<?=$category['label'];?>">
-					<label id="<?=$category['label'];?>"><?=$category['label'];?></label>
-				</div> <?php
-				}
+				<?php 
+				if ($select) {
+					foreach($select as $category){
+						?>
+					<div class="paire">
+						<input type="checkbox" name="cat<?= $category['idCategory'];?>" id="<?=$category['label'];?>">
+						<label id="<?=$category['label'];?>"><?=$category['label'];?></label>
+					</div> <?php
+					}
+				} else { ?>
+					<p>Aucune catégorie disponible</p>
+					<?php }
 				?>
 			</fieldset>
 			<label for="tag">Libelés (séparés par des point-virgules)</label>

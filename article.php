@@ -82,8 +82,8 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
         <h1><?= $title; ?> </h1>
 		<h3>By 
 			<?php
-				if (!$auteur){
-					?><?= $username; ?><?php
+				if (!$auteur[0]['firstName']  && !$auteur[0]['lastName']){
+					?><i><?= $auteur[0]['username']; ?></i><?php
 				} else {
 					?><?= $auteur[0]['firstName'];?> <?= $auteur[0]['lastName']; ?> <?php
 				}

@@ -58,11 +58,11 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
 			<input required type="text" name="title" id="title" value="<?= $title; ?>">
 			<label for="content">Votre pensée</label>
 			<textarea required type="content" name="content" id="content" rows="6" col="75"><?= $content; ?></textarea>
-			<input type="hidden" name="username" value="<?= $username ?>">
+			<input type="hidden" name="idUser" value="<?= $idUser ?>">
 			<p>By 
 				<?php
-					if (!$auteur){
-						?><?= $username; ?><?php
+					if (!$auteur[0]['firstName']  && !$auteur[0]['lastName']){
+						?><i><?= $auteur[0]['username']; ?></i><?php
 					} else {
 						?><?= $auteur[0]['firstName'];?> <?= $auteur[0]['lastName']; ?> <?php
 					}

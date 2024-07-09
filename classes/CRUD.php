@@ -38,9 +38,9 @@ class CRUD extends PDO{
 
 	public function getArticleAuthor($value){
 
-		$sql = "SELECT U.lastName as lastName, U.firstName as firstName
+		$sql = "SELECT U.lastName as lastName, U.firstName as firstName, U.username as username
 				FROM Article A
-				INNER JOIN User U ON A.username = U.username
+				INNER JOIN User U ON A.idUser = U.idUser
 				WHERE A.idArticle = :idArticle;
 				";
 		$stmt = $this->prepare($sql);
