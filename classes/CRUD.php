@@ -63,7 +63,13 @@ class CRUD extends PDO{
 		return $this->lastInsertId();
 	}
 
-	public function update($table, $data, $field = 'id'){
+	public function update($table, $data, $field = null){
+
+		if ($field == null){
+			$field = 'id'.$table;
+		}
+
+		echo($field);
 
 		$fieldName = null;
 

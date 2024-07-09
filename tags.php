@@ -31,23 +31,25 @@ $select = $crud->select('Tag', "idTag");
         <section>
         <h1>Tags</h1>
         </section>
-        <section class="tag-list">
+        <section class="label-list">
         <?php
         foreach($select as $row){
         ?>
-		<form action="tag-update.php">
-			<input type="hidden" name="idTag" value="<?= $row['idTag'] ?>">
-			<input type="text" name="idTag" id="idTag" value="<?= $row['label'] ?>">
-			<button class="bouton">Sauvegarder</button>
-		</form>
-		<form action="tag-delete.php" method="post">
-			<input type="hidden" name="idTag" value="<?= $row['idTag'] ?>">
-			<button class="bouton rouge">Supprimer</button>
-		</form>
+		<div>
+			<form action="tag-update.php" method="post">
+				<input type="hidden" name="idTag" value="<?= $row['idTag'] ?>">
+				<input type="text" name="label" id="label" value="<?= $row['label'] ?>">
+				<button class="bouton">Sauvegarder</button>
+			</form>
+			<form action="tag-delete.php" method="post">
+				<input type="hidden" name="idTag" value="<?= $row['idTag'] ?>">
+				<button class="bouton rouge">Supprimer</button>
+			</form>
+			</div>
+				<?php
+					}
+					?>
 
-			<?php
-        }
-        ?>
         </section>
     </main>
     <footer>
