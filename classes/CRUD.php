@@ -119,8 +119,6 @@ class CRUD extends PDO{
 			$field = 'id'.$table;
 		}
 
-		echo($field);
-
 		$fieldName = null;
 
 		forEach($data as $key=>$value){

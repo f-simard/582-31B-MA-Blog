@@ -58,6 +58,13 @@ if (isset($_GET['idUser']) && $_GET['idUser'] != null){
 		<p>Nom d'utilisateur : <?= $username ?> </p>
 		<p>Courriel : <?= $email ?> </p>
 		<p>Mot de passe : <?= $password ?> </p>
+		<p>Admin : <?php 
+			if($isAdmin === 0) {?> 
+				Non <?php 
+			} else { ?>
+				Oui
+				<?php 
+			} ?></p>
 		<form action="compte-modifier.php" method="get">
 				<input type="hidden" name="idUser" value="<?= $idUser; ?>">
 				<button class="bouton">Modifier</button>

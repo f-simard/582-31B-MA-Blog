@@ -9,7 +9,7 @@
 	margin-top: 1rem;
 }
 
-.soumettre :is(input, select, textarea, p) {
+.soumettre :is(input, select, textarea, p, div) {
 	margin-top: 0.5rem;
 	padding: 0.4rem;
 }

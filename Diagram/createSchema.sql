@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS `blog`.`User` (
   `firstName` VARCHAR(20) NULL,
   `email` VARCHAR(100) NULL,
   `password` VARCHAR(45) NULL,
+  `isAdmin` INT DEFAULT 0,
+  
   PRIMARY KEY (`idUser`));
   
   -- source pour l'horodate: https://dev.mysql.com/doc/refman/8.4/en/timestamp-initialization.html

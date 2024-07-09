@@ -62,6 +62,15 @@ if (isset($_GET['idUser']) && $_GET['idUser'] != null){
 			<label for="email">Courriel</label> <input type="email" name="email" id ="email" value="<?= $email; ?>">
 			<label for="password">Mot de passe</label>
 			<input type="text" name="password" id ="password" value="<?= $password; ?>">
+			<div>
+				<input type="checkbox" name="isAdmin" id ="isAdmin" <?php 
+					if($isAdmin === 1) {?>
+						checked 
+						<?php 
+						}
+						?> >
+				<label for="isAdmin">Admin</label>
+			</div>
 			<input type="submit" class="bouton">
 		</form>
 	</main>

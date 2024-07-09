@@ -32,7 +32,7 @@ $crud = new CRUD;
 		<section>
 		<h1>Créer un compte</h1>
 		</section>
-		<form class="soumettre"  action="compte-create.php" method="post">
+		<form class="soumettre" action="compte-create.php" method="post">
 			<label for="firstName">Prénom</label>
 			<input type="text" name="firstName" id ="firstName">
 			<label for="lastName">Nom de famille</label>
@@ -42,6 +42,10 @@ $crud = new CRUD;
 			<label for="email">Courriel</label> <input type="email" name="email" id ="email">
 			<label for="password">Mot de passe</label>
 			<input type="text" name="password" id ="password">
+			<div>
+				<input type="checkbox" name="isAdmin" id ="isAdmin">
+				<label for="isAdmin">Admin</label>
+			</div>
 			<input type="submit" value="Sauvegarder" class="bouton">
 		</form>
 	</main>
