@@ -37,7 +37,7 @@ $select = $crud->select('User', "idUser");
         <?php
         foreach($select as $row){
         ?>
-		<div class="compte">
+		<div class="doubleForm">
 			<form action="compte-modifier.php" method="get">
 				<input type="hidden" name="idUser" value="<?= $row['idUser'] ?>">
 				<p><?= $row['firstName'];?> <?= $row['lastName'];?> (<?= $row['username'];?>)</p>

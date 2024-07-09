@@ -19,11 +19,11 @@
 	padding: 0.4rem;
 }
 
-.label-list .compte  p{
+.label-list .doubleForm  p{
 	display: inline-block;
 }
 
-.label-list .compte form:first-child{
+.label-list .doubleForm form:first-child {
 	display: flex;
 	justify-content: space-between;
 
@@ -34,7 +34,7 @@
 	display: block;
 }
 
-.label-list .compte{
+.label-list .doubleForm{
 	justify-content: space-between;
 }
 

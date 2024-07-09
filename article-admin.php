@@ -3,7 +3,7 @@
 require_once("classes/CRUD.php");
 
 $crud = new CRUD;
-$select = $crud->select('article', 'updateTimestamp');
+$select = $crud->select('article', 'updateTimestamp', 'DESC');
 
 ?>
 
@@ -40,13 +40,19 @@ $select = $crud->select('article', 'updateTimestamp');
         <?php
         foreach($select as $row){
         ?>
+        <div class="doubleForm">
+            <form action="article-modifier.php" method="get">
+                <input type="hidden" name="idArticle" value="<?= $row['idArticle'] ?>">
+                <p><?= $row['title'];?></p>
+                <button class="bouton end">Modifier</button>
+            </form>
 			<form action="article-delete.php" method="post">
 				<div class="auto">
 					<input type="hidden" name="idArticle" value="<?= $row['idArticle'] ?>">
-					<h3><?= $row['title']?></h3>
 					<button class="bouton rouge">Supprimer</button>
 				</div>
 			</form>
+        </div>
 			<?php
         }
         ?>
