@@ -1,0 +1,35 @@
+[id="soumettre-article"] {
+	display: flex;
+	flex-direction: column;
+
+	min-width: 80ch;
+}
+
+[id="soumettre-article"] :is(label, fieldset) {
+	margin-top: 1rem;
+}
+
+[id="soumettre-article"] :is(input, select, textarea) {
+	margin-top: 0.5rem;
+	padding: 0.4rem;
+}
+
+[id="soumettre-article"] textarea {
+
+	box-sizing: border-box;
+	resize: none;
+}
+
+[id="soumettre-article"] input[type="submit"] {
+	font-weight:600;
+	margin-top: 2rem;
+}
+
+
+[id="soumettre-article"] fieldset {
+	padding: 0.4rem;
+}
+
+[id="soumettre-article"] legend {
+	padding-inline: 0.3rem;
+}

@@ -1,0 +1,40 @@
+.bouton {
+	background-color: #04a8de;
+	border: 2px solid #04a8de;
+	border-radius: 2px;
+	padding: 0.5rem;
+	
+	transition-property: border-radius, transform, border, background-color;
+	transition-duration: 200ms;
+	transition-timing-function: ease-in-out;
+
+	color: black;
+
+	min-width: 20ch;
+	display: inline-block;
+	text-align:center;
+}
+.bouton:hover {
+	border-radius: 10px;
+	
+	border: 2px solid #04a8de;
+	color: #04a8de;
+	background-color: white;
+}
+
+.bouton:active {
+	transform: scale(0.98);
+}
+
+.bouton.rouge {
+	border: 2px solid tomato;
+	background-color: tomato;
+}
+
+.bouton:hover.rouge{
+	border-radius: 10px;
+	
+	border: 2px solid tomato;
+	color: tomato;
+	background-color: white;
+}

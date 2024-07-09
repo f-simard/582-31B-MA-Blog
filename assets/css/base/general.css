@@ -6,28 +6,36 @@ body{
 
     display: flex;
     flex-direction: column;
+	gap: 6rem;
     align-self: center;
-    justify-content: center;
 
     min-height: 100dvh;
 }
 
 body > *+* {
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
-body > footer {
-    align-self: center;
-
-    margin-top: auto;
+body > footer {	
+	align-self: center;
+	margin-top: auto;
     margin-bottom: 2rem;
 }
 
 main {
     display: flex;
     flex-direction: column;
-    gap: 6rem;
+    gap: 4rem;
+
+	margin-inline: 2rem;
 
     align-items: center;
     justify-content: center;
 }
 
+a{
+	color: black;
+}
+
+.lire:hover{
+	color: #04a8de;
+}

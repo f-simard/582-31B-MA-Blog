@@ -2,7 +2,7 @@
 
 class CRUD extends PDO{
 	public function __construct(){
-		parent::__construct('mysql:host=localhost;dbname=ecommerce;port=3306;charset=utf8', 'root', '');
+		parent::__construct('mysql:host=localhost;dbname=blog;port=3306;charset=utf8', 'root', '');
 	}
 
 	public function select($table, $field = 'id', $order = 'ASC'){
@@ -11,7 +11,27 @@ class CRUD extends PDO{
 		return $stmt->fetchAll();
 	}
 
-	public function selectId($table, $value, $field='id'){
+	public function selectArticleById($value, $field='idArticle'){
+		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
+		$sql = "SELECT * FROM article WHERE $field = :$field";
+		$stmt = $this->prepare($sql);
+		/*$stmt->execute(array($value));*/
+		$stmt->bindValue(":$field", $value);
+		$stmt->execute();
+	
+		$count = $stmt->rowCount();
+	
+		if ($count == 1){
+			return $stmt->fetch();
+		} else
+		return false;
+	}
+
+	public function selectById($table, $value, $field= null){
+		if ($field == null){
+			$field = 'id'.$table;
+		}
+
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
 		$sql = "SELECT * FROM $table WHERE $field = :$field";
 		$stmt = $this->prepare($sql);
@@ -70,7 +90,11 @@ class CRUD extends PDO{
 
 	}
 
-	public function delete($table, $value, $field = 'id'){
+	public function delete($table, $value, $field = null){
+
+		if ($field == null){
+			$field = 'id'.$table;
+		}
 
 		$sql = "DELETE FROM $table WHERE $field = :$field";
 		$stmt = $this->prepare($sql);

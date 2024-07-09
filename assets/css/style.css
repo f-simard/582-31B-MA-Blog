@@ -3,3 +3,7 @@
 
 @import url('./component/navigation.css');
 @import url('./component/header.css');
+@import url('./component/soumettre-article.css');
+@import url('./component/bouton.css');
+@import url('./component/article-liste.css');
+@import url('./component/article.css')

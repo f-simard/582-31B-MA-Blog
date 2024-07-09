@@ -1,3 +1,12 @@
+<?php
+
+require_once("classes/CRUD.php");
+
+$crud = new CRUD;
+$select = $crud->select('article', 'updateTimestamp');
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,8 +24,8 @@
             <img src="assets/img/316271_clouds_icon.svg" alt="icone de nuage">
         </picture>
         <nav class="navigation">
-            <a href="index.php">Accueil</a>
-            <a href="article.php">Partager une pensée</a>
+            <a href="index.php" class="selected">Accueil</a>
+            <a href="soumettre-article.php">Partager une pensée</a>
             <a href="admin.php">Administration</a>
         </nav>
     </header>
@@ -25,22 +34,19 @@
         <h1>Titre</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quidem alias cumque dolor earum quo voluptatum ut nostrum eius veniam. Sint voluptatem fugiat exercitationem sed? Qui ipsam natus omnis illum?</p>
         </section>
-        <section class="article-list">
+        <section class="article-liste">
+        <?php
+        foreach($select as $row){
+        ?>
             <article class="article">
-                <h2>{{Titre}}</h2>
+                <h2><?= $row['title']?> <a href="article.php?idArticle=<?= $row['idArticle']?>" class="lire">&#10097;</a></h2>
                 <div data-category><span>{{Cat1}}</span><span>{{Cat2}}</span></div>
                 <div data-tags><span>{{Tag2}}</span><span>{{Tag1}}</span><span>{{Tag3}}</span</div>
+
             </article>
-            <article class="article">
-                <h2>{{Titre}}</h2>
-                <div data-category><span>{{Cat1}}</span><span>{{Cat2}}</span></div>
-                <div data-tags><span>{{Tag2}}</span><span>{{Tag1}}</span><span>{{Tag3}}</span</div>
-            </article>
-            <article class="article">
-                <h2>{{Titre}}</h2>
-                <div data-category><span>{{Cat1}}</span><span>{{Cat2}}</span></div>
-                <div data-tags><span>{{Tag2}}</span><span>{{Tag1}}</span><span>{{Tag3}}</span</div>
-            </article>
+			<?php
+        }
+        ?>
         </section>
     </main>
     <footer>

@@ -1,0 +1,9 @@
+.article-liste {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.article-liste article > *+* {
+	margin-top: 0.3rem;
+}
