@@ -3,6 +3,16 @@
 require_once("classes/CRUD.php");
 $crud = new CRUD;
 $select = $crud->select('Category', "idCategory");
+
+if ($select){
+	foreach($select as $key=>$value){
+		$$key = $value;
+	}
+} else {
+	header('location:admin.php');
+	exit;
+}
+
 ?>
 
 <!DOCTYPE html>

@@ -1,3 +1,21 @@
+<?php
+
+require_once("classes/CRUD.php");
+
+$crud = new CRUD;
+$select = $crud->select('Category', "idCategory");
+
+if ($select){
+	foreach($select as $key=>$value){
+		$$key = $value;
+	}
+} else {
+	header('location:admin.php');
+	exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -33,18 +51,14 @@
 			<input required type="text" name="username" id="username">
 			<fieldset>
 				<legend>Catégories</legend>
+				<?php foreach($select as $category){
+					?>
 				<div class="paire">
-					<input type="checkbox" name="cat1" id="cat1">
-					<label id="cat1">Categorie 1</label>
-				</div>
-				<div class="paire">
-					<input type="checkbox" name="cat2" id="cat2">
-					<label id="cat2">Categorie 2</label>
-				</div>
-				<div class="paire">
-					<input type="checkbox" name="cat3" id="cat3">
-					<label id="cat1">Categorie 3</label>
-				</div>
+					<input type="checkbox" name="cat<?= $category['idCategory'];?>" id="<?=$category['label'];?>">
+					<label id="<?=$category['label'];?>"><?=$category['label'];?></label>
+				</div> <?php
+				}
+				?>
 			</fieldset>
 			<label for="tag">Libelés (séparés par des point-virgules)</label>
 			<input type="text" name="tag" id="tag" placeholder="Séparer les libelés par des point-virgules">

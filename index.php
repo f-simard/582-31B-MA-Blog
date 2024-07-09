@@ -3,7 +3,7 @@
 require_once("classes/CRUD.php");
 
 $crud = new CRUD;
-$select = $crud->select('article', 'updateTimestamp');
+$select = $crud->select('article', 'updateTimestamp', 'DESC');
 
 ?>
 
@@ -48,7 +48,7 @@ $select = $crud->select('article', 'updateTimestamp');
 				<?php
 				if($categories) {
 					foreach($categories as $category){
-						?><span><?= $category['Category']; ?></span><?php
+						?><span><?= $category['label']; ?></span><?php
 					}
 				} else {
 					?>
@@ -61,7 +61,7 @@ $select = $crud->select('article', 'updateTimestamp');
 				<?php
 				if($tags) {
 					foreach($tags as $tag){
-						?><span><?= $tag['Tag']; ?></span><?php
+						?><span><?= $tag['label']; ?></span><?php
 					}
 				} else {
 					?>

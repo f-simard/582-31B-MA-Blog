@@ -18,7 +18,7 @@ class CRUD extends PDO{
 
 	public function getArticleCategory($value){
 
-		$sql = "SELECT C.label AS Category
+		$sql = "SELECT C.idCategory as idCategory, C.label AS label
 				FROM Article A
 				INNER JOIN Article_has_Category AC ON A.idArticle = AC.idArticle
 				INNER JOIN Category C ON AC.idCategory = C.idCategory
@@ -58,7 +58,7 @@ class CRUD extends PDO{
 
 	public function getArticleTag($value){
 		
-		$sql = "SELECT T.label AS Tag
+		$sql = "SELECT T.idTag as idTag ,T.label AS label
 				FROM Article A
 				LEFT JOIN Article_has_Tag AT ON A.idArticle = AT.idArticle
 				LEFT JOIN Tag T ON AT.idTag = T.idTag
