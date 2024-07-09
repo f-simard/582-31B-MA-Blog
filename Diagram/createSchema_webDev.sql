@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `e2396414`.`Article` (
     `updateTimestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     
     PRIMARY KEY (`idArticle`), 
-    CONSTRAINT `idUser_fk` FOREIGN KEY (`idUser`) REFERENCES `User` (`idUser`));
+    CONSTRAINT `idUser_fk` FOREIGN KEY (`idUser`) REFERENCES `User` (`idUser`) ON UPDATE CASCADE ON DELETE CASCADE);
 
 CREATE TABLE IF NOT EXISTS `e2396414`.`Category` (
   `idCategory` INT NOT NULL AUTO_INCREMENT,
@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS `e2396414`.`Article_has_Category` (
     `idCategory` INT NOT NULL,
     
     PRIMARY KEY (`idArticle`, `idCategory`),
-	CONSTRAINT `idArticle_fk` FOREIGN KEY (`idArticle`) REFERENCES `e2396414`.`Article` (`idArticle`),
-	CONSTRAINT `idCategory_fk`  FOREIGN KEY (`idCategory`) REFERENCES `e2396414`.`Category` (`idCategory`)
+	CONSTRAINT `idArticle_fk` FOREIGN KEY (`idArticle`) REFERENCES `e2396414`.`Article` (`idArticle`) ON UPDATE CASCADE ON DELETE SET CASCADE,
+	CONSTRAINT `idCategory_fk`  FOREIGN KEY (`idCategory`) REFERENCES `e2396414`.`Category` (`idCategory`) ON UPDATE CASCADE ON DELETE SET CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `e2396414`.`Article_has_Tag` (
@@ -49,6 +49,6 @@ CREATE TABLE IF NOT EXISTS `e2396414`.`Article_has_Tag` (
     `idTag` INT NOT NULL,
     
 	PRIMARY KEY (`idArticle`, `idTag`),
-	CONSTRAINT `idArticle_tag_fk`  FOREIGN KEY (`idArticle`) REFERENCES `e2396414`.`Article` (`idArticle`),
-	CONSTRAINT `idTag_fk` FOREIGN KEY (`idTag`) REFERENCES `e2396414`.`Tag` (`idTag`)
+	CONSTRAINT `idArticle_tag_fk`  FOREIGN KEY (`idArticle`) REFERENCES `e2396414`.`Article` (`idArticle`) ON UPDATE CASCADE ON DELETE SET NULL,
+	CONSTRAINT `idTag_fk` FOREIGN KEY (`idTag`) REFERENCES `e2396414`.`Tag` (`idTag`) ON UPDATE CASCADE ON DELETE SET NULL
 );

@@ -3,7 +3,7 @@
 require_once("classes/CRUD.php");
 
 $crud = new CRUD;
-$select = $crud->select('article', 'updateTimestamp', 'DESC');
+$select = $crud->select('Article', 'updateTimestamp', 'DESC');
 
 ?>
 

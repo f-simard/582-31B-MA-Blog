@@ -10,6 +10,6 @@ if($_POST['isAdmin']){
 }
 
 $crud = new CRUD();
-$insert = $crud->insert('user', $_POST);
+$insert = $crud->insert('User', $_POST);
 
 header('location:compte.php?idUser='.$insert);

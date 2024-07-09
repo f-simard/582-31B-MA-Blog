@@ -36,6 +36,10 @@ a{
 	color: black;
 }
 
+.lien {
+	text-decoration: underline;
+}
+
 .lire:hover{
 	color: #04a8de;
 }

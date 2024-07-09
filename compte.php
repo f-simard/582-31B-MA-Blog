@@ -59,7 +59,7 @@ if (isset($_GET['idUser']) && $_GET['idUser'] != null){
 		<p>Courriel : <?= $email ?> </p>
 		<p>Mot de passe : <?= $password ?> </p>
 		<p>Admin : <?php 
-			if($isAdmin === 0) {?> 
+			if(intval($isAdmin) ==  intval(0)) {?> 
 				Non <?php 
 			} else { ?>
 				Oui

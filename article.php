@@ -6,7 +6,7 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
 	
 	require_once("classes/CRUD.php");
 	$crud = new CRUD;
-	$select = $crud->selectByField('article', $idArticle , 'idArticle');
+	$select = $crud->selectByField('Article', $idArticle , 'idArticle');
 
 	$auteur = $crud->getArticleAuthor($idArticle);
 

@@ -23,7 +23,7 @@ if(in_array($_POST['username'],$users)){
 	$data['idUser'] = $insertUser;
 }
 
-$insert = $crud->insert('article', $data);
+$insert = $crud->insert('Article', $data);
 $selectTags = $crud->select('Tag');
 $tags = [];
 
@@ -38,7 +38,7 @@ print_r($submittedTagsClean);
 
 if($insert){
 	foreach($_POST as $key=>$value){
-		if (str_starts_with($key, 'cat')){
+		if (substr($key, 0, 3) === 'cat'){
 			$idCategory = substr($key, 3);
 			$relationCategory['idCategory'] = $idCategory;
 			$relationCategory['idArticle'] = $insert;
@@ -67,12 +67,6 @@ if($insert){
 	exit;
 }
 
-
-
-
-
-//TODO: inserer tags s'il n'existe pas deja
-//TODO: inserer relation tags
 
 header('location:article.php?idArticle='.$insert);
 

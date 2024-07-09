@@ -64,7 +64,7 @@ if (isset($_GET['idUser']) && $_GET['idUser'] != null){
 			<input type="text" name="password" id ="password" value="<?= $password; ?>">
 			<div>
 				<input type="checkbox" name="isAdmin" id ="isAdmin" <?php 
-					if($isAdmin === 1) {?>
+					if(intval($isAdmin) === 1) {?>
 						checked 
 						<?php 
 						}

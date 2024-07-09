@@ -40,7 +40,9 @@ $select = $crud->select('User', "idUser");
 		<div class="doubleForm">
 			<form action="compte-modifier.php" method="get">
 				<input type="hidden" name="idUser" value="<?= $row['idUser'] ?>">
-				<p><?= $row['firstName'];?> <?= $row['lastName'];?> (<?= $row['username'];?>)</p>
+				<p><?= $row['firstName'];?> <?= $row['lastName'];?> 
+					(<a  class= "lien" href="compte.php?idUser= <?= $row['idUser'] ?>"><?= $row['username']; ?></a> )
+				</p>
 				<button class="bouton end">Modifier</button>
 			</form>
 			<form action="compte-delete.php" method="post">
