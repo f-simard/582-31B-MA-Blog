@@ -16,14 +16,14 @@ CREATE TABLE IF NOT EXISTS `blog`.`User` (
   -- source pour l'horodate: https://dev.mysql.com/doc/refman/8.4/en/timestamp-initialization.html
   CREATE TABLE IF NOT EXISTS `blog`.`Article` (
   `idArticle` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(45) NOT NULL,
+  `idUser` INT NOT NULL,
   `title` VARCHAR(120) NOT NULL,
   `content` TEXT NULL,
   `createTimestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updateTimestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   
 	PRIMARY KEY (`idArticle`),
-	FOREIGN KEY (`username`) REFERENCES `blog`.`user` (`username`)
+	FOREIGN KEY (`idUser`) REFERENCES `blog`.`user` (`idUser`)
 );
 
 CREATE TABLE IF NOT EXISTS `blog`.`Category` (
