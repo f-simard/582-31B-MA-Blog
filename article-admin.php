@@ -1,9 +1,12 @@
 <?php
 
 require_once("classes/CRUD.php");
+
 $crud = new CRUD;
-$select = $crud->select('Category', "idCategory");
+$select = $crud->select('article', 'updateTimestamp');
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,7 +17,7 @@ $select = $crud->select('Category', "idCategory");
     <meta name="author" content="Filippa Simard">
     <meta name="description" content="Projet Blog - Programmation avancée">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Catégorie</title>
+    <title>Accueil</title>
 </head>
 <body>
     <header>
@@ -24,35 +27,28 @@ $select = $crud->select('Category', "idCategory");
         <nav class="navigation">
             <a href="index.php">Accueil</a>
 			<a href="article-soumettre.php">Partager une pensée</a>
-            <a href="admin.php"  class="selected">Administration</a>
+            <a href="admin.php" class="selected">Administration</a>
         </nav>
     </header>
     <main>
         <section>
-        <h1>Catégorie</h1>
+        <h1>Titre</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quidem alias cumque dolor earum quo voluptatum ut nostrum eius veniam. Sint voluptatem fugiat exercitationem sed? Qui ipsam natus omnis illum?</p>
         </section>
         <section class="label-list">
         <?php
         foreach($select as $row){
         ?>
-		<div>
-			<form action="categorie-update.php" method="post">
-				<input type="hidden" name="idCategory" value="<?= $row['idCategory'] ?>">
-				<input type="text" name="label" id="label" value="<?= $row['label'] ?>">
-				<button class="bouton">Sauvegarder</button>
+			<form action="article-delete.php" method="post">
+				<div class="auto">
+					<input type="hidden" name="idArticle" value="<?= $row['idArticle'] ?>">
+					<h3><?= $row['title']?></h3>
+					<button class="bouton rouge">Supprimer</button>
+				</div>
 			</form>
-			<form action="categorie-delete.php" method="post">
-				<input type="hidden" name="idCategory" value="<?= $row['idCategory'] ?>">
-				<button class="bouton rouge">Supprimer</button>
-			</form>
-			</div>
-				<?php
-					}
-					?>
-			<form action="categorie-create.php" method="post">
-				<input type="text" name="label" id="label">
-				<button class="bouton">Créer</button>
-			</form>
+			<?php
+        }
+        ?>
         </section>
     </main>
     <footer>

@@ -16,7 +16,7 @@
         </picture>
         <nav class="navigation">
             <a href="index.php">Accueil</a>
-            <a href="soumette-article.php">Partager une pensée</a>
+            <a href="article-soumettre.php">Partager une pensée</a>
             <a href="admin.php" class="selected">Administration</a>
         </nav>
     </header>
@@ -25,7 +25,7 @@
         <h1>Options</h1>
         </section>
 		<section class="option-admin">
-			<a href="admin-article.php" class="bouton">Articles</a>
+			<a href="article-admin.php" class="bouton">Articles</a>
 			<a href="categories.php" class="bouton">Categories</a>
 			<a href="tags.php" class="bouton">Tags</a>
 		</section>

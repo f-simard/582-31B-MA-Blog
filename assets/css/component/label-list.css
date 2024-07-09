@@ -8,7 +8,12 @@
 	display: flex;
 	flex-direction: row;
 	gap: 0.5rem;
+
+	&.auto{
+		justify-content: space-between;
+	}
 }
+
 
 .label-list input {
 	padding: 0.4rem;

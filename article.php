@@ -6,7 +6,7 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
 	
 	require_once("classes/CRUD.php");
 	$crud = new CRUD;
-	$select = $crud->selectArticleById($idArticle);
+	$select = $crud->selectByField('article', $idArticle , 'idArticle');
 
 	if ($select){
 		foreach($select as $key=>$value){
@@ -43,7 +43,7 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
         </picture>
         <nav class="navigation">
             <a href="index.php" class="selected">Accueil</a>
-            <a href="soumettre-article.php">Partager une pensée</a>
+			<a href="article-soumettre.php">Partager une pensée</a>
             <a href="admin.php">Administration</a>
         </nav>
     </header>

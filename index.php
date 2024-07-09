@@ -25,7 +25,7 @@ $select = $crud->select('article', 'updateTimestamp');
         </picture>
         <nav class="navigation">
             <a href="index.php" class="selected">Accueil</a>
-            <a href="soumettre-article.php">Partager une pensée</a>
+            <a href="article-soumettre.php">Partager une pensée</a>
             <a href="admin.php">Administration</a>
         </nav>
     </header>
@@ -37,11 +37,39 @@ $select = $crud->select('article', 'updateTimestamp');
         <section class="article-liste">
         <?php
         foreach($select as $row){
-        ?>
+
+			$categories = $crud->getArticleCategory($row['idArticle']);
+			$tags = $crud->getArticleTag($row['idArticle']);
+
+        	?>
             <article class="article">
-                <h2><?= $row['title']?> <a href="article.php?idArticle=<?= $row['idArticle']?>" class="lire">&#10097;</a></h2>
-                <div data-category><span>{{Cat1}}</span><span>{{Cat2}}</span></div>
-                <div data-tags><span>{{Tag2}}</span><span>{{Tag1}}</span><span>{{Tag3}}</span</div>
+			<h2><?= $row['title']?> <a href="article.php?idArticle=<?= $row['idArticle']?>" class="lire">&#10097;</a></h2>
+                <div data-category>
+				<?php
+				if($categories) {
+					foreach($categories as $category){
+						?><span><?= $category['Category']; ?></span><?php
+					}
+				} else {
+					?>
+					<span><i>Sans catégorie</i></span>
+					<?php
+				} 
+				?>
+				</div>
+                <div data-tags>
+				<?php
+				if($tags) {
+					foreach($tags as $tag){
+						?><span><?= $tag['Tag']; ?></span><?php
+					}
+				} else {
+					?>
+					<span><i>Sans Tag</i></span>
+					<?php
+				} 
+				?>
+				</div>
 
             </article>
 			<?php

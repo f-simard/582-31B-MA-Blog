@@ -16,7 +16,7 @@
 		</picture>
 		<nav class="navigation">
 			<a href="index.php">Accueil</a>
-			<a href="soumettre-article.php" class="selected">Partager une pensée</a>
+			<a href="article-soumettre.php" class="selected">Partager une pensée</a>
 			<a href="admin.php">Administration</a>
 		</nav>
 	</header>
