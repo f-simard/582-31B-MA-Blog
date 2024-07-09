@@ -19,3 +19,24 @@
 	padding: 0.4rem;
 }
 
+.label-list .compte  p{
+	display: inline-block;
+}
+
+.label-list .compte form:first-child{
+	display: flex;
+	justify-content: space-between;
+
+	min-width: 50ch;
+}
+
+.label-list .end {
+	display: block;
+}
+
+.label-list .compte{
+	justify-content: space-between;
+}
+
+
+

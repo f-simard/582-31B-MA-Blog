@@ -27,6 +27,7 @@
         </section>
 		<section class="option-admin">
 			<a href="article-admin.php" class="bouton">Articles</a>
+			<a href="compte-admin.php" class="bouton">Comptes</a>
 			<a href="categories.php" class="bouton">Categories</a>
 			<a href="tags.php" class="bouton">Tags</a>
 		</section>

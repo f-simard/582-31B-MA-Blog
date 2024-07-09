@@ -6,7 +6,7 @@ if (isset($_GET['idUser']) && $_GET['idUser'] != null){
 	
 	require_once("classes/CRUD.php");
 	$crud = new CRUD;
-	$select = $crud->selectByField('user', $idUser , 'idUser');
+	$select = $crud->selectByField('User', $idUser , 'idUser');
 
 	if ($select){
 		foreach($select as $key=>$value){

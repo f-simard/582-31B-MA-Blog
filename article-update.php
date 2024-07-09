@@ -9,7 +9,7 @@ $crud = new CRUD();
 $update = $crud->update('Article', $_POST, 'idArticle');
 
 if($update){
-    header('location:article.php?idArticle='.$update);
+    header('location:index.php');
 }
 else{
     echo 'error';
