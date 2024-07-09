@@ -15,7 +15,7 @@ $select = $crud->select('User', "idUser");
     <meta name="author" content="Filippa Simard">
     <meta name="description" content="Projet Blog - Programmation avancée">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Catégorie</title>
+    <title>Comptes</title>
 </head>
 <body>
     <header>
@@ -31,7 +31,7 @@ $select = $crud->select('User', "idUser");
     </header>
     <main>
         <section>
-        <h1>Catégorie</h1>
+        <h1>Comptes</h1>
         </section>
         <section class="label-list">
         <?php

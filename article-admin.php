@@ -33,8 +33,7 @@ $select = $crud->select('article', 'updateTimestamp', 'DESC');
     </header>
     <main>
         <section>
-        <h1>Titre</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quidem alias cumque dolor earum quo voluptatum ut nostrum eius veniam. Sint voluptatem fugiat exercitationem sed? Qui ipsam natus omnis illum?</p>
+        <h1>Articles</h1>
         </section>
         <section class="label-list">
         <?php
