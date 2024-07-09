@@ -38,7 +38,7 @@ $select = $crud->select('User', "idUser");
         foreach($select as $row){
         ?>
 		<div class="compte">
-			<form action="compte-modified.php" method="get">
+			<form action="compte-modifier.php" method="get">
 				<input type="hidden" name="idUser" value="<?= $row['idUser'] ?>">
 				<p><?= $row['firstName'];?> <?= $row['lastName'];?> (<?= $row['username'];?>)</p>
 				<button class="bouton end">Modifier</button>
@@ -48,13 +48,9 @@ $select = $crud->select('User', "idUser");
 				<button class="bouton rouge">Supprimer</button>
 			</form>
 			</div>
-				<?php
-					}
-					?>
-			<form action="categorie-create.php" method="post">
-				<input type="text" name="label" id="label">
-				<button class="bouton">Créer</button>
-			</form>
+            <?php
+                }
+                ?>
         </section>
     </main>
     <footer>

@@ -9,7 +9,7 @@ $crud = new CRUD();
 $update = $crud->update('User', $_POST, 'idUser');
 
 if($update){
-    header('location:compte.php?idUser='.$update);
+    header('location:compte-admin.php?idUser='.$update);
 }
 else{
     echo 'error';
