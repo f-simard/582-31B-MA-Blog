@@ -35,6 +35,7 @@ if ($select){
 		<nav class="navigation">
 			<a href="index.php">Accueil</a>
 			<a href="article-soumettre.php" class="selected">Partager une pensée</a>
+			<a href="compte-soumettre.php">Créer un compte</a>			
 			<a href="admin.php">Administration</a>
 		</nav>
 	</header>
@@ -42,7 +43,7 @@ if ($select){
 		<section>
 		<h1>Partagez votre pensée</h1>
 		</section>
-		<form id="soumettre-article" action="article-create.php" method="post">
+		<form class="soumettre" id="soumettre-article" action="article-create.php" method="post">
 			<label for="title">Titre de l'article</label>
 			<input required type="text" name="title" id="title">
 			<label for="content">Votre pensée</label>

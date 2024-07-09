@@ -1,14 +1,12 @@
 <?php
 
-if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
-	$idArticle = $_GET['idArticle'];
+if (isset($_GET['idUser']) && $_GET['idUser'] != null){
+	$idUser = $_GET['idUser'];
 
 	
 	require_once("classes/CRUD.php");
 	$crud = new CRUD;
-	$select = $crud->selectByField('article', $idArticle , 'idArticle');
-
-	$auteur = $crud->getArticleAuthor($idArticle);
+	$select = $crud->selectByField('user', $idUser , 'idUser');
 
 	if ($select){
 		foreach($select as $key=>$value){
@@ -18,7 +16,6 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
 		header('location:index.php');
 		exit;
 	}
-
 
 } else {
 	header('location:index.php');
@@ -52,24 +49,20 @@ if (isset($_GET['idArticle']) && $_GET['idArticle'] != null){
         </nav>
     </header>
     <main>
-	<form class="soumettre" id="modifier-article" action="article-update.php" method="post">
-			<label for="title">Titre de l'article</label>
-			<input type="hidden" name="idArticle" value="<?= $idArticle ?>">
-			<input required type="text" name="title" id="title" value="<?= $title; ?>">
-			<label for="content">Votre pensée</label>
-			<textarea required type="content" name="content" id="content" rows="6" col="75"><?= $content; ?></textarea>
-			<input type="hidden" name="username" value="<?= $username ?>">
-			<p>By 
-				<?php
-					if (!$auteur){
-						?><?= $username; ?><?php
-					} else {
-						?><?= $auteur[0]['firstName'];?> <?= $auteur[0]['lastName']; ?> <?php
-					}
-				?>	
-			</p>
-			<button class="bouton">Sauvegarder</button>
-		</form>
+        <section>
+			<h1>Compte</h1>
+		</section>
+		<section>
+		<p>Prénom : <?= $firstName ?> </p>
+		<p>Nom de famille : <?= $lastName ?> </p>
+		<p>Nom d'utilisateur : <?= $username ?> </p>
+		<p>Courriel : <?= $email ?> </p>
+		<p>Mot de passe : <?= $password ?> </p>
+		<form action="compte-modifier.php" method="get">
+				<input type="hidden" name="idUser" value="<?= $idUser; ?>">
+				<button class="bouton">Modifier</button>
+			</form>
+		</section>
     </main>
     <footer>
         <h2>582-31B-MA</h2>

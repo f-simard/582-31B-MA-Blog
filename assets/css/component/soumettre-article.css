@@ -1,35 +1,35 @@
-:is([id="soumettre-article"], [id="modifier-article"]) {
+.soumettre {
 	display: flex;
 	flex-direction: column;
 
 	min-width: 80ch;
 }
 
-:is([id="soumettre-article"], [id="modifier-article"]) :is(label, fieldset) {
+.soumettre :is(label, fieldset) {
 	margin-top: 1rem;
 }
 
-:is([id="soumettre-article"], [id="modifier-article"]) :is(input, select, textarea) {
+.soumettre :is(input, select, textarea, p) {
 	margin-top: 0.5rem;
 	padding: 0.4rem;
 }
 
-:is([id="soumettre-article"], [id="modifier-article"]) textarea {
+.soumettre textarea {
 
 	box-sizing: border-box;
 	resize: none;
 }
 
-:is([id="soumettre-article"], [id="modifier-article"]) input[type="submit"] {
+.soumettre input[type="submit"] {
 	font-weight:600;
 	margin-top: 2rem;
 }
 
 
-:is([id="soumettre-article"], [id="modifier-article"]) fieldset {
+.soumettre fieldset {
 	padding: 0.4rem;
 }
 
-:is([id="soumettre-article"], [id="modifier-article"]) legend {
+.soumettre legend {
 	padding-inline: 0.3rem;
 }

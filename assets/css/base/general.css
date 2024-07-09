@@ -39,3 +39,7 @@ a{
 .lire:hover{
 	color: #04a8de;
 }
+
+section > form > button {
+	margin-top: 2rem;
+}

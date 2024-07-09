@@ -24,6 +24,7 @@ $select = $crud->select('Tag', "idTag");
         <nav class="navigation">
             <a href="index.php" class="selected">Accueil</a>
 			<a href="article-soumettre.php">Partager une pensée</a>
+			<a href="compte-soumettre.php">Créer un compte</a>			
             <a href="admin.php">Administration</a>
         </nav>
     </header>

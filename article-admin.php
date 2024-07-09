@@ -27,6 +27,7 @@ $select = $crud->select('article', 'updateTimestamp');
         <nav class="navigation">
             <a href="index.php">Accueil</a>
 			<a href="article-soumettre.php">Partager une pensée</a>
+			<a href="compte-soumettre.php">Créer un compte</a>			
             <a href="admin.php" class="selected">Administration</a>
         </nav>
     </header>
