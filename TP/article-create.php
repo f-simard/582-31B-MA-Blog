@@ -34,7 +34,7 @@ foreach ($selectTags as $selectTag){
 $submittedTags = explode(";", $_POST['tag']);
 //https://www.geeksforgeeks.org/how-to-trim-all-strings-in-an-array-in-php/
 $submittedTagsClean = array_map('trim', $submittedTags);
-print_r($submittedTagsClean);
+
 
 if($insert){
 	foreach($_POST as $key=>$value){

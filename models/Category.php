@@ -6,7 +6,7 @@ use App\Models\CRUD;
 class Category extends CRUD {
 
     protected $table = "Category";
-    protected $primaryKey = 'idCatergory';
+    protected $primaryKey = 'idCategory';
 	protected $fillable = ['label']; 
 	
 }

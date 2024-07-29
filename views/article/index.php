@@ -15,10 +15,10 @@
 			<img src="{{asset}}/img/316271_clouds_icon.svg" alt="icone de nuage">
 		</picture>
 		<nav class="navigation">
-			<a href="index.php" class="selected">Accueil</a>
-			<a href="article-soumettre.php">Partager une pensée</a>			
-			<a href="compte-soumettre.php">Créer un compte</a>			
-			<a href="admin.php">Administration</a>
+			<a href="{{base}}" class="selected">Accueil</a>
+			<a href="{{base}}/article/create">Partager une pensée</a>			
+			<a href="TP/compte-soumettre.php">Créer un compte</a>			
+			<a href="TP/admin.php">Administration</a>
 		</nav>
 	</header>
 	<main>
@@ -30,7 +30,7 @@
 
 		{% for article in articles %}
 			<article class="article">
-			<h2>{{article.title}} <a href="article.php?idArticle={{article.idArticle}}" class="lire">&#10097;</a></h2>
+			<h2>{{article.title}} <a href="{{base}}/article/show?idArticle={{article.idArticle}}" class="lire">&#10097;</a></h2>
 					<div data-category>
 					{# //source:https://twig.symfony.com/doc/3.x/tags/if.html #}
 					{% if article.categories %}
@@ -42,17 +42,13 @@
 					{% endif %}
 				</div>
 				<div data-tags>
-				<?php
-				if($row['tagsLabel']) {
-					foreach($row['tagsLabel'] as $tag){
-						?><span><?= $tag; ?></span><?php
-					}
-				} else {
-					?>
+				{% if article.tags %}
+					{% for tag in article.tags %}
+						<span>{{tag}}</span>
+					{% endfor %}
+				{% else %}
 					<span><i>Sans Tag</i></span>
-					<?php
-				} 
-				?>
+				{% endif %}
 				</div>
 
 			</article>
@@ -62,7 +58,7 @@
 	</main>
 	<footer>
 		<h2>582-31B-MA</h2>
-		<p>TP 1 - Système web PHP orienté objet avec une base de données MySQL</p>
+		<p>TP 2 - Architecture MVC</p>
 		<p>&copy; Filippa Simard</p>
 	</footer>
 </body>

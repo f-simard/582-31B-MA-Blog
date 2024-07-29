@@ -13,9 +13,9 @@ abstract class CRUD extends \PDO {
 
 	final public function select($field = null, $order = 'ASC') {
 
-        if($field == null){
-            $field = $this->primaryKey;
-        }
+		if($field == null){
+			$field = $this->primaryKey;
+		}
 
 		$sql = "SELECT * FROM $this->table ORDER BY $field $order";
 		$stmt = $this->query($sql);
@@ -74,8 +74,8 @@ abstract class CRUD extends \PDO {
 		
 		$sql = "SELECT T.idTag as idTag ,T.label AS label
 				FROM Article A
-				LEFT JOIN Article_has_Tag AT ON A.idArticle = AT.idArticle
-				LEFT JOIN Tag T ON AT.idTag = T.idTag
+				INNER JOIN Article_has_Tag AT ON A.idArticle = AT.idArticle
+				INNER JOIN Tag T ON AT.idTag = T.idTag
 				WHERE A.idArticle = :idArticle;
 				";
 		$stmt = $this->prepare($sql);
@@ -90,17 +90,17 @@ abstract class CRUD extends \PDO {
 
 		} else {
 
-		return false;
-		}
+			return false;
 
+		}
 	}
 
 
 	public function selectByField($value, $field = null){
 
-        if($field == null){
-            $field = $this->primaryKey;
-        }
+		if($field == null){
+			$field = $this->primaryKey;
+		}
 
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
@@ -123,20 +123,27 @@ abstract class CRUD extends \PDO {
 		}
 	}
 
-	public function insert($table, $data){
+	public function insert($data){
+
+		$data_keys = array_fill_keys($this->fillable, '');
+		$data = array_intersect_key($data, $data_keys);
 
 		$fieldName = implode(', ', array_keys($data));
 		$fieldValues = ':' . implode(', :', array_keys($data));
 
-		$sql = "INSERT INTO $table ($fieldName) values ($fieldValues)";
+		$sql = "INSERT INTO $this->table ($fieldName) values ($fieldValues)";
 
 		$stmt = $this->prepare($sql);
 		forEach($data as $key=>$value){
 			$stmt->bindValue(":$key", $value);
 		}
-		$stmt->execute();
 
-		return $this->lastInsertId();
+		if($stmt->execute()){
+			return $this->lastInsertId();
+		} else {
+			return false;
+		}
+
 	}
 
 	public function update($table, $data, $field = null){

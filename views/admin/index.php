@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Filippa Simard">
     <meta name="description" content="Projet Blog - Programmation avancée">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{{asset}}/css/style.css">
     <title>Admin</title>
 </head>
 <body>
     <header>
         <picture>
-            <img src="assets/img/316271_clouds_icon.svg" alt="icone de nuage">
+            <img src="{{asset}}/img/316271_clouds_icon.svg" alt="icone de nuage">
         </picture>
         <nav class="navigation">
-            <a href="index.php">Accueil</a>
-			<a href="article-soumettre.php">Partager une pensée</a>		
+			<a href="{{base}}">Accueil</a>
+			<a href="{{base}}/article/create">Partager une pensée</a>	
 			<a href="compte-soumettre.php">Créer un compte</a>			
-            <a href="admin.php" class="selected">Administration</a>
+            <a href="{{base}}/admin" class="selected">Administration</a>
         </nav>
     </header>
     <main>

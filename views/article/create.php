@@ -1,13 +1,3 @@
-<?php
-
-require_once("classes/CRUD.php");
-
-$crud = new CRUD;
-$select = $crud->select('Category', 'idCategory');
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,26 +6,26 @@ $select = $crud->select('Category', 'idCategory');
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="Filippa Simard">
 	<meta name="description" content="Projet Blog - Programmation avancée">
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="{{asset}}/css/style.css">
 	<title>Soumission d'article</title>
 </head>
 <body>
 	<header>
 		<picture>
-			<img src="assets/img/316271_clouds_icon.svg" alt="icone de nuage">
+			<img src="{{asset}}/img/316271_clouds_icon.svg" alt="icone de nuage">
 		</picture>
 		<nav class="navigation">
-			<a href="index.php">Accueil</a>
-			<a href="article-soumettre.php" class="selected">Partager une pensée</a>
+			<a href="{{base}}">Accueil</a>
+			<a href="{{base}}/article/create"class="selected" >Partager une pensée</a>	
 			<a href="compte-soumettre.php">Créer un compte</a>			
-			<a href="admin.php">Administration</a>
+			<a href="{{base}}/admin">Administration</a>
 		</nav>
 	</header>
 	<main>
 		<section>
 		<h1>Partagez votre pensée</h1>
 		</section>
-		<form class="soumettre" id="soumettre-article" action="article-create.php" method="post">
+		<form class="soumettre" id="soumettre-article" method="post">
 			<label for="title">Titre de l'article</label>
 			<input required type="text" name="title" id="title">
 			<label for="content">Votre pensée</label>
@@ -44,19 +34,16 @@ $select = $crud->select('Category', 'idCategory');
 			<input required type="text" name="username" id="username">
 			<fieldset>
 				<legend>Catégories</legend>
-				<?php 
-				if ($select) {
-					foreach($select as $category){
-						?>
+				{% if categories %}
+					{% for category in categories %}
 					<div class="paire">
-						<input type="checkbox" name="cat<?= $category['idCategory'];?>" id="<?=$category['label'];?>">
-						<label id="<?=$category['label'];?>"><?=$category['label'];?></label>
-					</div> <?php
-					}
-				} else { ?>
+						<input type="checkbox" name="cat{{category.idCategory}}" id="{{category.label}}">
+						<label id="{{category.label}}">{{category.label}}</label>
+					</div> 
+					{% endfor %}
+				{% else %}
 					<p>Aucune catégorie disponible</p>
-					<?php }
-				?>
+				{% endif %}
 			</fieldset>
 			<label for="tag">Libelés (séparés par des point-virgules)</label>
 			<input type="text" name="tag" id="tag" placeholder="Séparer les libelés par des point-virgules">
@@ -65,7 +52,7 @@ $select = $crud->select('Category', 'idCategory');
 	</main>
 	<footer>
 		<h2>582-31B-MA</h2>
-		<p>TP 1 - Système web PHP orienté objet avec une base de données MySQL</p>
+		<p>TP 2 - Architecture MVC</p>
 		<p>&copy; Filippa Simard</p>
 	</footer>
 </body>
