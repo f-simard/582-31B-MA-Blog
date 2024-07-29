@@ -18,7 +18,7 @@
 			<a href="{{base}}" class="selected">Accueil</a>
 			<a href="{{base}}/article/create">Partager une pensée</a>			
 			<a href="TP/compte-soumettre.php">Créer un compte</a>			
-			<a href="TP/admin.php">Administration</a>
+			<a href="{{base}}/admin">Administration</a>
 		</nav>
 	</header>
 	<main>

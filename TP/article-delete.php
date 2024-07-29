@@ -8,9 +8,10 @@ $idArticle = $_POST['idArticle'];
 
 require_once("classes/CRUD.php");
 $crud = new CRUD();
-$delete = $crud->delete('Article', $idArticle, 'idArticle');
 $deleteRelationCategory = $crud->delete('Article_has_Category', $idArticle, 'idArticle');
 $deleteRelationTag = $crud->delete('Article_has_Tag', $idArticle, 'idArticle');
+$delete = $crud->delete('Article', $idArticle, 'idArticle');
+
 
 
 if ($delete && $deleteRelationCategory && $deleteRelationTag)

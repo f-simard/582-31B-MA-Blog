@@ -7,7 +7,7 @@
     <meta name="author" content="Filippa Simard">
     <meta name="description" content="Projet Blog - Programmation avancée">
     <link rel="stylesheet" href="{{asset}}/css/style.css">
-    <title>Admin</title>
+    <title>Accueil</title>
 </head>
 <body>
     <header>
@@ -18,23 +18,25 @@
 			<a href="{{base}}">Accueil</a>
 			<a href="{{base}}/article/create">Partager une pensée</a>	
 			<a href="compte-soumettre.php">Créer un compte</a>			
-            <a href="{{base}}/admin" class="selected">Administration</a>
+			<a href="{{base}}/admin">Administration</a>
         </nav>
     </header>
     <main>
-        <section>
-        <h1>Options</h1>
+        <section class="article">
+        <h1>{{article.title}}</h1>
+		<h3>By {{auteur}}</h3>
+		<p><small>Catégorie: {{categoriesString}}</small></p>
+		<p><small>Tags: {{tagsString}}</small></p>
+        <p>{{article.content}}</p>
         </section>
-		<section class="option-admin">
-			<a href="{{base}}/admin/article" class="bouton">Articles</a>
-			<a href="compte-admin.php" class="bouton">Comptes</a>
-			<a href="categories.php" class="bouton">Categories</a>
-			<a href="tags.php" class="bouton">Tags</a>
-		</section>
+		<form action="" method="get">
+				<input type="hidden" name="idArticle" value="<?= $idArticle; ?>">
+				<button class="bouton">Modifier</button>
+			</form>
     </main>
     <footer>
         <h2>582-31B-MA</h2>
-        <p>TP 1 - Système web PHP orienté objet avec une base de données MySQL</p>
+        <p>TP2 - Architecture MVC</p>
         <p>&copy; Filippa Simard</p>
     </footer>
 </body>

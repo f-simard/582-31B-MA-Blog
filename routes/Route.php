@@ -19,38 +19,25 @@ class Route {
        $method = $_SERVER['REQUEST_METHOD'];
        foreach(self::$routes as $route){
             if(BASE.$route['url'] == $urlPath && $route['method']== $method){
-
                 $controllerSegments = explode('@',$route['controller']);
                 $controllerName = "App\\Controllers\\".$controllerSegments[0];
 
                 $methodName = $controllerSegments[1];
 
                 $controllerInstance = new $controllerName();
-
                 if($method == "GET"){
-
                     if(isset($urlSegments[1])){
-
                         parse_str($urlSegments[1], $queryParams);
                         $controllerInstance->$methodName($queryParams);
-
-                    } else {
-
+                    }else{
                         $controllerInstance->$methodName();
-
                     }
-
-                } elseif ($method == "POST"){
-
+                }elseif($method == "POST"){
                     if(isset($urlSegments[1])){
-
                         parse_str($urlSegments[1], $queryParams);
                         $controllerInstance->$methodName($_POST, $queryParams);
-
-                    } else {
-
+                    }else{
                         $controllerInstance->$methodName($_POST);
-
                     }
                 }
                 return;

@@ -7,7 +7,7 @@
     <meta name="author" content="Filippa Simard">
     <meta name="description" content="Projet Blog - Programmation avancée">
     <link rel="stylesheet" href="{{asset}}/css/style.css">
-    <title>Admin</title>
+    <title>Accueil</title>
 </head>
 <body>
     <header>
@@ -15,26 +15,27 @@
             <img src="{{asset}}/img/316271_clouds_icon.svg" alt="icone de nuage">
         </picture>
         <nav class="navigation">
-			<a href="{{base}}">Accueil</a>
+		<a href="{{base}}">Accueil</a>
 			<a href="{{base}}/article/create">Partager une pensée</a>	
 			<a href="compte-soumettre.php">Créer un compte</a>			
-            <a href="{{base}}/admin" class="selected">Administration</a>
+			<a href="{{base}}/admin">Administration</a>
         </nav>
     </header>
     <main>
-        <section>
-        <h1>Options</h1>
-        </section>
-		<section class="option-admin">
-			<a href="{{base}}/admin/article" class="bouton">Articles</a>
-			<a href="compte-admin.php" class="bouton">Comptes</a>
-			<a href="categories.php" class="bouton">Categories</a>
-			<a href="tags.php" class="bouton">Tags</a>
-		</section>
+	<form class="soumettre" id="modifier-article" action="" method="post">
+			<label for="title">Titre de l'article</label>
+			<input type="hidden" name="idArticle" value="{{article.idArticle}}">
+			<input required type="text" name="title" id="title" value="{{article.title}}">
+			<label for="content">Votre pensée</label>
+			<textarea required type="content" name="content" id="content" rows="6" col="75">{{article.content}}</textarea>
+			<input type="hidden" name="idUser" value="{{article.idUser}}">
+			<p>By {{auteur}}</p>
+			<button class="bouton">Sauvegarder</button>
+		</form>
     </main>
     <footer>
         <h2>582-31B-MA</h2>
-        <p>TP 1 - Système web PHP orienté objet avec une base de données MySQL</p>
+        <p>TP2 - Architecture MVC</p>
         <p>&copy; Filippa Simard</p>
     </footer>
 </body>

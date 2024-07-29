@@ -49,8 +49,60 @@ class ArticleController {
 
 	}
 
-	public function show() {
-		echo 'article show';
+	public function show($data = []) {
+
+		if(isset($data['idArticle']) && $data['idArticle']!=null){
+			
+			//récuperer article
+			$idArticle = $data['idArticle'];
+
+			$article = new Article;
+			$selectedArticle = $article->selectByField($idArticle);
+
+			if ($selectedArticle){
+				
+			//recuperer autheur
+			$auteur = $article->getArticleAuthor($idArticle);
+			$auteurString;
+			if (!$auteur[0]['firstName']  && !$auteur[0]['lastName']) {
+				$auteurString = $auteur[0]['username'];
+			} else {
+				$auteurString = $auteur[0]['firstName'] . ' ' . $auteur[0]['lastName'];
+			}
+
+			//récrupérer catégories
+			$getCategories = $article->getArticleCategory($idArticle);
+			if ($getCategories){
+				$categories = [];
+				foreach($getCategories as $category){
+					$categories[] = $category['label'];
+				}
+				$categoriesString = implode(",", $categories);
+			} else {
+				$categoriesString  = "Sans catégorie";
+			}
+
+			//récuprérer tags
+			$getTags = $article->getArticleTag($idArticle);
+			if ($getTags){
+				$tags = [];
+				foreach($getTags as $tag){
+					$tags[] = $tag['label'];
+				}
+
+				$tagsString = implode(",", $tags);
+			} else {
+				$tagsString = "Sans tag";
+			}
+
+			return View::render('article/show', ['article'=>$selectedArticle, 'auteur'=>$auteurString, 'categoriesString'=>$categoriesString, 'tagsString'=>$tagsString]);
+			} else {
+				return View::render('error', ['msg'=>"No data"]);
+			}
+
+		} else {
+			return View::render('error', ['msg'=>"Page not found"]);
+		}
 	}
 
 	public function create() {
@@ -62,12 +114,10 @@ class ArticleController {
 		View::render('article/create', ['categories'=>$select]);
 	}
 
-	public function store() {
+	public function store($data=[]) {
 
-		$data = [];
-
-		$data['content'] = $_POST['content'];
-		$data['title'] = $_POST['title'];
+		$newData['content'] = $data['content'];
+		$newData['title'] = $data['title'];
 
 
 		//vérifier si utilsateur existe, sinon le créer
@@ -79,17 +129,17 @@ class ArticleController {
 			$users[$row['idUser']] = $row['username'];
 		}
 
-		if(in_array($_POST['username'],$users)){
-			$data['idUser'] = array_search($_POST['username'], $users);
+		if(in_array($data['username'],$users)){
+			$data['idUser'] = array_search($data['username'], $users);
 		} else {
-			$userData['username'] = $_POST['username'];
+			$userData['username'] = $data['username'];
 			$insertedUser = $user->insert($userData);
 			$data['idUser'] = $insertedUser;
 		}
 
 		//créer l'article 
 		$article = new Article;
-		$insertedArticle = $article->insert($data);
+		$insertedArticle = $article->insert($newData);
 
 		//récupérer les tags dans la base de données
 		$tag = new Tag;
@@ -107,7 +157,7 @@ class ArticleController {
 		if($insertedArticle){
 
 			//ajouter la relation article-categorie
-			foreach($_POST as $key=>$value){
+			foreach($data as $key=>$value){
 				if (substr($key, 0, 3) === 'cat'){
 					$idCategory = substr($key, 3);
 					$relationCategory['idCategory'] = $idCategory;
@@ -135,7 +185,7 @@ class ArticleController {
 					$article_has_tag = new Article_has_Tag;
 					$insertTagRelation = $article_has_tag->insert($relationTag);
 				}
-			return View::redirect('article/show?articleId' . $insertedArticle);
+			return View::redirect('article/show?idArticle=' . $insertedArticle);
 
 		} else {
 
@@ -146,4 +196,80 @@ class ArticleController {
 	echo 'error';
 
 	}
+
+	public function edit($data = []){
+
+		if(isset($data['idArticle']) && $data['idArticle']!=null){
+		
+			//récuperer article
+			$idArticle = $data['idArticle'];
+
+			$article = new Article;
+			$selectedArticle = $article->selectByField($idArticle);
+
+			if ($selectedArticle){
+
+				//recuperer autheur
+				$auteur = $article->getArticleAuthor($idArticle);
+				$auteurString;
+				if (!$auteur[0]['firstName']  && !$auteur[0]['lastName']) {
+					$auteurString = $auteur[0]['username'];
+				} else {
+					$auteurString = $auteur[0]['firstName'] . ' ' . $auteur[0]['lastName'];
+				}
+
+				//récrupérer catégories
+				$getCategories = $article->getArticleCategory($idArticle);
+				if ($getCategories){
+					$categories = [];
+					foreach($getCategories as $category){
+						$categories[] = $category['label'];
+					}
+					$categoriesString = implode(",", $categories);
+				} else {
+					$categoriesString  = "Sans catégorie";
+				}
+
+				//récuprérer tags
+				$getTags = $article->getArticleTag($idArticle);
+				if ($getTags){
+					$tags = [];
+					foreach($getTags as $tag){
+						$tags[] = $tag['label'];
+					}
+
+					$tagsString = implode(",", $tags);
+				} else {
+					$tagsString = "Sans tag";
+				}
+
+				return View::render('article/edit', ['article'=>$selectedArticle, 'auteur'=>$auteurString, 'categoriesString'=>$categoriesString, 'tagsString'=>$tagsString]);
+			} else {
+				return View::render('error', ['msg'=>"No data"]);
+			}
+
+		} else {
+			return View::render('error', ['msg'=>"Page not found"]);
+		}
+	}
+
+	
+	public function delete($data){
+		if(isset($data['id']) && $data['id']!=null) {
+			$id = $data['id'];
+
+			$client = new Client();
+			$delete = $client->delete($id);
+
+			if($delete){
+				return View::redirect('client');
+			} else {
+				return View::render('error');
+			}
+
+		} else {
+			return View::render('error', ['msg'=>'Record does not exist']);
+		}
+	}
+
 }
