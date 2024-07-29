@@ -3,11 +3,15 @@
 namespace App\Models;
 
 abstract class CRUD extends \PDO {
-	final public function __construct(){
+
+	final public function __construct() {
+
 		parent::__construct('mysql:host=localhost;dbname=blog;port=3306;charset=utf8', 'root', '');
+
 	}
 
-	final public function select($field = null, $order = 'ASC'){
+
+	final public function select($field = null, $order = 'ASC') {
 
         if($field == null){
             $field = $this->primaryKey;
@@ -16,9 +20,11 @@ abstract class CRUD extends \PDO {
 		$sql = "SELECT * FROM $this->table ORDER BY $field $order";
 		$stmt = $this->query($sql);
 		return $stmt->fetchAll();
+
 	}
 
-	public function getArticleCategory($value){
+
+	final public function getArticleCategory($value) {
 
 		$sql = "SELECT C.idCategory as idCategory, C.label AS label
 				FROM Article A
@@ -36,9 +42,11 @@ abstract class CRUD extends \PDO {
 			return $stmt->fetchAll();
 		} else
 		return false;
+
 	}
 
-	public function getArticleAuthor($value){
+
+	final public function getArticleAuthor($value){
 
 		$sql = "SELECT U.lastName as lastName, U.firstName as firstName, U.username as username
 				FROM Article A
@@ -52,13 +60,17 @@ abstract class CRUD extends \PDO {
 		$count = $stmt->rowCount();
 
 		if ($count > 0){
+
 			return $stmt->fetchAll();
+
 		} else
+
 		return false;
+
 	}
 
 
-	public function getArticleTag($value){
+	final public function getArticleTag($value){
 		
 		$sql = "SELECT T.idTag as idTag ,T.label AS label
 				FROM Article A
@@ -73,15 +85,23 @@ abstract class CRUD extends \PDO {
 		$count = $stmt->rowCount();
 
 		if ($count > 0){
+
 			return $stmt->fetchAll();
-		} else
+
+		} else {
+
 		return false;
+		}
+
 	}
 
 
 	public function selectByField($table, $value, $field = null){
+
 		if ($field == null){
+
 			$field = 'id'.$table;
+
 		}
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
@@ -94,9 +114,14 @@ abstract class CRUD extends \PDO {
 		$count = $stmt->rowCount();
 	
 		if ($count == 1){
+
 			return $stmt->fetch();
-		} else
-		return false;
+
+		} else {
+
+			return false;
+
+		}
 	}
 
 	public function insert($table, $data){

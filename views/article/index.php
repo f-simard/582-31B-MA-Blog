@@ -28,19 +28,19 @@
         </section>
         <section class="article-liste">
         <?php
-        foreach($select as $row){
+        foreach($articles as $row){
 
-			$categories = $crud->getArticleCategory($row['idArticle']);
-			$tags = $crud->getArticleTag($row['idArticle']);
+			// $categories = $crud->getArticleCategory($row['idArticle']);
+			// $tags = $crud->getArticleTag($row['idArticle']);
 
         	?>
             <article class="article">
 			<h2><?= $row['title']?> <a href="article.php?idArticle=<?= $row['idArticle']?>" class="lire">&#10097;</a></h2>
                 <div data-category>
 				<?php
-				if($categories) {
-					foreach($categories as $category){
-						?><span><?= $category['label']; ?></span><?php
+				if($row['categoriesLabel']) {
+					foreach($row['categoriesLabel'] as $category){
+						?><span><?= $category; ?></span><?php
 					}
 				} else {
 					?>
@@ -51,9 +51,9 @@
 				</div>
                 <div data-tags>
 				<?php
-				if($tags) {
-					foreach($tags as $tag){
-						?><span><?= $tag['label']; ?></span><?php
+				if($row['tagsLabel']) {
+					foreach($row['tagsLabel'] as $tag){
+						?><span><?= $tag; ?></span><?php
 					}
 				} else {
 					?>
