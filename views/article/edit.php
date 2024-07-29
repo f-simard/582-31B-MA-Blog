@@ -24,7 +24,6 @@
     <main>
 	<form class="soumettre" id="modifier-article" action="" method="post">
 			<label for="title">Titre de l'article</label>
-			<input type="hidden" name="idArticle" value="{{article.idArticle}}">
 			<input required type="text" name="title" id="title" value="{{article.title}}">
 			<label for="content">Votre pensée</label>
 			<textarea required type="content" name="content" id="content" rows="6" col="75">{{article.content}}</textarea>

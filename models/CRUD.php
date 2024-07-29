@@ -96,7 +96,7 @@ abstract class CRUD extends \PDO {
 	}
 
 
-	public function selectByField($value, $field = null){
+	final public function selectByField($value, $field = null){
 
 		if($field == null){
 			$field = $this->primaryKey;
@@ -123,7 +123,7 @@ abstract class CRUD extends \PDO {
 		}
 	}
 
-	public function insert($data){
+	final public function insert($data){
 
 		$data_keys = array_fill_keys($this->fillable, '');
 		$data = array_intersect_key($data, $data_keys);
@@ -177,13 +177,14 @@ abstract class CRUD extends \PDO {
 
 	}
 
-	public function delete($table, $value, $field = null){
+	final public function delete($value, $field = null){
 
-		if ($field == null){
-			$field = 'id'.$table;
+		if($field == null){
+			$field = $this->primaryKey;
 		}
 
-		$sql = "DELETE FROM $table WHERE $field = :$field";
+
+		$sql = "DELETE FROM $this->table WHERE $field = :$field";
 		$stmt = $this->prepare($sql);
 		$stmt->bindValue(":$field", $value);
 		$stmt->execute();

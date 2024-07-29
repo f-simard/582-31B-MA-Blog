@@ -253,16 +253,27 @@ class ArticleController {
 		}
 	}
 
+	public function update($data=[]){
+
+	}
+
 	
 	public function delete($data){
-		if(isset($data['id']) && $data['id']!=null) {
-			$id = $data['id'];
+		if(isset($data['idArticle']) && $data['idArticle']!=null) {
+			$idArticle = $data['idArticle'];
 
-			$client = new Client();
-			$delete = $client->delete($id);
+			$article_has_tag = new Article_has_Tag();
+			$deleteArticleTagRelation = $article_has_tag->delete($idArticle, 'idArticle');
 
-			if($delete){
-				return View::redirect('client');
+			$article_has_category = new Article_has_Tag();
+			$deleteArticleCategoryRelation = $article_has_category->delete($idArticle, 'idArticle');
+
+			$article = new Article();
+			$deleteArticle = $article->delete($idArticle);
+
+
+			if($deleteArticle && $deleteArticleTagRelation && $deleteArticleCategoryRelation){
+				return View::redirect('admin/article');
 			} else {
 				return View::render('error');
 			}

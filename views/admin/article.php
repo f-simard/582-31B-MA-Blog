@@ -33,7 +33,7 @@
 					<p>{{article.title}}</p>
 					<button class="bouton end">Modifier</button>
 				</form>
-				<form action="{{base}}/article/" method="post">
+				<form action="{{base}}/article/delete" method="post">
 					<div class="auto">
 						<input type="hidden" name="idArticle" value="{{article.idArticle}}">
 						<button class="bouton rouge">Supprimer</button>

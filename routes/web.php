@@ -8,7 +8,7 @@ Route::post('/article/create', 'ArticleController@store');
 Route::get('/article/show', 'ArticleController@show');
 Route::get('/article/edit', 'ArticleController@edit');
 Route::post('/article/edit', 'ArticleController@update');
-Route::post('/article/edit', 'ArticleController@delete');
+Route::post('/article/delete', 'ArticleController@delete');
 
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/article', 'AdminController@showArticle');
