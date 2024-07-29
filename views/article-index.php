@@ -1,12 +1,3 @@
-<?php
-
-require_once("models/CRUD.php");
-
-$crud = new CRUD;
-$select = $crud->select('Article', 'updateTimestamp', 'DESC');
-
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>

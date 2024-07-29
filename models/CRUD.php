@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
-class CRUD extends PDO{
-	public function __construct(){
+abstract class CRUD extends \PDO {
+	final public function __construct(){
 		parent::__construct('mysql:host=localhost;dbname=blog;port=3306;charset=utf8', 'root', '');
 	}
 
-	public function select($table, $field = null, $order = 'ASC'){
+	final public function select($field = null, $order = 'ASC'){
 
-		if ($field == null){
-			$field = "id" . $table;
-		}
+        if($field == null){
+            $field = $this->primaryKey;
+        }
 
-		$sql = "SELECT * FROM $table ORDER BY $field $order";
+		$sql = "SELECT * FROM $this->table ORDER BY $field $order";
 		$stmt = $this->query($sql);
 		return $stmt->fetchAll();
 	}

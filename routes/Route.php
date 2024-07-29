@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Routes;
+
 class Route {
 	private static $routes = [];
 
@@ -10,20 +13,27 @@ class Route {
 		self::$routes[] = ['url'=>$url, 'controller' => $controller, 'method' => 'POST'];
 	}
 
-	public static function dispatch() {
+	public static function dispatch(){
+		//print_r(self::$routes);
 
 		$url = $_SERVER['REQUEST_URI'];
-		$urlSegments = explode('?', $url);
+		$urlSegments = explode('?', $url);   //pour url get, separer avant et apres ? dans url
+		//print_r($urlSegments);
 		$urlPath = rtrim($urlSegments[0], "/'");
+		// echo $urlPath;
 		$method = $_SERVER['REQUEST_METHOD'];
+		//echo $method;
 
 		foreach(self::$routes as $route){
-
-			if (BASE.$route['url'] == $urlPath && $route['method'] == $method ) {
-				
+			// echo ' == ' BASE.$route['url'];
+			if (BASE.$route['url'] == $urlPath && $route['method'] == $method )
+			{
 				$controllerSegments = explode('@', $route['controller']);
-				$controllerName = $controllerSegments[0];
+				$controllerName = "App\\Controllers\\".$controllerSegments[0];
 				$methodName = $controllerSegments[1];
+
+				// echo $controllerName .'<br>' . $methodName;
+				// echo ' <br> oui';
 
 				$controllerInstance = new $controllerName();
 				
@@ -34,7 +44,10 @@ class Route {
 				}
 
 				return;
-		
+				
+			// } else {
+			// 	echo '<br>non';
+			// }
 		   }
 		}
 		http_response_code(404);

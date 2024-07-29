@@ -1,5 +1,7 @@
 <?php
-require_once('controllers/ArticleController.php');
-require_once('routes/Route.php');
+use App\Controllers;
+use App\Routes\Route;
 
 Route::get('/article', 'ArticleController@index');
+
+Route::dispatch();

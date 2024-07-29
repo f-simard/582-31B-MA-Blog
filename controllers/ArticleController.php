@@ -1,11 +1,17 @@
 <?php 
 
 namespace App\Controllers;
+use App\Models\Article;
 
 class ArticleController {
 
 	public function index(){
-		include('views/article-index.php');
+
+		$article = new Article;
+        $select= $article->select();
+        print_r($select);
+
+		//include('views/article-index.php');
 	}
 
 }
