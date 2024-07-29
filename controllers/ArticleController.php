@@ -1,7 +1,9 @@
 <?php 
 
 namespace App\Controllers;
+
 use App\Models\Article;
+use App\Providers\View;
 
 class ArticleController {
 
@@ -12,28 +14,37 @@ class ArticleController {
 
 		$articles = [];
 
-        foreach($select as $row) {
-			$categories = $article->getArticleCategory($row['idArticle']);
-			$tags = $article->getArticleTag($row['idArticle']);
+		if ($select) {
 
-			if($categories) {
-				foreach($categories as $category){
-					$row['categoriesLabel'][] = $category['label'];
-				}
+			foreach($select as $row) {
+				$categories = $article->getArticleCategory($row['idArticle']);
+				$tags = $article->getArticleTag($row['idArticle']);
+	
+				if($categories) {
+					foreach($categories as $category){
+						$row['categories'][] = $category['label'];
+					}
+				};
+	
+				if($tags) {
+					foreach($tags as $tag){
+						$row['tags'][] = $tag['label'];
+					}
+				};
+	
+				$articles[] = $row;
+			
 			};
 
-			if($tags) {
-				foreach($tags as $tag){
-					$row['tagsLabel'][] = $tag['label'];
-				}
-			};
+			// echo "<pre>";
+			// print_r($articles);
+			// echo "</pre>";
 
-			$articles[] = $row;
-		
-		};
+			return View::render('article/index', ['articles'=> $articles]);
 
-		include('views/article/index.php');
-		
+		}
+
+		return View::render('error');
+
 	}
-
 }

@@ -96,16 +96,15 @@ abstract class CRUD extends \PDO {
 	}
 
 
-	public function selectByField($table, $value, $field = null){
+	public function selectByField($value, $field = null){
 
-		if ($field == null){
+        if($field == null){
+            $field = $this->primaryKey;
+        }
 
-			$field = 'id'.$table;
-
-		}
 
 		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
-		$sql = "SELECT * FROM $table WHERE $field = :$field";
+		$sql = "SELECT * FROM $this->table WHERE $field = :$field";
 		$stmt = $this->prepare($sql);
 		/*$stmt->execute(array($value));*/
 		$stmt->bindValue(":$field", $value);
