@@ -1,6 +1,6 @@
 <?php
 
-require_once("classes/CRUD.php");
+require_once("models/CRUD.php");
 
 $crud = new CRUD;
 $select = $crud->select('Article', 'updateTimestamp', 'DESC');
@@ -15,13 +15,13 @@ $select = $crud->select('Article', 'updateTimestamp', 'DESC');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Filippa Simard">
     <meta name="description" content="Projet Blog - Programmation avancée">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="<?= ASSET; ?>css/style.css">
     <title>Accueil</title>
 </head>
 <body>
     <header>
         <picture>
-            <img src="assets/img/316271_clouds_icon.svg" alt="icone de nuage">
+            <img src="<?= ASSET; ?>/img/316271_clouds_icon.svg" alt="icone de nuage">
         </picture>
         <nav class="navigation">
             <a href="index.php" class="selected">Accueil</a>

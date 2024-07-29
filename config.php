@@ -1,4 +1,4 @@
 <?php
-//redefinir chemin absolue
+//redefinir chemin absolu
 define('BASE', '/E24_progAvancee/582-31B-MA-Blog');
-define('ASSET', '/E24_progAvancee/582-31B-MA-Blog/assets/');
+define('ASSET', '/E24_progAvancee/582-31B-MA-Blog/public/');
