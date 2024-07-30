@@ -57,7 +57,7 @@
 				{% endif %}
 			</fieldset>
 			<label for="tag">Libelés (séparés par des point-virgules)</label>
-			<input type="text" name="tag" id="tag" placeholder="Séparer les libelés par des point-virgules" value="{{article.tag}}">
+			<input type="text" name="tag" id="tag" placeholder="Séparer les libelés par des point-virgules" {% if article.tag != "" %} value="{{article.tag}}" {% endif %}>
 			<input type="submit" name="submit" value="Soumettre" class="bouton">
 		</form>
 	</main>

@@ -125,77 +125,83 @@ class ArticleController {
 		
 		if($validator->isSuccess()){
 
-		$newData['content'] = $data['content'];
-		$newData['title'] = $data['title'];
+			$newData['content'] = $data['content'];
+			$newData['title'] = $data['title'];
 
-		//vérifier si utilsateur existe, sinon le créer
-		$user = new User;
-		$selectUsers = $user->select();
-		$users = [];
+			//vérifier si utilsateur existe, sinon le créer
+			$user = new User;
+			$selectUsers = $user->select();
+			$users = [];
 
-		foreach($selectUsers as $row) {
-			$users[$row['idUser']] = $row['username'];
-		}
-
-		if(in_array($data['username'],$users)){
-			$newData['idUser'] = array_search($data['username'], $users);
-		} else {
-			$userData['username'] = $data['username'];
-			$insertedUser = $user->insert($userData);
-			$newData['idUser'] = $insertedUser;
-		}
-
-		//créer l'article 
-		$article = new Article;
-		$insertedArticle = $article->insert($newData);
-
-		//récupérer les tags dans la base de données
-		$tag = new Tag;
-		$selectTags = $tag->select();
-		$tags = [];
-
-		foreach ($selectTags as $selectTag){
-			$tags[$selectTag['idTag']] = $selectTag['label'];
-		}
-
-		$submittedTags = explode(";", $data['tag']);
-		//https://www.geeksforgeeks.org/how-to-trim-all-strings-in-an-array-in-php/
-		$submittedTagsClean = array_map('trim', $submittedTags);
-
-		if($insertedArticle){
-
-			//ajouter la relation article-categorie
-			foreach($data as $key=>$value){
-				if (substr($key, 0, 3) === 'cat'){
-					$idCategory = substr($key, 3);
-					$relationCategory['idCategory'] = $idCategory;
-					$relationCategory['idArticle'] = $insertedArticle;
-
-					$article_has_category = new Article_has_Category;
-					$insertedCategoryRelation = $article_has_category->insert($relationCategory);
-				};
+			foreach($selectUsers as $row) {
+				$users[$row['idUser']] = $row['username'];
 			}
 
-				//verifier si le tag existe deja dans la base de donner
-				$insertTag = [];
+			if(in_array($data['username'],$users)){
+				$newData['idUser'] = array_search($data['username'], $users);
+			} else {
+				$userData['username'] = $data['username'];
+				$insertedUser = $user->insert($userData);
+				$newData['idUser'] = $insertedUser;
+			}
 
-				foreach($submittedTagsClean as $submittedTagClean){
+			//créer l'article 
+			$article = new Article;
+			$insertedArticle = $article->insert($newData);
 
-					if (in_array($submittedTagClean, $tags)) {
-						$relationTag['idTag'] = array_search($submittedTagClean, $tags);
-					} else {
-						$insertTag['label'] = $submittedTagClean;
-						$newTag = $tag->insert($insertTag);
-						$relationTag['idTag'] = $newTag;
-					}
-					$relationTag['idArticle'] = $insertedArticle;
-					$article_has_tag = new Article_has_Tag;
-					$insertTagRelation = $article_has_tag->insert($relationTag);
+			//récupérer les tags dans la base de données
+			$tag = new Tag;
+			$selectTags = $tag->select();
+			$tags = [];
+
+			foreach ($selectTags as $selectTag){
+				$tags[$selectTag['idTag']] = $selectTag['label'];
+			}
+
+			$submittedTags = [];
+			if( $data['tag'] ) {
+				$submittedTags = explode(";", $data['tag']);
+				//https://www.geeksforgeeks.org/how-to-trim-all-strings-in-an-array-in-php/
+				$submittedTagsClean = array_map('trim', $submittedTags);
+			}
+
+			if($insertedArticle){
+
+				//ajouter la relation article-categorie
+				foreach($data as $key=>$value){
+					if (substr($key, 0, 3) === 'cat'){
+						$idCategory = substr($key, 3);
+						$relationCategory['idCategory'] = $idCategory;
+						$relationCategory['idArticle'] = $insertedArticle;
+
+						$article_has_category = new Article_has_Category;
+						$insertedCategoryRelation = $article_has_category->insert($relationCategory);
+					};
 				}
-			return View::redirect('article/show?idArticle=' . $insertedArticle);
-		} else {
-			return View::render('error', ['msg'=>"Erreur à la soumission"]);
-		}
+
+				if ( $data['tag']){
+					//verifier si le tag existe deja dans la base de donner
+					$insertTag = [];
+
+					foreach($submittedTagsClean as $submittedTagClean){
+
+						if (in_array($submittedTagClean, $tags)) {
+							$relationTag['idTag'] = array_search($submittedTagClean, $tags);
+						} else {
+							$insertTag['label'] = $submittedTagClean;
+							$newTag = $tag->insert($insertTag);
+							$relationTag['idTag'] = $newTag;
+						}
+						$relationTag['idArticle'] = $insertedArticle;
+						$article_has_tag = new Article_has_Tag;
+						$insertTagRelation = $article_has_tag->insert($relationTag);
+					}
+				}
+
+				return View::redirect('article/show?idArticle=' . $insertedArticle);
+			} else {
+				return View::render('error', ['msg'=>"Erreur à la soumission"]);
+			}
 
 		} else {
 			$errors = $validator->getErrors();
@@ -248,17 +254,6 @@ class ArticleController {
 							$categorie['checked'] = 1;
 						}
 					}
-				}
-
-				//récrupérer catégories associé à l'article
-				$getCategories = $article->getArticleCategory($idArticle);
-				if ($getCategories){
-					foreach($getCategories as $category){
-						//$categories[] = $category['label'];
-					}
-					//$categoriesString = implode(",", $categories);
-				} else {
-					//$categoriesString  = "Sans catégorie";
 				}
 
 				//récuprérer tags associés à l'article
@@ -319,10 +314,12 @@ class ArticleController {
 					$tags[$selectTag['idTag']] = $selectTag['label'];
 				}
 
-				$submittedTags = explode(";", $_POST['tag']);
-				//https://www.geeksforgeeks.org/how-to-trim-all-strings-in-an-array-in-php/
-				$submittedTagsClean = array_map('trim', $submittedTags);
-
+				$submittedTags = [];
+				if( $data['tag'] ) {
+					$submittedTags = explode(";", $data['tag']);
+					//https://www.geeksforgeeks.org/how-to-trim-all-strings-in-an-array-in-php/
+					$submittedTagsClean = array_map('trim', $submittedTags);
+				}
 				//ajouter la relation article-categorie
 				foreach($data as $key=>$value){
 					if (substr($key, 0, 3) === 'cat'){
@@ -335,23 +332,25 @@ class ArticleController {
 					};
 				}
 
-				//verifier si le tag existe deja dans la base de donner
-				$insertTag = [];
+				if( $data['tag'] ) {
 
-				foreach($submittedTagsClean as $submittedTagClean){
+					//verifier si le tag existe deja dans la base de donner
+					$insertTag = [];
 
-					if (in_array($submittedTagClean, $tags)) {
-						$relationTag['idTag'] = array_search($submittedTagClean, $tags);
-					} else {
-						$insertTag['label'] = $submittedTagClean;
-						$newTag = $tag->insert($insertTag);
-						$relationTag['idTag'] = $newTag;
+					foreach($submittedTagsClean as $submittedTagClean){
+
+						if (in_array($submittedTagClean, $tags)) {
+							$relationTag['idTag'] = array_search($submittedTagClean, $tags);
+						} else {
+							$insertTag['label'] = $submittedTagClean;
+							$newTag = $tag->insert($insertTag);
+							$relationTag['idTag'] = $newTag;
+						}
+						$relationTag['idArticle'] = $idArticle;
+						$article_has_tag = new Article_has_Tag;
+						$insertTagRelation = $article_has_tag->insert($relationTag);
 					}
-					$relationTag['idArticle'] = $idArticle;
-					$article_has_tag = new Article_has_Tag;
-					$insertTagRelation = $article_has_tag->insert($relationTag);
 				}
-
 				return View::redirect('article/show?idArticle=' . $idArticle);
 
 			} else {
