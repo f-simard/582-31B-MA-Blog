@@ -25,8 +25,14 @@
 	<form class="soumettre" id="modifier-article" action="" method="post">
 			<label for="title">Titre de l'article</label>
 			<input required type="text" name="title" id="title" value="{{article.title}}">
+			{% if errors.title is defined %}
+            	<span class="error">{{errors.title}}</span>
+            {% endif %}
 			<label for="content">Votre pensée</label>
 			<textarea required type="content" name="content" id="content" rows="6" col="75">{{article.content}}</textarea>
+			{% if errors.content is defined %}
+            	<span class="error">{{errors.content}}</span>
+            {% endif %}
 			<input type="hidden" name="idUser" value="{{article.idUser}}">
 			<p>By {{auteur}}</p>
 			<fieldset>
@@ -34,7 +40,9 @@
 				{% if categories %}
 					{% for category in categories %}
 					<div class="paire">
-						<input type="checkbox" name="cat{{category.idCategory}}" id="{{category.label}}" {% if category.checked == 1 %} checked {% endif %}>
+						<!-- source: https://dev.to/yanyy/string-concatenation-and-interpolation-in-twig-3h2f AND chatGTP-->
+						{% set catId = "cat" ~ category.idCategory %}
+						<input type="checkbox" name="cat{{category.idCategory}}" id="{{category.label}}" {% if category.checked == 1 %} checked {% endif %} {% if attribute(article, catId) == 'on' %} checked {% endif %}>
 						<label id="{{category.label}}">{{category.label}}</label>
 					</div> 
 					{% endfor %}

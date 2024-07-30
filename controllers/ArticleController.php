@@ -200,8 +200,6 @@ class ArticleController {
 		} else {
 			$errors = $validator->getErrors();
 
-			print_r($errors);
-
 			$category = new Category;
 			$select = $category->select();
 
@@ -290,6 +288,13 @@ class ArticleController {
 		//delete categorie and tag relations and insert again
 		if(isset($data_get['idArticle']) && $data_get['idArticle']!=null) {
 
+		//valider donnée
+		$validator = new Validator();
+		$validator->field('content', $data['content'], "Contenu")->min(3);
+		$validator->field('title', $data['title'], "Titre")->min(3)->max(120);
+		
+		if($validator->isSuccess()){
+
 			$idArticle = $data_get['idArticle'];
 
 			$article = new Article();
@@ -350,13 +355,21 @@ class ArticleController {
 				return View::redirect('article/show?idArticle=' . $idArticle);
 
 			} else {
-				return View::render('error');
+
+				return View::render('error', ['msg'=>"Erreur lors de la mise à jour de l'article"]);
 			}
+		} else {
+			$errors = $validator->getErrors();
+
+			$category = new Category;
+			$select = $category->select();
+
+			return View::render('article/edit', ['errors'=>$errors, 'article'=>$data, 'categories'=>$select]);
+		}
+
 		} else {
 			return View::render('error', ['msg'=>'Record does not exist']);
 		}
-
-		
 	}
 
 	
