@@ -8,7 +8,9 @@ use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Article_has_Category;
 use App\Models\Article_has_Tag;
+
 use App\Providers\View;
+use App\Providers\Validator;
 
 class ArticleController {
 
@@ -106,7 +108,6 @@ class ArticleController {
 	}
 
 	public function create() {
-		$article = new Article;
 
 		$category = new Category;
 		$select = $category->select();
@@ -116,9 +117,16 @@ class ArticleController {
 
 	public function store($data=[]) {
 
+		//valider donnée
+		$validator = new Validator();
+		$validator->field('username', $data['username'], "Nom d'usager")->min(3)->max(45);
+		$validator->field('content', $data['content'], "Contenu")->min(3);
+		$validator->field('title', $data['title'], "Titre")->min(3)->max(120);
+		
+		if($validator->isSuccess()){
+
 		$newData['content'] = $data['content'];
 		$newData['title'] = $data['title'];
-
 
 		//vérifier si utilsateur existe, sinon le créer
 		$user = new User;
@@ -150,7 +158,7 @@ class ArticleController {
 			$tags[$selectTag['idTag']] = $selectTag['label'];
 		}
 
-		$submittedTags = explode(";", $_POST['tag']);
+		$submittedTags = explode(";", $data['tag']);
 		//https://www.geeksforgeeks.org/how-to-trim-all-strings-in-an-array-in-php/
 		$submittedTagsClean = array_map('trim', $submittedTags);
 
@@ -186,10 +194,19 @@ class ArticleController {
 				}
 			return View::redirect('article/show?idArticle=' . $insertedArticle);
 		} else {
-			echo 'error';
+			return View::render('error', ['msg'=>"Erreur à la soumission"]);
 		}
 
-	echo 'error';
+		} else {
+			$errors = $validator->getErrors();
+
+			print_r($errors);
+
+			$category = new Category;
+			$select = $category->select();
+
+			return View::render('article/create', ['errors'=>$errors, 'article'=>$data, 'categories'=>$select]);
+		}
 
 	}
 
@@ -234,10 +251,6 @@ class ArticleController {
 						}
 					}
 				}
-
-				// echo "<pre>";
-				// print_r($allCategories);
-				// echo "</pre>";
 
 				//récrupérer catégories associé à l'article
 				$getCategories = $article->getArticleCategory($idArticle);
