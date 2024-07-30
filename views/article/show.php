@@ -29,8 +29,8 @@
 		<p><small>Tags: {{tagsString}}</small></p>
         <p>{{article.content}}</p>
         </section>
-		<form action="" method="get">
-				<input type="hidden" name="idArticle" value="<?= $idArticle; ?>">
+		<form action="{{base}}/article/edit" method="get">
+				<input type="hidden" name="idArticle" value="{{article.idArticle}}">
 				<button class="bouton">Modifier</button>
 			</form>
     </main>
