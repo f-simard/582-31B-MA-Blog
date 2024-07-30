@@ -28,6 +28,8 @@ class TagController {
 				$tag = new Tag();
 				$update = $tag->update($data, $idTag);
 
+				$select = $tag->select();
+
 				return View::render('admin/tag', ['tags'=>$select]);
 
 			} else {
