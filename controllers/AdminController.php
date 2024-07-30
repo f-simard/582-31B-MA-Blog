@@ -39,4 +39,14 @@ class AdminController {
 		}
 	}
 
+	public function showCategory() {
+		$category = new Category();
+		$select = $category->select();
+
+		if ($select) {
+			return View::render('admin/category', ['categories'=> $select]);
+		} else {
+			return View::render('error', ['msg'=>"Page not found"]);
+		}
+	}
 }
