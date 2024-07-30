@@ -33,3 +33,7 @@
 .soumettre legend {
 	padding-inline: 0.3rem;
 }
+
+.soumettre button {
+	margin-top: 2rem;
+}

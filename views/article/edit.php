@@ -29,6 +29,21 @@
 			<textarea required type="content" name="content" id="content" rows="6" col="75">{{article.content}}</textarea>
 			<input type="hidden" name="idUser" value="{{article.idUser}}">
 			<p>By {{auteur}}</p>
+			<fieldset>
+				<legend>Catégories</legend>
+				{% if categories %}
+					{% for category in categories %}
+					<div class="paire">
+						<input type="checkbox" name="cat{{category.idCategory}}" id="{{category.label}}" {% if category.checked == 1 %} checked {% endif %}>
+						<label id="{{category.label}}">{{category.label}}</label>
+					</div> 
+					{% endfor %}
+				{% else %}
+					<p>Aucune catégorie disponible</p>
+				{% endif %}
+			</fieldset>
+			<label for="tag">Libelés (séparés par des point-virgules)</label>
+			<input type="text" name="tag" id="tag" placeholder="Séparer les libelés par des point-virgules" value="{{tagsString}}">
 			<button class="bouton">Sauvegarder</button>
 		</form>
     </main>

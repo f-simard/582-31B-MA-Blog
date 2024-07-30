@@ -5,9 +5,7 @@ namespace App\Models;
 abstract class CRUD extends \PDO {
 
 	final public function __construct() {
-
 		parent::__construct('mysql:host=localhost;dbname=blog;port=3306;charset=utf8', 'root', '');
-
 	}
 
 
@@ -40,9 +38,9 @@ abstract class CRUD extends \PDO {
 
 		if ($count > 0){
 			return $stmt->fetchAll();
-		} else
-		return false;
-
+		} else {
+			return false;
+		}
 	}
 
 
@@ -60,13 +58,10 @@ abstract class CRUD extends \PDO {
 		$count = $stmt->rowCount();
 
 		if ($count > 0){
-
 			return $stmt->fetchAll();
-
-		} else
-
-		return false;
-
+		} else {
+			return false;
+		}
 	}
 
 
@@ -85,13 +80,9 @@ abstract class CRUD extends \PDO {
 		$count = $stmt->rowCount();
 
 		if ($count > 0){
-
 			return $stmt->fetchAll();
-
 		} else {
-
 			return false;
-
 		}
 	}
 
@@ -113,13 +104,9 @@ abstract class CRUD extends \PDO {
 		$count = $stmt->rowCount();
 	
 		if ($count == 1){
-
 			return $stmt->fetch();
-
 		} else {
-
 			return false;
-
 		}
 	}
 
@@ -146,35 +133,37 @@ abstract class CRUD extends \PDO {
 
 	}
 
-	public function update($table, $data, $field = null){
+	final public function update($data, $id){
 
-		if ($field == null){
-			$field = 'id'.$table;
+		if($this->selectByField($id)){
+			$data_keys = array_fill_keys($this->fillable, '');
+			$data = array_intersect_key($data, $data_keys);
+			$data[$this->primaryKey] = $id;
+	
+			$fieldName = null;
+
+			forEach($data as $key=>$value){
+				$fieldName .= "$key = :$key, ";
+
+			};
+
+			$fieldName = rtrim($fieldName, ', ');
+
+			$sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey";
+
+			$stmt = $this->prepare($sql);
+			forEach($data as $key=>$value){
+				$stmt->bindValue(":$key", $value);
+			}
+			$stmt->execute();
+
+			if($stmt->execute()){
+				return true;
+			} else {
+				return false;
+			}
+
 		}
-
-		$fieldName = null;
-
-		forEach($data as $key=>$value){
-			$fieldName .= "$key = :$key, ";
-
-		};
-
-		$fieldName = rtrim($fieldName, ', ');
-
-		$sql = "UPDATE $table SET $fieldName WHERE $field = :$field";
-
-		$stmt = $this->prepare($sql);
-		forEach($data as $key=>$value){
-			$stmt->bindValue(":$key", $value);
-		}
-		$stmt->execute();
-
-		if($stmt->execute()){
-			return true;
-		} else {
-			return false;
-		}
-
 	}
 
 	final public function delete($value, $field = null){
