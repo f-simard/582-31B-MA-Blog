@@ -12,5 +12,9 @@ Route::post('/article/delete', 'ArticleController@delete');
 
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/article', 'AdminController@showArticle');
+Route::get('/admin/tag', 'AdminController@showTag');
+
+Route::post('/tag/update', 'TagController@update');
+Route::post('/tag/delete', 'TagController@delete');
 
 Route::dispatch();

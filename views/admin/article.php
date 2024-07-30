@@ -15,10 +15,10 @@
 			<img src="{{asset}}/img/316271_clouds_icon.svg" alt="icone de nuage">
 		</picture>
 		<nav class="navigation">
-		<a href="{{base}}">Accueil</a>
+			<a href="{{base}}">Accueil</a>
 			<a href="{{base}}/article/create">Partager une pensée</a>	
 			<a href="compte-soumettre.php">Créer un compte</a>			
-			<a href="{{base}}/admin" class="selected">Administration</a>
+            <a href="{{base}}/admin" class="selected">Administration</a>
 		</nav>
 	</header>
 	<main>

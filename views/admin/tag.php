@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,7 +8,7 @@
     <meta name="author" content="Filippa Simard">
     <meta name="description" content="Projet Blog - Programmation avancée">
     <link rel="stylesheet" href="{{asset}}/css/style.css">
-    <title>Admin</title>
+    <title>Tags</title>
 </head>
 <body>
     <header>
@@ -23,14 +24,26 @@
     </header>
     <main>
         <section>
-        <h1>Options</h1>
+        <h1>Tags</h1>
         </section>
-		<section class="option-admin">
-			<a href="{{base}}/admin/article" class="bouton">Articles</a>
-			<a href="compte-admin.php" class="bouton">Comptes</a>
-			<a href="{{base}}/admin/category" class="bouton">Catégories</a>
-			<a href="{{base}}/admin/tag" class="bouton">Tags</a>
-		</section>
+        <section class="label-list">
+			{% for tag in tags %}
+			<div>
+				<form action="{{base}}/tag/update" method="post">
+					<input type="hidden" name="idTag" value="{{tag.idTag}}">
+					<input type="text" name="label" id="label" value="{{tag.label}}">
+					<button class="bouton">Sauvegarder</button>
+				</form>
+				<form action="{{base}}/tag/delete" method="post">
+					<input type="hidden" name="idTag" value="{{tag.idTag}}">
+					<button class="bouton rouge">Supprimer</button>
+				</form>
+			</div>
+			{% endfor %}
+			{% if errors.tag is defined %}
+				<span class="error">{{errors.tag}}</span>
+			{% endif %}
+        </section>
     </main>
     <footer>
         <h2>582-31B-MA</h2>

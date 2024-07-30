@@ -6,8 +6,6 @@ use App\Models\Article;
 use App\Models\User;
 use App\Models\Tag;
 use App\Models\Category;
-use App\Models\Article_has_Category;
-use App\Models\Article_has_Tag;
 use App\Providers\View;
 
 class AdminController {
@@ -19,15 +17,26 @@ class AdminController {
 	}
 
 	public function showArticle() {
-		$article = new Article;
+		$article = new Article();
         $select= $article->select('updateTimestamp', 'DESC');
 
 		if ($select) {
 			return View::render('admin/article', ['articles'=> $select]);
 		} else {
-			return View::render('error');
+			return View::render('error', ['msg'=>"Page not found"]);
 		}
 
+	}
+
+	public function showTag() {
+		$tag = new Tag();
+		$select = $tag->select();
+
+		if ($select) {
+			return View::render('admin/tag', ['tags'=> $select]);
+		} else {
+			return View::render('error', ['msg'=>"Page not found"]);
+		}
 	}
 
 }

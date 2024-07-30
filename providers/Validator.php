@@ -32,6 +32,14 @@ class Validator {
 		return $this;
 	}
 
+	//si le champ est requis
+	public function trim() {
+		if (empty($this->value)) {
+			$this->value = trim($this->value);
+		}
+		return $this;
+	}
+
 	//max length
 	public function max($length) {
 		if(strlen($this->value) > $length) {
