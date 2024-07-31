@@ -34,7 +34,7 @@ class Validator {
 
 	//si le champ est requis
 	public function trim() {
-		if (empty($this->value)) {
+		if (!empty($this->value)) {
 			$this->value = trim($this->value);
 		}
 		return $this;

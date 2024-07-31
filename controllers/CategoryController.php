@@ -26,14 +26,15 @@ class CategoryController {
 
 			if($validator->isSuccess()){
 				$store = $category->insert($data);
+				$select = $category->select();
 
-				return View::redirect('admin/category');
+				return View::render('admin/category', ['success'=>'Ajout réussi', 'categories' => $select]);
 
 			} else {
 				$errors = $validator->getErrors();
 
 				//print_r($errors);
-				return View::render('admin/tag', ['errors'=>$errors, 'categories'=>$select]);
+				return View::render('admin/category', ['errors'=>$errors, 'categories'=>$select]);
 			}
 		} else {
 			$adminController = new AdminController();
@@ -44,37 +45,37 @@ class CategoryController {
 
 	public function update($data){
 
-		// $tag = new Tag();
-		// $select = $tag->select();
+		$category = new Category();
+		$select = $category->select();
 
-		// if(isset($data['idTag']) && $data['idTag']) {
+		if(isset($data['idCategory']) && $data['idCategory']) {
 
-		// 	$idTag = $data['idTag'];
+			$idCategory = $data['idCategory'];
 
-		// 	$validator = new Validator();
-		// 	$validator->field('tag', $data['label'])->trim()->min(1)->max(45);
+			$validator = new Validator();
+			$validator->field('category', $data['label'], 'Catégorie')->trim()->min(1)->max(45);
 
-		// 	if($validator->isSuccess()){
-		// 		$tag = new Tag();
-		// 		$update = $tag->update($data, $idTag);
+			if($validator->isSuccess()){
+				$update = $category->update($data, $idCategory);
+				$select = $category->select();
 
-		// 		$select = $tag->select();
+				return View::render('admin/category', ['success'=>'Mise à jour réussie', 'categories'=>$select]);
 
-		// 		return View::render('admin/tag', ['tags'=>$select]);
+			} else {
+				$errors = $validator->getErrors();
 
-		// 	} else {
-		// 		$errors = $validator->getErrors();
-
-		// 		//print_r($errors);
-		// 		return View::render('admin/tag', ['errors'=>$errors, 'tags'=>$select]);
-		// 	}
-		// } else {
-		// 	$adminController = new AdminController();
-		// 	$adminController->showTag;
-		// }
+				//print_r($errors);
+				return View::render('admin/category', ['errors'=>$errors, 'categories'=>$select]);
+			}
+		} else {
+			$adminController = new AdminController();
+			$adminController->showCategory();
+		}
 	}
 
 	public function delete($data=[]) {
+
+		$category = new Category();
 
 		if(isset($data['idCategory']) && $data['idCategory']!=null) {
 
@@ -83,14 +84,18 @@ class CategoryController {
 			$article_has_category = new Article_has_Category();
 			$deleteArticleCategoryRelation = $article_has_category->delete($idCategory, 'idCategory');
 
-			$category = new Category();
-			$deletecategory = $category->delete($idCategory);
-
-
 			if($deleteArticleCategoryRelation) {
-				return View::redirect('admin/category');
+
+				$deletecategory = $category->delete($idCategory);
+				$select = $category->select();
+
+				return View::render('admin/category', ['success'=>'Suppression réussie', 'categories'=>$select]);
+
 			} else {
-				return View::render('error');
+				$errors['msg'] = 'Erreur lors de la suppression';
+
+				$select = $category->select();
+				return View::render('admin/category', ['errors'=>$errors, 'categories'=>$select]);
 			}
 		} else {
 			return View::render('error', ['msg'=>'Record does not exist']);

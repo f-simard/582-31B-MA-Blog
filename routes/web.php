@@ -15,11 +15,11 @@ Route::get('/admin/article', 'AdminController@showArticle');
 Route::get('/admin/tag', 'AdminController@showTag');
 Route::get('/admin/category', 'AdminController@showCategory');
 
-Route::post('/tag/update', 'TagController@update');
-Route::post('/tag/delete', 'TagController@delete');
+Route::post('/admin/tag/update', 'TagController@update');
+Route::post('/admin/tag/delete', 'TagController@delete');
 
-Route::post('/category/create', 'CategoryController@store');
-Route::post('/category/update', 'CategoryController@update');
-Route::post('/category/delete', 'CategoryController@delete');
+Route::post('/admin/category/create', 'CategoryController@store');
+Route::post('/admin/category/update', 'CategoryController@update');
+Route::post('/admin/category/delete', 'CategoryController@delete');
 
 Route::dispatch();

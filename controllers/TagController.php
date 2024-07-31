@@ -25,10 +25,10 @@ class TagController {
 			$validator->field('tag', $data['label'])->trim()->min(1)->max(45);
 
 			if($validator->isSuccess()){
-				$tag = new Tag();
 				$update = $tag->update($data, $idTag);
+				$select = $tag->select();
 
-				return View::redirect('admin/tag');
+				return View::render('admin/tag', ['success'=>'Mise à jour réussie', 'tags'=>$select]);
 
 			} else {
 				$errors = $validator->getErrors();
@@ -58,7 +58,9 @@ class TagController {
 			if($deleteArticleTagRelation) {
 				return View::redirect('admin/tag');
 			} else {
-				return View::render('error');
+				$errors['msg'] = 'Erreur lors de la suppression';
+				$select = $category->select();
+				return View::render('admin/category', ['errors'=>$errors, 'tags'=>$select]);
 			}
 		} else {
 			return View::render('error', ['msg'=>'Record does not exist']);

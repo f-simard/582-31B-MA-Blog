@@ -119,9 +119,9 @@ class ArticleController {
 
 		//valider donnée
 		$validator = new Validator();
-		$validator->field('username', $data['username'], "Nom d'usager")->min(3)->max(45);
-		$validator->field('content', $data['content'], "Contenu")->min(3);
-		$validator->field('title', $data['title'], "Titre")->min(3)->max(120);
+		$validator->field('username', $data['username'], "Nom d'usager")->trim()->min(3)->max(45);
+		$validator->field('content', $data['content'], "Contenu")->trim()->min(3);
+		$validator->field('title', $data['title'], "Titre")->trim()->min(3)->max(120);
 		
 		if($validator->isSuccess()){
 

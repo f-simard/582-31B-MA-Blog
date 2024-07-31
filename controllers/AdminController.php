@@ -40,6 +40,7 @@ class AdminController {
 	}
 
 	public function showCategory() {
+
 		$category = new Category();
 		$select = $category->select();
 
