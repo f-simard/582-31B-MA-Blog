@@ -28,9 +28,7 @@ class TagController {
 				$tag = new Tag();
 				$update = $tag->update($data, $idTag);
 
-				$select = $tag->select();
-
-				return View::render('admin/tag', ['tags'=>$select]);
+				return View::redirect('admin/tag');
 
 			} else {
 				$errors = $validator->getErrors();
@@ -40,7 +38,7 @@ class TagController {
 			}
 		} else {
 			$adminController = new AdminController();
-			$adminController->showTag;
+			$adminController->showTag();
 		}
 	}
 

@@ -26,7 +26,7 @@
         <h1>Catégorie</h1>
         </section>
         <section class="label-list">
-		{% for category in categories%}
+		{% for category in categories %}
 		<div>
 			<form action="{{base}}/category/update" method="post">
 				<input type="hidden" name="idCategory" value="{{category.idCategory}}">

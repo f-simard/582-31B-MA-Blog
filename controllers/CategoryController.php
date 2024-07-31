@@ -12,8 +12,34 @@ use App\Controllers\AdminController;
 
 class CategoryController {
 
-	public function create(){
-		
+	public function store($data=[]){
+
+		$category = new Category();
+		$select = $category->select();
+
+		if(isset($data['label']) && $data['label']) {
+
+			$labelCategory = $data['label'];
+
+			$validator = new Validator();
+			$validator->field('category', $data['label'], 'Catégorie')->trim()->min(1)->max(45);
+
+			if($validator->isSuccess()){
+				$store = $category->insert($data);
+
+				return View::redirect('admin/category');
+
+			} else {
+				$errors = $validator->getErrors();
+
+				//print_r($errors);
+				return View::render('admin/tag', ['errors'=>$errors, 'categories'=>$select]);
+			}
+		} else {
+			$adminController = new AdminController();
+			$adminController->showCategory();
+		}
+
 	}
 
 	public function update($data){
@@ -52,13 +78,13 @@ class CategoryController {
 
 		if(isset($data['idCategory']) && $data['idCategory']!=null) {
 
-			$idTag = $data['idCategory'];
+			$idCategory = $data['idCategory'];
 
 			$article_has_category = new Article_has_Category();
-			$deleteArticleCategoryRelation = $article_has_tag->delete($idCategory, 'idCategory');
+			$deleteArticleCategoryRelation = $article_has_category->delete($idCategory, 'idCategory');
 
 			$category = new Category();
-			$deletecategory = $tag->delete($idCategory);
+			$deletecategory = $category->delete($idCategory);
 
 
 			if($deleteArticleCategoryRelation) {

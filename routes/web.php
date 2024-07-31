@@ -18,7 +18,7 @@ Route::get('/admin/category', 'AdminController@showCategory');
 Route::post('/tag/update', 'TagController@update');
 Route::post('/tag/delete', 'TagController@delete');
 
-Route::post('/category/create', 'CategoryController@update');
+Route::post('/category/create', 'CategoryController@store');
 Route::post('/category/update', 'CategoryController@update');
 Route::post('/category/delete', 'CategoryController@delete');
 
