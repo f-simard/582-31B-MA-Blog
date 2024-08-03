@@ -4,7 +4,7 @@
 	<h1>Titre</h1>
 	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quidem alias cumque dolor earum quo voluptatum ut nostrum eius veniam. Sint voluptatem fugiat exercitationem sed? Qui ipsam natus omnis illum?</p>
 </section>
-<section class="article-liste">s
+<section class="article-liste">
 {% for article in articles %}
 	<article class="article">
 	<h2>{{article.title}} <a href="{{base}}/article/show?idArticle={{article.idArticle}}" class="lire">&#10097;</a></h2>
