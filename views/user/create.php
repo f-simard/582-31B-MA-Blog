@@ -1,4 +1,4 @@
-{{ include('layouts/header.php' , {title: 'Créer compte'}) }}
+{{ include('layouts/header.php' , {title: 'Créer compte', navActive:'newUser'}) }}
 
 		<section>
 		<h1>Créer un compte</h1>

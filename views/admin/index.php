@@ -1,4 +1,4 @@
-{{ include('layouts/header.php' , {title: 'Administration'}) }}
+{{ include('layouts/header.php' , {title: 'Administration', navActive:'admin'}) }}
 
 	<section>
 		<h1>Options</h1>

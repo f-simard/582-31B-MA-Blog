@@ -1,4 +1,4 @@
-{{ include('layouts/header.php' , {title: 'Gérer catégories'}) }}
+{{ include('layouts/header.php' , {title: 'Gérer catégories', navActive:'admin'}) }}
 
 <section>
 	<h1>Catégorie</h1>

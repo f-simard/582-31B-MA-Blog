@@ -15,10 +15,10 @@
 			<img src="{{asset}}/img/316271_clouds_icon.svg" alt="icone de nuage">
 		</picture>
 		<nav class="navigation">
-			<a href="{{base}}">Accueil</a>
-			<a href="{{base}}/article/create">Partager une pensée</a>	
-			<a href="{{base}}/user/create">Créer un compte</a>			
-			<a href="{{base}}/admin">Administration</a>
+			<a href="{{base}}" {% if navActive=="accueil" %} class="selected" {% endif %}">Accueil</a>
+			<a href="{{base}}/article/create" {% if navActive=="newArticle" %} class="selected" {% endif %}>Partager une pensée</a>	
+			<a href="{{base}}/user/create" {% if navActive=="newUser" %} class="selected" {% endif %}>Créer un compte</a>			
+			<a href="{{base}}/admin" {% if navActive=="admin" %} class="selected" {% endif %}>Administration</a>
 		</nav>
 	</header>
 	<main>

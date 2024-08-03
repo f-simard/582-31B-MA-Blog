@@ -1,4 +1,4 @@
-{{ include('layouts/header.php' , {title: 'Accueil'}) }}
+{{ include('layouts/header.php' , {title: 'Accueil', navActive:'admin'}) }}
 
 <section>
 <h1>Articles</h1>
