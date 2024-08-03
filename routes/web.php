@@ -27,5 +27,7 @@ Route::post('/admin/user/delete', 'UserController@delete');
 Route::get('/user/create', 'UserController@create');
 Route::post('/user/create', 'UserController@store');
 Route::get('/user/show', 'UserController@show');
+Route::get('/user/edit', 'UserController@edit');
+Route::post('/user/edit', 'UserController@update');
 
 Route::dispatch();
