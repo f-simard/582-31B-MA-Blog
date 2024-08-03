@@ -14,6 +14,7 @@ Route::get('/admin', 'AdminController@index');
 Route::get('/admin/article', 'AdminController@showArticle');
 Route::get('/admin/tag', 'AdminController@showTag');
 Route::get('/admin/category', 'AdminController@showCategory');
+Route::get('/admin/user', 'AdminController@showUser');
 
 Route::post('/admin/tag/update', 'TagController@update');
 Route::post('/admin/tag/delete', 'TagController@delete');
@@ -21,5 +22,9 @@ Route::post('/admin/tag/delete', 'TagController@delete');
 Route::post('/admin/category/create', 'CategoryController@store');
 Route::post('/admin/category/update', 'CategoryController@update');
 Route::post('/admin/category/delete', 'CategoryController@delete');
+
+Route::post('/admin/user/delete', 'UserController@delete');
+Route::get('/user/create', 'UserController@create');
+Route::post('/user/create', 'UserController@store');
 
 Route::dispatch();

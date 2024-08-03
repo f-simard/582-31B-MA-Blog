@@ -50,4 +50,16 @@ class AdminController {
 			return View::render('error', ['msg'=>"Page not found"]);
 		}
 	}
+
+	public function showUser() {
+
+		$user = new User();
+		$select = $user->select();
+
+		if ($select) {
+			return View::render('admin/user', ['users'=> $select]);
+		} else {
+			return View::render('error', ['msg'=>"Page not found"]);
+		}
+	}
 }

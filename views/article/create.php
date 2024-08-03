@@ -1,27 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="author" content="Filippa Simard">
-	<meta name="description" content="Projet Blog - Programmation avancée">
-	<link rel="stylesheet" href="{{asset}}/css/style.css">
-	<title>Soumission d'article</title>
-</head>
-<body>
-	<header>
-		<picture>
-			<img src="{{asset}}/img/316271_clouds_icon.svg" alt="icone de nuage">
-		</picture>
-		<nav class="navigation">
-			<a href="{{base}}">Accueil</a>
-			<a href="{{base}}/article/create"class="selected" >Partager une pensée</a>	
-			<a href="compte-soumettre.php">Créer un compte</a>			
-			<a href="{{base}}/admin">Administration</a>
-		</nav>
-	</header>
-	<main>
+{{ include('layouts/header.php' , {title: 'Créer article'}) }}
+
 		<section>
 		<h1>Partagez votre pensée</h1>
 		</section>
@@ -60,11 +38,4 @@
 			<input type="text" name="tag" id="tag" placeholder="Séparer les libelés par des point-virgules" {% if article.tag != "" %} value="{{article.tag}}" {% endif %}>
 			<input type="submit" name="submit" value="Soumettre" class="bouton">
 		</form>
-	</main>
-	<footer>
-		<h2>582-31B-MA</h2>
-		<p>TP 2 - Architecture MVC</p>
-		<p>&copy; Filippa Simard</p>
-	</footer>
-</body>
-</html>
+{{ include('layouts/footer.php')}}
