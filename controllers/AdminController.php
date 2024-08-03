@@ -16,7 +16,7 @@ class AdminController {
 
 	}
 
-	public function showArticle() {
+	public function indexArticle() {
 		$article = new Article();
         $select= $article->select('updateTimestamp', 'DESC');
 
@@ -28,7 +28,7 @@ class AdminController {
 
 	}
 
-	public function showTag() {
+	public function indexTag() {
 		$tag = new Tag();
 		$select = $tag->select();
 
@@ -39,7 +39,7 @@ class AdminController {
 		}
 	}
 
-	public function showCategory() {
+	public function indexCategory() {
 
 		$category = new Category();
 		$select = $category->select();
@@ -51,7 +51,7 @@ class AdminController {
 		}
 	}
 
-	public function showUser() {
+	public function indexUser() {
 
 		$user = new User();
 		$select = $user->select();

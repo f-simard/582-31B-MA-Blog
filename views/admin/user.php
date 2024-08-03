@@ -6,10 +6,10 @@
 <section class="label-list">
 {% for user in users %}
 <div class="doubleForm">
-	<form action="compte-modifier.php" method="get">
+	<form action="{{base}}/user/edit" method="get">
 		<input type="hidden" name="idUser" value="{{user.idUser}}">
 		<p>{{user.firstName}} {{user.lastName}} 
-			(<a  class= "lien" href="compte.php?idUser= {{user.idUser}} ?>">{{user.username}}</a> )
+			(<a  class= "lien" href="{{base}}/user/show?idUser={{user.idUser}}">{{user.username}}</a> )
 		</p>
 		<button class="bouton end">Modifier</button>
 	</form>
