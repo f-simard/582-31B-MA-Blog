@@ -21,8 +21,8 @@
             {% endif %}
 			<label for="email">Courriel</label>
 			<input required type="email" name="email" id ="email" value="{{user.email}}">
-			{% if errors.courriel is defined %}
-            	<span class="error">{{errors.courriel}}</span>
+			{% if errors.email is defined %}
+            	<span class="error">{{errors.email}}</span>
             {% endif %}
 			<label for="password">Mot de passe</label>
 			<input required type="text" name="password" id ="password" value="{{user.password}}">

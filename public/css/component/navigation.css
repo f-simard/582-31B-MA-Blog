@@ -17,17 +17,13 @@
 }
 
 .navigation .selected {
-
 	border-bottom: 2px solid black;
-
 }
 
 .navigation a:hover {
-
-		border-bottom: 2px dashed black;
+	border-bottom: 2px dashed black;
 }
 
 .navigation a:visited {
-
-    color: black;
+	color: black;
 }

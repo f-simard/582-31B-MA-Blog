@@ -9,7 +9,7 @@
 	<article class="article">
 	<h2>{{article.title}} <a href="{{base}}/article/show?idArticle={{article.idArticle}}" class="lire">&#10097;</a></h2>
 			<div data-category>
-			{# //source:https://twig.symfony.com/doc/3.x/tags/if.html #}
+			{# source:https://twig.symfony.com/doc/3.x/tags/if.html #}
 			{% if article.categories %}
 				{% for category in article.categories %}
 					<span>{{ category }}</span>

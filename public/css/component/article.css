@@ -1,3 +1,7 @@
+.article {
+	max-width: 100ch;
+}
+
 .article h3 {
 	font-weight: 400;
 	color: rgb(15, 15, 15);

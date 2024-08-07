@@ -74,7 +74,7 @@ class UserController {
 		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
 		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45);
 		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->max(45);
-		$validator->field('email', $data['email'], "Courriel")->required()->trim()->email()->max(100);
+		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100);
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){
@@ -89,7 +89,7 @@ class UserController {
 			$user = new User();
 			$insertUser = $user->insert($data);
 
-			return View::redirect('article/show?idUser=' . $insertUser);
+			return View::redirect('user/show?idUser=' . $insertUser);
 
 		} else {
 
@@ -107,7 +107,7 @@ class UserController {
 		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
 		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45);
 		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->max(45);
-		$validator->field('email', $data['email'], "Courriel")->required()->trim()->email()->max(100);
+		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100);
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){

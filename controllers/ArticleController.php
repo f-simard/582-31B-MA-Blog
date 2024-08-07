@@ -66,7 +66,9 @@ class ArticleController {
 			//recuperer autheur
 			$auteur = $article->getArticleAuthor($idArticle);
 			$auteurString;
-			if (!$auteur[0]['firstName']  && !$auteur[0]['lastName']) {
+			if (!$auteur) {
+				$auteurString = "auteur supprimé";
+			} else if (!$auteur[0]['firstName']  && !$auteur[0]['lastName']) {
 				$auteurString = $auteur[0]['username'];
 			} else {
 				$auteurString = $auteur[0]['firstName'] . ' ' . $auteur[0]['lastName'];
@@ -79,7 +81,7 @@ class ArticleController {
 				foreach($getCategories as $category){
 					$categories[] = $category['label'];
 				}
-				$categoriesString = implode(",", $categories);
+				$categoriesString = implode(", ", $categories);
 			} else {
 				$categoriesString  = "Sans catégorie";
 			}
