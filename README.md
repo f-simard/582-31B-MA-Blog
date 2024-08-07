@@ -1,6 +1,20 @@
 # 582-31B-MA-Blog
 Projet Programmation avancée
 
+## TP2
+Le sujet du TP2 2 est le même que celui du TP1. L'entiéreté du projet a été modifié en MVC.
+
+### Note
+Les catégories et tages peuvent être modifiés.
+Porblème d'affichage des pages sur webdev.
+
+## Instruction d'installation
+
+Le dossier Diagram contient le schema ER, et les requêtes SQL pour créer les tables dans workbench et dans phpMyAdmin (_webdev).
+Git: https://github.com/f-simard/582-31B-MA-Blog.
+Webdev: https://e2396414.webdev.cmaisonneuve.qc.ca/blog/
+
+
 ## TP1
 Le sujet choisi est un site de blog.
 L'utilisateur peut voir et écrire des articles.
@@ -13,9 +27,3 @@ Il en va de même pour la modification des catégories et des tags. Tout le mond
 
 ### Note
 Pour ce TP, les catégories et les tags ne peuvent pas être modifiés.
-
-## Instruction d'installation
-
-Le dossier Diagram contient le schema ER, et les requêtes SQL pour créer les tables dans workbench et dans phpMyAdmin (_webdev).
-Git: https://github.com/f-simard/582-31B-MA-Blog.
-Webdev: https://e2396414.webdev.cmaisonneuve.qc.ca/blog/index.php
