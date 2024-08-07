@@ -1,0 +1,29 @@
+.navigation{
+    display: flex;
+    gap: 4rem;
+    align-self: center;
+    justify-content: center;
+
+}
+
+.navigation a {
+    display: block;
+    min-width: max-content;
+
+	padding:0.5rem;
+	border-bottom: 2px dashed transparent;
+
+    color: black;
+}
+
+.navigation .selected {
+	border-bottom: 2px solid black;
+}
+
+.navigation a:hover {
+	border-bottom: 2px dashed black;
+}
+
+.navigation a:visited {
+	color: black;
+}

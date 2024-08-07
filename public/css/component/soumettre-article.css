@@ -1,0 +1,38 @@
+.soumettre {
+	display: flex;
+	flex-direction: column;
+
+	min-width: 80ch;
+}
+
+.soumettre :is(label, fieldset) {
+	margin-top: 1rem;
+}
+
+.soumettre :is(input, select, textarea, p, div) {
+	margin-top: 0.5rem;
+	padding: 0.4rem;
+}
+
+.soumettre textarea {
+	box-sizing: border-box;
+	resize: none;
+}
+
+.soumettre input[type="submit"] {
+	font-weight:600;
+	margin-top: 2rem;
+}
+
+
+.soumettre fieldset {
+	padding: 0.4rem;
+}
+
+.soumettre legend {
+	padding-inline: 0.3rem;
+}
+
+.soumettre button {
+	margin-top: 2rem;
+}

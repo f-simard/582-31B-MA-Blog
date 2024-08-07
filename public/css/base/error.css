@@ -1,0 +1,15 @@
+/*source: cours*/
+.error{
+    display: inline-block;
+    padding:5px;
+    background-color: rgb(251, 187, 187);
+    border-radius: 5px;
+    border: red 1px solid;
+    font-size: 0.9em;
+    color:red;
+}
+
+main > .error {
+	margin-top: 5vw;
+    width: 100%;
+}

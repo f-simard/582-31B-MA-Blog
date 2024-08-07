@@ -1,0 +1,15 @@
+/*source: cours*/
+.success{
+    display: inline-block;
+    padding:5px;
+    background-color: rgb(202, 251, 152);
+    border-radius: 5px;
+    border: green 1px solid;
+    font-size: 0.9em;
+    color:green;
+}
+
+main > .success {
+	margin-top: 5vw;
+    width: 100%;
+}
