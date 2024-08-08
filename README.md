@@ -10,9 +10,9 @@ Les catégories et tages peuvent être modifiés.
 ### WebDev
 Je n’arrive pas à afficher les autres pages autres que l’accueil.
 J’ai tenté de mettre des echos afin de déterminer si
-•	On entre dans /route/web.php : OUI
-•	Les routes sont enregistrées : OUI
-•	On dispatch : OUI
+* On entre dans /route/web.php : OUI
+* Les routes sont enregistrées : OUI
+* On dispatch : OUI
 Seul la route ‘’ (sans url) retourne une page. Si un autre contrôleur est mis dans la route ‘’, la page est retournée.
 Le message d’erreur indique que le fichier ne peut être retourné.
 
