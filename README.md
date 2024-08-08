@@ -16,6 +16,8 @@ J’ai tenté de mettre des echos afin de déterminer si
 Seul la route ‘’ (sans url) retourne une page. Si un autre contrôleur est mis dans la route ‘’, la page est retournée.
 Le message d’erreur indique que le fichier ne peut être retourné.
 
+L'erreur semble venir du fichier .htaccess. Sur la version locale, si l'utilisateur écrit n'importe quoi après le chemin vers le dossier contenant le index.php, une page erreur 404 est retournée. Cependant, sur webdev, le message est "File not found.".
+
 ## Instruction d'installation
 
 Le dossier Diagram contient le schema ER, et les requêtes SQL pour créer les tables dans workbench et dans phpMyAdmin (_webdev).

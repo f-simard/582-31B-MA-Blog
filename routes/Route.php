@@ -1,6 +1,8 @@
 <?php
 namespace App\Routes;
 
+use App\Providers\View;
+
 class Route {
     private static $routes = [];
 
@@ -47,6 +49,6 @@ class Route {
             }
        }
        http_response_code(404);
-       echo "404 not found";
+       return View::render('error', ['msg'=>"Page not found"]);
     }
 }
