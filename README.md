@@ -13,7 +13,8 @@ J’ai tenté de mettre des echos afin de déterminer si
 * On entre dans /route/web.php : OUI
 * Les routes sont enregistrées : OUI
 * On dispatch : OUI
-Seul la route ‘’ (sans url) retourne une page. Si un autre contrôleur est mis dans la route ‘’, la page est retournée.
+
+Seule la route ‘’ (sans url) retourne une page. Si un autre contrôleur est mis dans la route ‘’, la page est retournée.
 Le message d’erreur indique que le fichier ne peut être retourné.
 
 L'erreur semble venir du fichier .htaccess. Sur la version locale, si l'utilisateur écrit n'importe quoi après le chemin vers le dossier contenant le index.php, une page erreur 404 est retournée. Cependant, sur webdev, le message est "File not found.".
@@ -25,7 +26,7 @@ Git: https://github.com/f-simard/582-31B-MA-Blog.
 Webdev: https://e2396414.webdev.cmaisonneuve.qc.ca/blog/
 
 
-## TP1
+## Annexe (TP1)
 Le sujet choisi est un site de blog.
 L'utilisateur peut voir et écrire des articles.
 Chaque article peut seulement avoir été écrit par une personne. Ils contiennent minalement un titre, un contenu. Les tags et les catégories sont facultatifs. Les catégories sont tirées d'une liste établie par les administrateurs. Les tags peuvent être ajoutés librement. La liste est "case-sensitive". Les autres champs tels la date de création sont remplis automatiquement à la création de l'article.
