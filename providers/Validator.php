@@ -64,6 +64,35 @@ class Validator {
 		return $this;
 	}
 
+	//unique, vérifier si la valeur pour le champ entrée existe déjà dans la base de donnée
+	public function unique($model){
+		$model = 'App\\Models\\'.$model;
+		$model = new $model;
+
+		$unique = $model->unique($this->key, $this->value);
+		if($unique){
+			$this->errors[$this->key]="$this->name doit être unique";
+		}
+		return $this;
+	}
+
+	//existe, vérifier sur la valeur entrée existe dans la base d donnée
+	public function exist($model, $field = null){
+
+		$model = 'App\\Models\\'.$model;
+		$model = new $model;
+
+		if($field == null){
+			$field = $model->primaryKey;
+		}
+
+		$exist = $model->unique($field, $this->value);
+		if(!$exist){
+			$this->errors[$this->key]="$this->name must exist";
+		}
+		return $this;
+	}
+
 	//if no errors, then success
 	public function isSuccess(){
 		if(empty($this->errors)) return true;
@@ -73,5 +102,6 @@ class Validator {
 	public function getErrors(){
 		if(!$this->isSuccess()) return $this->errors;
 	}
+
 
 }
