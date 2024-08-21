@@ -19,6 +19,8 @@
 			<a href="{{base}}/article/create" {% if navActive=="newArticle" %} class="selected" {% endif %}>Partager une pensée</a>	
 			<a href="{{base}}/user/create" {% if navActive=="newUser" %} class="selected" {% endif %}>Créer un compte</a>			
 			<a href="{{base}}/admin" {% if navActive=="admin" %} class="selected" {% endif %}>Administration</a>
+			<a href="{{base}}/login">Login</a>
+			<a href="{{base}}/logout">Logout</a>
 		</nav>
 	</header>
 	<main>

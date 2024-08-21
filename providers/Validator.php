@@ -84,6 +84,17 @@ class Validator {
 		return $this;
 	}
 
+	public function exist($model, $field = 'id'){
+		$model = 'App\\Models\\'.$model;
+		$model = new $model;
+
+		$exist = $model->unique($field, $this->value);
+		if(!$exist){
+			$this->errors[$this->key]="$this->name doit exister";
+		}
+		return $this;
+	}
+
 	//if no errors, then success
 	public function isSuccess(){
 		if(empty($this->errors)) return true;

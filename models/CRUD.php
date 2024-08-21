@@ -188,8 +188,6 @@ abstract class CRUD extends \PDO {
 	}
 
 	final public function unique($field, $value, $fieldException = null, $valueException = null){
-		echo 'field Exception ' . $fieldException;
-		echo 'value exception ' . $valueException;
 
 		if($fieldException && $valueException){
 			$sql = "SELECT * FROM $this->table WHERE $field = :$field AND $fieldException <> :$fieldException";

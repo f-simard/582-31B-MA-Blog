@@ -30,4 +30,8 @@ Route::get('/user/show', 'UserController@show');
 Route::get('/user/edit', 'UserController@edit');
 Route::post('/user/edit', 'UserController@update');
 
+Route::get('/login', 'AuthController@index');
+Route::post('/login', 'AuthController@store');
+Route::get('/logout', 'AuthController@delete');
+
 Route::dispatch();
