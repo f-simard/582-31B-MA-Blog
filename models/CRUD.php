@@ -187,6 +187,21 @@ abstract class CRUD extends \PDO {
 
 	}
 
+	final public function unique($field, $value){
+		$sql = "SELECT * FROM $this->table WHERE $field = :$field ";
+		$stmt = $this->prepare($sql);
+		$stmt->bindValue(":$field", $value);
+		$stmt->execute();
+
+		$count = $stmt->rowCount();
+
+		if($count == 1){
+			return $stmt->fetch();
+		} else {
+			return false;
+		}
+	} // fermeture fonction
+
 
 
 }

@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\Article;
 use App\Models\User;
-
 use App\Providers\View;
 use App\Providers\Validator;
 
@@ -72,9 +71,9 @@ class UserController {
 		$validator = new Validator();
 		$validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
 		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
-		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45);
+		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45)->unique('User');
 		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->max(45);
-		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100);
+		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){
@@ -107,7 +106,7 @@ class UserController {
 		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
 		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45);
 		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->max(45);
-		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100);
+		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){

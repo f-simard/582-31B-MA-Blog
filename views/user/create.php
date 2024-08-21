@@ -3,7 +3,7 @@
 		<section>
 		<h1>Créer un compte</h1>
 		</section>
-		<form class="soumettre"" method="post">
+		<form class="soumettre"" method="post" novalidate>
 			<label for="firstName">Prénom</label>
 			<input type="text" name="firstName" id ="firstName" value="{{user.firstName}}">
 			{% if errors.firstName is defined %}

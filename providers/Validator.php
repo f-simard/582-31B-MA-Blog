@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models;
+
 class Validator {
 
 	private $errors = array();
