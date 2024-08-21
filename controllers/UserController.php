@@ -72,7 +72,7 @@ class UserController {
 		$validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
 		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
 		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45)->unique('User');
-		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->max(45);
+		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->min(3)->max(45);
 		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
 
 		//donner valeur tinyint à isAdmin
@@ -83,9 +83,14 @@ class UserController {
 		}
 		
 		if($validator->isSuccess()){
-
 			//créer utilisateur
 			$user = new User();
+
+			//encrupter mot de passe
+			$password = $user->hashPassword($data['password']);
+			$data['password'] = $password;
+
+			//créer utilisateur
 			$insertUser = $user->insert($data);
 
 			return View::redirect('user/show?idUser=' . $insertUser);
@@ -101,13 +106,18 @@ class UserController {
 
 	public function update($data, $data_get){
 		$idUser = $data_get['idUser'];
+		print_r($data);
 
 		//valider donnée
 		$validator = new Validator();
 		$validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
 		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
-		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->max(45);
-		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User', 'idUser', $idUser);
+		$validator->field('email', $data['email'], "courriel")->trim()->required()->email()->max(100)->unique('User', 'idUser', $idUser);
+		if($data['password'] != ''){
+			$validator->field('password', $data['password'], "Mot de passe")->trim()->required()->min(3)->max(45);
+		} else {
+			unset($data['password']);
+		}
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){
@@ -118,8 +128,15 @@ class UserController {
 		
 		if($validator->isSuccess()){
 
-			//mettre à jour utilisateur
 			$user = new User();
+
+			//encrypter mot de passe si la donnée est présente dans le tableau
+			if(array_key_exists('password', $data)){
+				$password = $user->hashPassword($data['password']);
+				$data['password'] = $password;
+			}
+
+			//mettre à jour utilisateur
 			$updateUser = $user->update($data,$idUser);
 
 			return View::redirect('user/show?idUser=' . $idUser);

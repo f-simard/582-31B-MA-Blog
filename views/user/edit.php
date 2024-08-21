@@ -19,8 +19,8 @@
 			{% if errors.email is defined %}
             	<span class="error">{{errors.email}}</span>
             {% endif %}
-			<label for="password">Mot de passe</label>
-			<input required type="text" name="password" id ="password" value="{{user.password}}">
+			<label for="password">Mot de passe <small><i>(si laissé vide, le mot de passe sera inchangé)</i></small></label>
+			<input required type="password" name="password" id ="password">
 			{% if errors.password is defined %}
             	<span class="error">{{errors.password}}</span>
             {% endif %}

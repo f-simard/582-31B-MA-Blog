@@ -71,10 +71,6 @@ class Validator {
 		$model = 'App\\Models\\'.$model;
 		$model = new $model;
 
-		echo 'validator exception field' .  $fieldException;
-		echo 'validator exception value' .  $valueException;
-		echo '<br>';
-
 		if($fieldException && $valueException){
 			$unique = $model->unique($this->key, $this->value, $fieldException, $valueException);
 			
@@ -84,23 +80,6 @@ class Validator {
 
 		if($unique){
 			$this->errors[$this->key]="$this->name must be unique";
-		}
-		return $this;
-	}
-
-	//existe, vérifier sur la valeur entrée existe dans la base d donnée
-	public function exist($model, $field = null){
-
-		$model = 'App\\Models\\'.$model;
-		$model = new $model;
-
-		if($field == null){
-			$field = $model->primaryKey;
-		}
-
-		$exist = $model->unique($field, $this->value);
-		if(!$exist){
-			$this->errors[$this->key]="$this->name must exist";
 		}
 		return $this;
 	}

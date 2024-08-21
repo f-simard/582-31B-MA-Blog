@@ -197,7 +197,6 @@ abstract class CRUD extends \PDO {
 			$sql = "SELECT * FROM $this->table WHERE $field = :$field";
 		}
 
-		echo($sql);
 		$stmt = $this->prepare($sql);
 		$stmt->bindValue(":$field", $value);
 
