@@ -1,7 +1,7 @@
 {{ include('layouts/header.php' , {title: 'Modifier compte'}) }}
 
 <section>
-		<h1>Créer un compte</h1>
+		<h1>Modifier informations</h1>
 		</section>
 		<form class="soumettre"" method="post" novalidate>
 			<label for="firstName">Prénom</label>
@@ -13,11 +13,6 @@
 			<input type="text" name="lastName" id ="lastName" value="{{user.lastName}}">
 			{% if errors.lastName is defined %}
             	<span class="error">{{errors.lastName}}</span>
-            {% endif %}
-			<label for="username">Nom d'utilisateur</label>
-			<input required type="text" name="username" id ="username" value="{{user.username}}">
-			{% if errors.username is defined %}
-            	<span class="error">{{errors.username}}</span>
             {% endif %}
 			<label for="email">Courriel</label>
 			<input required type="email" name="email" id ="email" value="{{user.email}}">

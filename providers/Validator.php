@@ -67,13 +67,23 @@ class Validator {
 	}
 
 	//unique, vérifier si la valeur pour le champ entrée existe déjà dans la base de donnée
-	public function unique($model){
+	public function unique($model, $fieldException = null, $valueException = null){
 		$model = 'App\\Models\\'.$model;
 		$model = new $model;
 
-		$unique = $model->unique($this->key, $this->value);
+		echo 'validator exception field' .  $fieldException;
+		echo 'validator exception value' .  $valueException;
+		echo '<br>';
+
+		if($fieldException && $valueException){
+			$unique = $model->unique($this->key, $this->value, $fieldException, $valueException);
+			
+		} else {
+			$unique = $model->unique($this->key, $this->value);
+		}
+
 		if($unique){
-			$this->errors[$this->key]="$this->name doit être unique";
+			$this->errors[$this->key]="$this->name must be unique";
 		}
 		return $this;
 	}

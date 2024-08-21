@@ -187,10 +187,24 @@ abstract class CRUD extends \PDO {
 
 	}
 
-	final public function unique($field, $value){
-		$sql = "SELECT * FROM $this->table WHERE $field = :$field ";
+	final public function unique($field, $value, $fieldException = null, $valueException = null){
+		echo 'field Exception ' . $fieldException;
+		echo 'value exception ' . $valueException;
+
+		if($fieldException && $valueException){
+			$sql = "SELECT * FROM $this->table WHERE $field = :$field AND $fieldException <> :$fieldException";
+		} else {
+			$sql = "SELECT * FROM $this->table WHERE $field = :$field";
+		}
+
+		echo($sql);
 		$stmt = $this->prepare($sql);
 		$stmt->bindValue(":$field", $value);
+
+		if($fieldException && $valueException){
+			$stmt->bindValue(":$fieldException", $valueException);
+		}
+
 		$stmt->execute();
 
 		$count = $stmt->rowCount();
@@ -201,6 +215,7 @@ abstract class CRUD extends \PDO {
 			return false;
 		}
 	} // fermeture fonction
+
 
 
 

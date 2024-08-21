@@ -100,13 +100,14 @@ class UserController {
 	}
 
 	public function update($data, $data_get){
+		$idUser = $data_get['idUser'];
+
 		//valider donnée
 		$validator = new Validator();
 		$validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
 		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
-		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45);
 		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->max(45);
-		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
+		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User', 'idUser', $idUser);
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){
@@ -117,9 +118,7 @@ class UserController {
 		
 		if($validator->isSuccess()){
 
-			$idUser = $data_get['idUser'];
-
-			//créer utilisateur
+			//mettre à jour utilisateur
 			$user = new User();
 			$updateUser = $user->update($data,$idUser);
 
@@ -129,7 +128,7 @@ class UserController {
 
 			$errors = $validator->getErrors();
 
-			return View::render('user/create', ['errors'=>$errors, 'user'=>$data]);
+			return View::render('user/edit', ['errors'=>$errors, 'user'=>$data]);
 		}
 
 	}
