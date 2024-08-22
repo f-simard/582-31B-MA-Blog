@@ -23,12 +23,19 @@ class AdminController {
 
 	public function indexArticle() {
 		$article = new Article();
-        $select= $article->select('updateTimestamp', 'DESC');
+
+		$select=[];
+
+		if($_SESSION['isAdmin'] === 1 ){
+			$select= $article->select('updateTimestamp', 'DESC');
+		} else {
+			$select = $article->selectMultipleByField($_SESSION['idUser'], 'idUser');
+		}
 
 		if ($select) {
 			return View::render('admin/article', ['articles'=> $select]);
 		} else {
-			return View::render('error', ['msg'=>"Page not found"]);
+			return View::render('error', ['msg'=>"Aucun rticle"]);
 		}
 
 	}

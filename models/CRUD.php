@@ -44,6 +44,27 @@ abstract class CRUD extends \PDO {
 		}
 	}
 
+	final public function selectMultipleByField($value, $field = null){
+
+		if($field == null){
+			$field = $this->primaryKey;
+		}
+
+		/*$sql = "SELECT * FROM $table WHERE $field = ?";*/
+		$sql = "SELECT * FROM $this->table WHERE $field = :$field";
+		$stmt = $this->prepare($sql);
+		$stmt->bindValue(":$field", $value);
+		$stmt->execute();
+	
+		$count = $stmt->rowCount();
+	
+		if ($count > 1){
+			return $stmt->fetchAll();
+		} else {
+			return false;
+		}
+	}
+
 	final public function insert($data){
 
 		$data_keys = array_fill_keys($this->fillable, '');
