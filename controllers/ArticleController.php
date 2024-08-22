@@ -118,7 +118,7 @@ class ArticleController {
 
 		//valider donnée
 		$validator = new Validator();
-		$validator->field('username', $data['username'], "Nom d'usager")->trim()->min(3)->max(45);
+		// $validator->field('username', $data['username'], "Nom d'usager")->trim()->min(3)->max(45);
 		$validator->field('content', $data['content'], "Contenu")->trim()->min(3);
 		$validator->field('title', $data['title'], "Titre")->trim()->min(3)->max(120);
 		
@@ -126,25 +126,7 @@ class ArticleController {
 
 			$newData['content'] = $data['content'];
 			$newData['title'] = $data['title'];
-
-			//vérifier si utilsateur existe, sinon le créer
-			$user = new User;
-			$selectUsers = $user->select();
-			$users = [];
-
-			foreach($selectUsers as $row) {
-				$users[$row['idUser']] = $row['username'];
-			}
-
-			//TODO: retirer else car doit etre connectée pour soumettre article
-			//TODO: utiliser session pour avoir user
-			if(in_array($data['username'],$users)){
-				$newData['idUser'] = array_search($data['username'], $users);
-			} else {
-				$userData['username'] = $data['username'];
-				$insertedUser = $user->insert($userData);
-				$newData['idUser'] = $insertedUser;
-			}
+			$newData['idUser'] = $_SESSION['idUser'];
 
 			//créer l'article 
 			$article = new Article;
