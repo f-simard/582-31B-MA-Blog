@@ -7,8 +7,13 @@ use App\Models\User;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Providers\View;
+use App\Providers\Auth;
 
 class AdminController {
+
+	public function __construct(){
+		Auth::session();
+	}
 
 	public function index(){
 

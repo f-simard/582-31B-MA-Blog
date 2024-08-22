@@ -7,10 +7,15 @@ use App\Models\Article_has_Tag;
 
 use App\Providers\View;
 use App\Providers\Validator;
+use App\Providers\Auth;
 
 use App\Controllers\AdminController;
 
 class TagController {
+
+	public function __construct(){
+		Auth::session();
+	}
 
 	public function update($data){
 

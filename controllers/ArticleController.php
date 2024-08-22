@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Article_has_Category;
 use App\Models\Article_has_Tag;
+use App\Providers\Auth;
 
 use App\Providers\View;
 use App\Providers\Validator;
@@ -103,6 +104,8 @@ class ArticleController {
 
 	public function create() {
 
+		Auth::session();
+
 		$category = new Category;
 		$select = $category->select();
 
@@ -110,6 +113,8 @@ class ArticleController {
 	}
 
 	public function store($data=[]) {
+
+		Auth::session();
 
 		//valider donnée
 		$validator = new Validator();
@@ -187,6 +192,8 @@ class ArticleController {
 
 	public function edit($data = []){
 
+		Auth::session();
+
 		if(isset($data['idArticle']) && $data['idArticle']!=null){
 		
 			//récuperer article
@@ -245,6 +252,8 @@ class ArticleController {
 
 	public function update($data, $data_get){
 
+		Auth::session();
+
 		//delete categorie and tag relations and insert again
 		if(isset($data_get['idArticle']) && $data_get['idArticle']!=null) {
 
@@ -290,7 +299,7 @@ class ArticleController {
 						$insertTagRelation = $article_has_tag->insert($relationTag);
 					}
 				}
-				
+
 				return View::redirect('article/show?idArticle=' . $idArticle);
 
 			} else {
@@ -313,6 +322,8 @@ class ArticleController {
 
 	
 	public function delete($data){
+
+		Auth::session();
 
 		if(isset($data['idArticle']) && $data['idArticle']!=null) {
 

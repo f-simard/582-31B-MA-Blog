@@ -37,8 +37,9 @@ class User extends CRUD {
 				
 				session_regenerate_id();
 				$_SESSION['user_id'] = $user['id'];
-				// $_SESSION['name'] = $user['name'];
-				// $_SESSION['fingerPrint'] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']); //checker si la meme machine sur la meme connexion + encrypter
+				$_SESSION['isAdmin'] = $user['isAdmin'];
+				$_SESSION['name'] = $user['firstName'];
+				$_SESSION['fingerPrint'] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
 				
 				return true;
 				
@@ -51,6 +52,8 @@ class User extends CRUD {
 		}
 		
 	}
+
+
 	
 	
 }

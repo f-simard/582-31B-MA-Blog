@@ -11,7 +11,6 @@ class AuthController {
     public function index() {
         View::render('auth/index');
     }
-    
 
     public function store($data=[]){
 
