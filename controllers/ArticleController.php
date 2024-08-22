@@ -64,15 +64,7 @@ class ArticleController {
 			if ($selectedArticle){
 				
 			//recuperer autheur
-			$auteur = $article->getArticleAuthor($idArticle);
-			$auteurString;
-			if (!$auteur) {
-				$auteurString = "auteur supprimé";
-			} else if (!$auteur[0]['firstName']  && !$auteur[0]['lastName']) {
-				$auteurString = $auteur[0]['username'];
-			} else {
-				$auteurString = $auteur[0]['firstName'] . ' ' . $auteur[0]['lastName'];
-			}
+			$auteurString = $article->getArticleAuthor($idArticle);
 
 			//récrupérer catégories
 			$getCategories = $article->getArticleCategory($idArticle);
@@ -139,6 +131,8 @@ class ArticleController {
 				$users[$row['idUser']] = $row['username'];
 			}
 
+			//TODO: retirer else car doit etre connectée pour soumettre article
+			//TODO: utiliser session pour avoir user
 			if(in_array($data['username'],$users)){
 				$newData['idUser'] = array_search($data['username'], $users);
 			} else {
@@ -151,49 +145,24 @@ class ArticleController {
 			$article = new Article;
 			$insertedArticle = $article->insert($newData);
 
-			//récupérer les tags dans la base de données
-			$tag = new Tag;
-			$selectTags = $tag->select();
-			$tags = [];
-
-			foreach ($selectTags as $selectTag){
-				$tags[$selectTag['idTag']] = $selectTag['label'];
-			}
-
-			$submittedTags = [];
-			if( $data['tag'] ) {
-				$submittedTags = explode(";", $data['tag']);
-				//https://www.geeksforgeeks.org/how-to-trim-all-strings-in-an-array-in-php/
-				$submittedTagsClean = array_map('trim', $submittedTags);
-			}
-
 			if($insertedArticle){
 
-				//ajouter la relation article-categorie
-				foreach($data as $key=>$value){
-					if (substr($key, 0, 3) === 'cat'){
-						$idCategory = substr($key, 3);
-						$relationCategory['idCategory'] = $idCategory;
-						$relationCategory['idArticle'] = $insertedArticle;
+				$article_has_category = new Article_has_Category;
+				$relationCategory = $article_has_category->insertMultiple($data, $insertedArticle);
 
-						$article_has_category = new Article_has_Category;
-						$insertedCategoryRelation = $article_has_category->insert($relationCategory);
-					};
-				}
-
+				$submittedTags = [];
 				if ( $data['tag']){
-					//verifier si le tag existe deja dans la base de donner
-					$insertTag = [];
+
+					$submittedTags = explode(";", $data['tag']);
+					//https://www.geeksforgeeks.org/how-to-trim-all-strings-in-an-array-in-php/
+					$submittedTagsClean = array_map('trim', $submittedTags);
 
 					foreach($submittedTagsClean as $submittedTagClean){
 
-						if (in_array($submittedTagClean, $tags)) {
-							$relationTag['idTag'] = array_search($submittedTagClean, $tags);
-						} else {
-							$insertTag['label'] = $submittedTagClean;
-							$newTag = $tag->insert($insertTag);
-							$relationTag['idTag'] = $newTag;
-						}
+						$tag = new Tag();
+						$idTag = $tag->checkTag($submittedTagClean);
+
+						$relationTag['idTag'] = $idTag;
 						$relationTag['idArticle'] = $insertedArticle;
 						$article_has_tag = new Article_has_Tag;
 						$insertTagRelation = $article_has_tag->insert($relationTag);
@@ -229,15 +198,7 @@ class ArticleController {
 			if ($selectedArticle){
 
 				//recuperer autheur
-				$auteur = $article->getArticleAuthor($idArticle);
-				$auteurString;
-				if (!$auteur) {
-					$auteurString = "auteur supprimé";
-				} else if (!$auteur[0]['firstName']  && !$auteur[0]['lastName']) {
-					$auteurString = $auteur[0]['username'];
-				} else {
-					$auteurString = $auteur[0]['firstName'] . ' ' . $auteur[0]['lastName'];
-				}
+				$auteurString = $article->getArticleAuthor($idArticle);
 
 				//get categories and article categories
 				$category = new Category();
@@ -299,8 +260,7 @@ class ArticleController {
 			$article = new Article();
 			$updateArticle = $article->update($data, $idArticle);
 
-			$idArticle = $data_get['idArticle'];
-
+			//supprimer les relations de l'article avant de les resoumettre
 			$article_has_tag = new Article_has_Tag();
 			$deleteArticleTagRelation = $article_has_tag->delete($idArticle, 'idArticle');
 
@@ -308,53 +268,29 @@ class ArticleController {
 			$deleteArticleCategoryRelation = $article_has_category->delete($idArticle, 'idArticle');
 
 			if($deleteArticleTagRelation && $deleteArticleCategoryRelation) {
-				
-				//recuperer tag dans la base de donnee
-				$tag = new Tag;
-				$selectTags = $tag->select();
-				$tags = [];
 
-				foreach ($selectTags as $selectTag){
-					$tags[$selectTag['idTag']] = $selectTag['label'];
-				}
+				//ajouter la relation article-categorie
+				$article_has_category = new Article_has_Category;
+				$relationCategory = $article_has_category->insertMultiple($data, $idArticle);
 
 				$submittedTags = [];
 				if( $data['tag'] ) {
+
 					$submittedTags = explode(";", $data['tag']);
 					//https://www.geeksforgeeks.org/how-to-trim-all-strings-in-an-array-in-php/
 					$submittedTagsClean = array_map('trim', $submittedTags);
-				}
-				//ajouter la relation article-categorie
-				foreach($data as $key=>$value){
-					if (substr($key, 0, 3) === 'cat'){
-						$idCategory = substr($key, 3);
-						$relationCategory['idCategory'] = $idCategory;
-						$relationCategory['idArticle'] = $idArticle;
-
-						$article_has_category = new Article_has_Category;
-						$insertedCategoryRelation = $article_has_category->insert($relationCategory);
-					};
-				}
-
-				if( $data['tag'] ) {
-
-					//verifier si le tag existe deja dans la base de donner
-					$insertTag = [];
 
 					foreach($submittedTagsClean as $submittedTagClean){
 
-						if (in_array($submittedTagClean, $tags)) {
-							$relationTag['idTag'] = array_search($submittedTagClean, $tags);
-						} else {
-							$insertTag['label'] = $submittedTagClean;
-							$newTag = $tag->insert($insertTag);
-							$relationTag['idTag'] = $newTag;
-						}
+						$tag = new Tag();
+						$idTag = $tag->checkTag($submittedTagClean);
+
+						$relationTag['idTag'] = $idTag;
 						$relationTag['idArticle'] = $idArticle;
-						$article_has_tag = new Article_has_Tag;
 						$insertTagRelation = $article_has_tag->insert($relationTag);
 					}
 				}
+				
 				return View::redirect('article/show?idArticle=' . $idArticle);
 
 			} else {
