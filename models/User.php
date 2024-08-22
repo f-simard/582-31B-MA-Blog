@@ -33,7 +33,7 @@ class User extends CRUD {
 				$_SESSION['isAdmin'] = $user['isAdmin'];
 				$_SESSION['name'] = $user['firstName'];
 				$_SESSION['fingerPrint'] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
-				
+
 				return true;
 				
 			} else {

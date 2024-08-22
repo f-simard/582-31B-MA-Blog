@@ -25,7 +25,7 @@
             	<span class="error">{{errors.email}}</span>
             {% endif %}
 			<label for="password">Mot de passe</label>
-			<input required type="text" name="password" id ="password" value="{{user.password}}">
+			<input required type="password" name="password" id ="password" value="{{user.password}}">
 			{% if errors.password is defined %}
             	<span class="error">{{errors.password}}</span>
             {% endif %}

@@ -9,9 +9,11 @@
 	</div>
 	<div class="p">{{article.content}}</div>
 </section>
+{% if article.idUser is same as session.idUser or session.isAdmin %}
 <form action="{{base}}/article/edit" method="get">
 	<input type="hidden" name="idArticle" value="{{article.idArticle}}">
 	<button class="bouton">Modifier</button>
 </form>
+{% endif %}
 
 {{ include('layouts/footer.php')}}

@@ -14,11 +14,10 @@ use App\Controllers\AdminController;
 class TagController {
 
 	public function __construct(){
-		Auth::session();
+		Auth::isAdmin();
 	}
 
 	public function update($data){
-
 		$tag = new Tag();
 		$select = $tag->select();
 

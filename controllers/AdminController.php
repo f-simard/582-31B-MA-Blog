@@ -34,6 +34,8 @@ class AdminController {
 	}
 
 	public function indexTag() {
+		Auth::isAdmin();
+
 		$tag = new Tag();
 		$select = $tag->select();
 
@@ -46,6 +48,8 @@ class AdminController {
 
 	public function indexCategory() {
 
+		Auth::isAdmin();
+
 		$category = new Category();
 		$select = $category->select();
 
@@ -57,6 +61,8 @@ class AdminController {
 	}
 
 	public function indexUser() {
+
+		Auth::isAdmin();
 
 		$user = new User();
 		$select = $user->select();

@@ -12,10 +12,11 @@ class Auth {
     }
 
 	static public function isAdmin(){
-		if(isset($_SESSION['fingerPrint']) and ($_SESSION['fingerPrint'] ===  md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']))){
+
+		if( self::session() && $_SESSION['isAdmin'] === 1 ){
             return true;
         }else{
-            return View::render('error', ['msg'=>"Vous n'avez pas acces à cette ressource."]);
+			return View::redirect('accessDenied');
         }
 	}
 }

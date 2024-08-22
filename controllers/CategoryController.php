@@ -14,7 +14,7 @@ use App\Controllers\AdminController;
 class CategoryController {
 
 	public function __construct(){
-		Auth::session();
+		Auth::isAdmin();
 	}
 
 	public function store($data=[]){

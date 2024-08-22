@@ -19,7 +19,8 @@ class UserController {
 
 	public function show($data = []) {
 
-		
+		Auth::session();
+
 		if(isset($data['idUser']) && $data['idUser']!=null){
 
 			$idUser = $data['idUser'];
@@ -44,6 +45,7 @@ class UserController {
 
 	public function edit($data = []) {
 
+		Auth::session();
 		
 		if(isset($data['idUser']) && $data['idUser']!=null){
 
@@ -68,6 +70,8 @@ class UserController {
 	}
 
 	public function store($data=[]) {
+
+		Auth::session();
 
 		//valider donnée
 		$validator = new Validator();
@@ -107,6 +111,9 @@ class UserController {
 	}
 
 	public function update($data, $data_get){
+
+		Auth::session();
+
 		$idUser = $data_get['idUser'];
 		print_r($data);
 
@@ -153,6 +160,8 @@ class UserController {
 	}
 
 	public function delete($data=[]) {
+
+		Auth::session();
 
 		if(isset($data['idUser']) && $data['idUser']!=null) {
 

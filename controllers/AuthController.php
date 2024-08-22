@@ -12,6 +12,10 @@ class AuthController {
         View::render('auth/index');
     }
 
+	public function accessDenied(){
+		return View::render('accessDenied');
+	}
+
     public function store($data=[]){
 
     	//valider donnée

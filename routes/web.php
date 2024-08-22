@@ -33,5 +33,6 @@ Route::post('/user/edit', 'UserController@update');
 Route::get('/login', 'AuthController@index');
 Route::post('/login', 'AuthController@store');
 Route::get('/logout', 'AuthController@delete');
+Route::get('/accessDenied', 'AuthController@accessDenied');
 
 Route::dispatch();
