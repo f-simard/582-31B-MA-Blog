@@ -7,7 +7,15 @@ class Auth {
         if(isset($_SESSION['fingerPrint']) and ($_SESSION['fingerPrint'] ===  md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']))){
             return true;
         }else{
-            return view::redirect('login');
+            return View::redirect('login');
         }
     }
+
+	static public function isAdmin(){
+		if(isset($_SESSION['fingerPrint']) and ($_SESSION['fingerPrint'] ===  md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']))){
+            return true;
+        }else{
+            return View::render('error', ['msg'=>"Vous n'avez pas acces à cette ressource."]);
+        }
+	}
 }

@@ -24,19 +24,12 @@ class User extends CRUD {
 	public function checkuser($username, $password){
 
 		$user = $this->unique('username', $username);
-		print_r($user);
-		echo '<br>';
-		echo $this->hashPassword($password);
-		echo '<br>';
-		echo $user['password'];
-		echo '<br>';
-		echo(password_verify($password.$this->salt, $user['password']));
 		
 		if ($user){
 			if(password_verify($password.$this->salt, $user['password'])){
 				
 				session_regenerate_id();
-				$_SESSION['user_id'] = $user['id'];
+				$_SESSION['idUser'] = $user['idUser'];
 				$_SESSION['isAdmin'] = $user['isAdmin'];
 				$_SESSION['name'] = $user['firstName'];
 				$_SESSION['fingerPrint'] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);

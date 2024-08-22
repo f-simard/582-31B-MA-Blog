@@ -8,6 +8,10 @@
 			{% if errors.message is defined %}
 			<span class="error">{{errors.message}}</span>
 			{% endif %}
+			{% if msg is defined %}
+			<span class="success">{{msg}}</span>
+			{% endif %}
+
 
 			<label for="username">Nom d'utilisateur</label>
 			<input required type="text" name="username" id ="username" value="{{user.username}}">

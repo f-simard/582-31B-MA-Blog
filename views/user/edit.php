@@ -24,10 +24,14 @@
 			{% if errors.password is defined %}
             	<span class="error">{{errors.password}}</span>
             {% endif %}
+
+			{% if session.isAdmin %}
 			<div>
 				<input type="checkbox" name="isAdmin" id ="isAdmin" {% if user.isAdmin == 1 %} checked {% endif %} >
 				<label for="isAdmin">Admin</label>
 			</div>
+			{% endif %}
+
 			<input type="submit" value="Sauvegarder" class="bouton">
 		</form>
 

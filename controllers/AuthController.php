@@ -29,7 +29,7 @@ class AuthController {
 
 			if($checkUser){
 
-				return View::redirect('admin/article');
+				return View::redirect('admin/');
 			} else {
 				$errors['message'] = 'Please check your credentials';
 				return View::render('auth/index', ['errors'=>$errors, 'user'=>$data]);

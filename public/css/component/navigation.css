@@ -1,7 +1,7 @@
 .navigation{
     display: flex;
     gap: 4rem;
-    align-self: center;
+    align-items: center;
     justify-content: center;
 
 }
