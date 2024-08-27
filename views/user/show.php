@@ -4,6 +4,7 @@
 	<h1>Compte</h1>
 </section>
 <section>
+	//TODO: ajouter avatar
 	<p>Prénom : {{user.firstName}} </p>
 	<p>Nom de famille : {{user.lastName}}</p>
 	<p>Nom d'utilisateur : {{user.username}} </p>

@@ -71,15 +71,17 @@ class UserController {
 
 	public function store($data=[]) {
 
-		Auth::session();
-
 		//valider donnée
 		$validator = new Validator();
-		$validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
-		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
-		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45)->unique('User');
-		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->min(3)->max(45);
-		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
+		// $validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
+		// $validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
+		// $validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45)->unique('User');
+		// $validator->field('password', $data['password'], "Mot de passe")->required()->trim()->min(3)->max(45);
+		// $validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
+		if ($_FILES['fileToUpload']['size'] !== 0) {
+			$validator->field('fileToUpload', $_FILES, "Image")->image($_FILES);
+		};
+
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){
@@ -92,9 +94,16 @@ class UserController {
 			//créer utilisateur
 			$user = new User();
 
-			//encrupter mot de passe
+			//encrypter mot de passe
 			$password = $user->hashPassword($data['password']);
 			$data['password'] = $password;
+
+			$dir = dirname(__FILE__, 3);
+			echo $dir . '<br>';
+			$target_file = dirname(__FILE__, 3) . UPLOAD . basename($_FILES["fileToUpload"]["name"]);
+			echo $target_file;
+			move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+			die();
 
 			//créer utilisateur
 			$insertUser = $user->insert($data);

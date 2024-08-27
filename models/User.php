@@ -7,6 +7,7 @@ class User extends CRUD {
 	
 	protected $table = "User";
 	protected $primaryKey = 'idUser';
+	//TODO: ajouter url pour image
 	protected $fillable = ['username', 'lastName', 'firstName', 'email', 'password', 'isAdmin']; 
 	private $salt = 'a7w99&';
 	
