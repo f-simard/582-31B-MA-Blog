@@ -9,6 +9,7 @@
 			<a href="{{base}}/admin/user" class="bouton">Comptes</a>
 			<a href="{{base}}/admin/category" class="bouton">Catégories</a>
 			<a href="{{base}}/admin/tag" class="bouton">Tags</a>
+			<a href="{{base}}/admin/log" class="bouton">Journal de bord</a>
 		{% endif %}
 		{% if not session.isAdmin %}
 			<a href="{{base}}/user/show?idUser={{session.idUser}}" class="bouton">Profil</a>

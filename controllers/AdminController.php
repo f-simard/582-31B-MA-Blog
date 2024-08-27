@@ -5,9 +5,12 @@ namespace App\Controllers;
 use App\Models\Article;
 use App\Models\User;
 use App\Models\Tag;
+use App\Models\Log;
+
 use App\Models\Category;
 use App\Providers\View;
 use App\Providers\Auth;
+
 
 class AdminController {
 
@@ -76,6 +79,20 @@ class AdminController {
 
 		if ($select) {
 			return View::render('admin/user', ['users'=> $select]);
+		} else {
+			return View::render('error', ['msg'=>"Page not found"]);
+		}
+	}
+
+	public function indexLog() {
+
+		Auth::isAdmin();
+
+		$log = new Log();
+		$select = $log->select();
+
+		if ($select) {
+			return View::render('admin/log', ['logs'=> $select]);
 		} else {
 			return View::render('error', ['msg'=>"Page not found"]);
 		}
