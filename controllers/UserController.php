@@ -99,7 +99,9 @@ class UserController {
 			//créer utilisateur
 			$insertUser = $user->insert($data);
 
-			return View::redirect('user/show?idUser=' . $insertUser);
+			// return View::redirect('user/show?idUser=' . $insertUser);
+			return View::redirect('login');
+
 
 		} else {
 

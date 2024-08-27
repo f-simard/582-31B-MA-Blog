@@ -48,7 +48,7 @@ class ArticleController {
 
 		}
 
-		return View::render('error');
+		return View::render('article/index', ['msg'=> 'Aucun article à lire pour le moment']);
 
 	}
 

@@ -30,6 +30,7 @@ class User extends CRUD {
 				
 				session_regenerate_id();
 				$_SESSION['idUser'] = $user['idUser'];
+				$_SESSION['username'] = $user['username'];
 				$_SESSION['isAdmin'] = $user['isAdmin'];
 				$_SESSION['name'] = $user['firstName'];
 				$_SESSION['fingerPrint'] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
@@ -45,8 +46,4 @@ class User extends CRUD {
 		}
 		
 	}
-
-
-	
-	
 }

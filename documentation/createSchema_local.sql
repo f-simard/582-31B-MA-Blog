@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `blog`.`User` (
   `lastName` VARCHAR(45) NULL,
   `firstName` VARCHAR(20) NULL,
   `email` VARCHAR(100) NULL,
-  `password` VARCHAR(45) NULL,
+  `password` VARCHAR(255) NULL,
   `isAdmin` INT DEFAULT 0,
   
   PRIMARY KEY (`idUser`));
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `blog`.`User` (
   `updateTimestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   
 	PRIMARY KEY (`idArticle`),
-	FOREIGN KEY (`idUser`) REFERENCES `blog`.`user` (`idUser`)
+	FOREIGN KEY (`idUser`) REFERENCES `blog`.`User` (`idUser`)
 );
 
 CREATE TABLE IF NOT EXISTS `blog`.`Category` (
@@ -49,9 +49,20 @@ CREATE TABLE IF NOT EXISTS `blog`.`Article_has_Category` (
 
 CREATE TABLE IF NOT EXISTS `blog`.`Article_has_Tag` (
 	`idArticle` INT NOT NULL,
-    `idTag` INT NOT NULL,
+  `idTag` INT NOT NULL,
     
 	PRIMARY KEY (`idArticle`, `idTag`),
 	FOREIGN KEY (`idArticle`) REFERENCES `blog`.`Article` (`idArticle`),
 	FOREIGN KEY (`idTag`) REFERENCES `blog`.`Tag` (`idTag`)
+);
+
+  -- source pour l'horodate: https://dev.mysql.com/doc/refman/8.4/en/timestamp-initialization.html
+  CREATE TABLE IF NOT EXISTS `blog`.`Log` (
+  `idLog` INT NOT NULL AUTO_INCREMENT,
+  `ipAddress` VARCHAR(120) NOT NULL,
+  `username` VARCHAR(120) NOT NULL,
+  `page` VARCHAR(120) NOT NULL,
+  `createTimestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`idLog`)
 );
