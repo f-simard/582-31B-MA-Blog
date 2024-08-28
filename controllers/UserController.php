@@ -73,15 +73,11 @@ class UserController {
 
 		//valider donnée
 		$validator = new Validator();
-		// $validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
-		// $validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
-		// $validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45)->unique('User');
-		// $validator->field('password', $data['password'], "Mot de passe")->required()->trim()->min(3)->max(45);
-		// $validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
-		if ($_FILES['fileToUpload']['size'] > 0) {
-			$validator->field('fileToUpload', $_FILES, "Image")->image($_FILES);
-		};
-
+		$validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
+		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
+		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45)->unique('User');
+		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->min(3)->max(45);
+		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){
@@ -111,7 +107,6 @@ class UserController {
 
 			// return View::redirect('user/show?idUser=' . $insertUser);
 			return View::redirect('login');
-
 
 		} else {
 
