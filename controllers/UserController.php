@@ -99,12 +99,9 @@ class UserController {
 			$data['password'] = $password;
 
 			//sauvegarder sur le serveur
+			// https://stackoverflow.com/questions/15211231/server-document-root-path-in-php
 			$target_file = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($_FILES["fileToUpload"]["name"]);
-			echo $target_file;
-			echo '<br>' . basename($_FILES["fileToUpload"]["name"]);
 			$moved = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
-			echo "<br> moved:" . $moved;
-			die();
 
 			//sauvegarder le chemin dans la base de donnée
 			$data['avatar'] = basename($_FILES["fileToUpload"]["name"]);
