@@ -78,7 +78,7 @@ class UserController {
 		// $validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45)->unique('User');
 		// $validator->field('password', $data['password'], "Mot de passe")->required()->trim()->min(3)->max(45);
 		// $validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
-		if ($_FILES['fileToUpload']['size'] !== 0) {
+		if ($_FILES['fileToUpload']['size'] > 0) {
 			$validator->field('fileToUpload', $_FILES, "Image")->image($_FILES);
 		};
 
@@ -98,12 +98,16 @@ class UserController {
 			$password = $user->hashPassword($data['password']);
 			$data['password'] = $password;
 
-			$dir = dirname(__FILE__, 3);
-			echo $dir . '<br>';
-			$target_file = dirname(__FILE__, 3) . UPLOAD . basename($_FILES["fileToUpload"]["name"]);
+			//sauvegarder sur le serveur
+			$target_file = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($_FILES["fileToUpload"]["name"]);
 			echo $target_file;
-			move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+			echo '<br>' . basename($_FILES["fileToUpload"]["name"]);
+			$moved = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+			echo "<br> moved:" . $moved;
 			die();
+
+			//sauvegarder le chemin dans la base de donnée
+			$data['avatar'] = basename($_FILES["fileToUpload"]["name"]);
 
 			//créer utilisateur
 			$insertUser = $user->insert($data);

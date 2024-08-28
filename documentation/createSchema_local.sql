@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS `blog`.`User` (
   `email` VARCHAR(100) NULL,
   `password` VARCHAR(255) NULL,
   `isAdmin` INT DEFAULT 0,
+  `avatar` VARCHAR(255) NULL,
   
   PRIMARY KEY (`idUser`));
   

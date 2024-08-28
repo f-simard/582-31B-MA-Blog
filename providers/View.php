@@ -12,6 +12,7 @@ class View {
 		$twig = new Environment($loader);
 		$twig->addGlobal('asset', ASSET);
 		$twig->addGlobal('base', BASE);
+		$twig->addGlobal('upload', UPLOAD);
 		$twig->addGlobal("session", $_SESSION);
 
 		if(isset($_SESSION['fingerPrint']) and md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR'])) {

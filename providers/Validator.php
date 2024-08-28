@@ -96,28 +96,25 @@ class Validator {
 	}
 
 	public function image($file) {
-		$target_file = UPLOAD . basename($file["fileToUpload"]["name"]);
-		$uploadOk = 1;
+
+		$target_file = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($_FILES["fileToUpload"]["name"]);
 		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+		
 		// Check if image file is a actual image or fake image
 		$check = getimagesize($file["fileToUpload"]["tmp_name"]);
-		if($check !== false) {
-			$uploadOk = 1;
-		} else {
+		if($check == false) {
 			$this->errors[$this->key]="Format de $this->name invalide.";
-			$uploadOk = 0;
 		};
+
 		// Check file size
-		if ($_FILES["fileToUpload"]["size"] > 500000) {
+		if ($_FILES["fileToUpload"]["size"] > 200000) {
 			$this->errors[$this->key]="L'image est trop grande.";
-			$uploadOk = 0;
 		}
 
 		// Allow certain file formats
 		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 		&& $imageFileType != "gif" ) {
 			$this->errors[$this->key]="Seul les JPG, JPEG, PNG & GIF sont acceptés";
-			$uploadOk = 0;
 		}
 
 		return $this;
