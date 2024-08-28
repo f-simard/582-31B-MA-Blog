@@ -38,7 +38,7 @@ class AdminController {
 		if ($select) {
 			return View::render('admin/article', ['articles'=> $select]);
 		} else {
-			return View::render('error', ['msg'=>"Aucun rticle"]);
+			return View::render('error', ['msg'=>"Aucun article"]);
 		}
 
 	}
@@ -89,7 +89,7 @@ class AdminController {
 		Auth::isAdmin();
 
 		$log = new Log();
-		$select = $log->select();
+		$select = $log->select('createTimestamp', 'DESC');
 
 		if ($select) {
 			return View::render('admin/log', ['logs'=> $select]);
