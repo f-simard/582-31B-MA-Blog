@@ -24,10 +24,11 @@ class AdminController {
 
 	}
 
-	public function indexArticle() {
+	public function indexArticle($data = []) {
 		$article = new Article();
 
 		$select=[];
+		$msg = $this->msg($data);
 
 		if($_SESSION['isAdmin'] === 1 ){
 			$select= $article->select('updateTimestamp', 'DESC');
@@ -36,49 +37,56 @@ class AdminController {
 		}
 
 		if ($select) {
-			return View::render('admin/article', ['articles'=> $select]);
+			return View::render('admin/article', ['success'=>$msg, 'articles'=> $select]);
 		} else {
 			return View::render('error', ['msg'=>"Aucun article"]);
 		}
 
 	}
 
-	public function indexTag() {
+	public function indexTag($data = []) {
 		Auth::isAdmin();
+
 
 		$tag = new Tag();
 		$select = $tag->select();
 
+		$msg = $this->msg($data);
+
 		if ($select) {
-			return View::render('admin/tag', ['tags'=> $select]);
+			return View::render('admin/tag', ['success'=>$msg,'tags'=> $select]);
 		} else {
 			return View::render('error', ['msg'=>"Page not found"]);
 		}
 	}
 
-	public function indexCategory() {
+	public function indexCategory($data = []) {
 
 		Auth::isAdmin();
 
 		$category = new Category();
 		$select = $category->select();
 
+		$msg = $this->msg($data);
+
 		if ($select) {
-			return View::render('admin/category', ['categories'=> $select]);
+			return View::render('admin/category', ['success'=>$msg, 'categories'=> $select]);
 		} else {
 			return View::render('error', ['msg'=>"Page not found"]);
 		}
 	}
 
-	public function indexUser() {
+	public function indexUser($data = []) {
 
 		Auth::isAdmin();
 
 		$user = new User();
 		$select = $user->select();
 
+		$msg = $this->msg($data);
+
 		if ($select) {
-			return View::render('admin/user', ['users'=> $select]);
+			return View::render('admin/user', ['success'=>$msg, 'users'=> $select]);
 		} else {
 			return View::render('error', ['msg'=>"Page not found"]);
 		}
@@ -96,5 +104,19 @@ class AdminController {
 		} else {
 			return View::render('error', ['msg'=>"Page not found"]);
 		}
+	}
+
+	public function msg($data = []) {
+
+		if (isset($data['successDelete'])){
+			return successDelete;
+		} else if (isset($data['successUpdate'])) {
+			return successUpdate;
+		} else if (isset($data['successAdd'])) {
+			 return successAdd;
+		} else {
+			return null;
+		};
+
 	}
 }

@@ -183,7 +183,7 @@ class UserController {
 			$deleteUser = $user->delete($idUser);
 
 			if($deleteUser) {
-				return View::redirect('admin/user');
+				return View::redirect('admin/user?successDelete');
 			} else {
 				$errors['msg'] = 'Erreur lors de la suppression';
 				$select = $user->select();

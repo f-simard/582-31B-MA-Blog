@@ -322,7 +322,7 @@ class ArticleController {
 
 
 			if($deleteArticle && $deleteArticleTagRelation && $deleteArticleCategoryRelation) {
-				return View::redirect('admin/article');
+				return View::redirect('admin/article?successDelete');
 			} else {
 				return View::render('error');
 			}

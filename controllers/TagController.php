@@ -32,9 +32,8 @@ class TagController {
 	
 				if($validator->isSuccess()){
 					$update = $tag->update($data, $idTag);
-					$select = $tag->select();
 	
-					return View::render('admin/tag', ['success'=>'Mise à jour réussie', 'tags'=>$select]);
+					return View::redirect('admin/tag?successUpdate');
 	
 				} else {
 					$errors = $validator->getErrors();
@@ -64,7 +63,7 @@ class TagController {
 
 
 			if($deleteArticleTagRelation) {
-				return View::redirect('admin/tag');
+				return View::redirect('admin/tag?successDelete');
 			} else {
 				$errors['msg'] = 'Erreur lors de la suppression';
 				$select = $category->select();

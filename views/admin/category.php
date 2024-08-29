@@ -4,7 +4,7 @@
 	<h1>Catégorie</h1>
 </section>
 <section class="label-list">
-	{% if success is defined %}
+	{% if success is not null %}
 		<span class="success">{{success}}</span>
 	{% endif %}
 	{% if errors.category is defined %}

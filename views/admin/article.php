@@ -4,6 +4,9 @@
 <h1>Articles</h1>
 </section>
 <section class="label-list">
+{% if success is not null %}
+	<span class="success">{{success}}</span>
+{% endif %}
 {% for article in articles %}
 	<div class="doubleForm">
 		<form action="{{base}}/article/edit" method="get">
