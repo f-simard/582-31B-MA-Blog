@@ -7,6 +7,9 @@
 {% if success is not null %}
 	<span class="success">{{success}}</span>
 {% endif %}
+{% if msg is defined %}
+	<p>{{ msg }}</p>
+{% endif %}
 {% for article in articles %}
 	<div class="doubleForm">
 		<form action="{{base}}/article/edit" method="get">

@@ -39,7 +39,7 @@ class AdminController {
 		if ($select) {
 			return View::render('admin/article', ['success'=>$msg, 'articles'=> $select]);
 		} else {
-			return View::render('error', ['msg'=>"Aucun article"]);
+			return View::render('admin/article', ['msg'=>'Aucun article', 'articles'=> $select]);
 		}
 
 	}
