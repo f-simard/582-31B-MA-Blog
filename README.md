@@ -2,7 +2,7 @@
 Projet Programmation avancée
 
 ## TP3
-Le TP3 applique les privilèges aux actions possible.
+Le TP3 applique les privilèges aux differentes action, ajoute un journal de bord qui enregistre les pages accédées par chaque utilisateur et ajoute la fonctionalité d'ajouter un avatar au profil.
 
 
 ## TP2
