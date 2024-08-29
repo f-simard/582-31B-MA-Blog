@@ -18,7 +18,7 @@
 			<a href="{{base}}" {% if navActive=="accueil" %} class="selected" {% endif %}">Accueil</a>	
             {% if guest %}
 				<a href="{{base}}/user/create" {% if navActive=="newUser" %} class="selected" {% endif %}>Créer un compte</a>	
-				<a href="{{base}}/login">Login</a>
+				<a href="{{base}}/login" {% if navActive=="login" %} class="selected" {% endif %}>Login</a>
             {% else %}
 				<a href="{{base}}/article/create" {% if navActive=="newArticle" %} class="selected" {% endif %}>Partager une pensée</a>
 				<a href="{{base}}/admin" {% if navActive=="admin" %} class="selected" {% endif %}>Administration</a>
