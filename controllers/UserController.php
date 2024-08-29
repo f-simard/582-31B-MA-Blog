@@ -78,6 +78,9 @@ class UserController {
 		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45)->unique('User');
 		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->min(3)->max(45);
 		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
+		if($_FILES["fileToUpload"]["size"] > 0 || $_FILES["fileToUpload"]["error"] == 1 ){
+			$validator->field('fileToUpload', $_FILES, "Image")->image();
+		}
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){
@@ -111,6 +114,8 @@ class UserController {
 		} else {
 
 			$errors = $validator->getErrors();
+
+			print_r($errors);
 
 			return View::render('user/create', ['errors'=>$errors, 'user'=>$data]);
 		}

@@ -95,19 +95,26 @@ class Validator {
 		return $this;
 	}
 
-	public function image($file) {
+	public function image() {
 
-		$target_file = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($_FILES["fileToUpload"]["name"]);
+		echo 'email validation';
+
+		if($this->value["fileToUpload"]["error"] == 1) {
+			$this->errors[$this->key]="Une erreur est survenue avec l'image.";
+			return $this;
+		};
+
+		$target_file = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($this->value["fileToUpload"]["name"]);
 		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 		
 		// Check if image file is a actual image or fake image
-		$check = getimagesize($file["fileToUpload"]["tmp_name"]);
+		$check = getimagesize($this->value["fileToUpload"]["tmp_name"]);
 		if($check == false) {
 			$this->errors[$this->key]="Format de $this->name invalide.";
 		};
 
 		// Check file size
-		if ($_FILES["fileToUpload"]["size"] > 200000) {
+		if ($this->value["fileToUpload"]["size"] > 200000) {
 			$this->errors[$this->key]="L'image est trop grande.";
 		}
 
