@@ -58,7 +58,7 @@ abstract class CRUD extends \PDO {
 	
 		$count = $stmt->rowCount();
 	
-		if ($count > 1){
+		if ($count >= 1){
 			return $stmt->fetchAll();
 		} else {
 			return false;
