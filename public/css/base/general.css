@@ -47,3 +47,7 @@ a{
 section > form > button {
 	margin-top: 2rem;
 }
+
+picture + p {
+	margin-top: 2rem;
+}

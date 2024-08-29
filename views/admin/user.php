@@ -4,6 +4,9 @@
 	<h1>Comptes</h1>
 </section>
 <section class="label-list">
+{% if success is not null %}
+	<span class="success">{{success}}</span>
+{% endif %}
 {% for user in users %}
 <div class="doubleForm">
 	<form action="{{base}}/user/edit" method="get">

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>Note</h1>
+	<section>
+		<h2>Log</h2>
+		<p>log book. a chaque moment que navigation. doit avoir table dans bd. timestamp on insert</p>
+		<ul>
+			<li>IP: remote addr : toujours le meme si</li>
+			<li>date: timestamp du serveur qui host la base de donnee</li>
+			<li>username ou guest, meme logique que twig</li>
+			<li>page:  URL à partir de la variable $_SERVER. on veut l'addresse URL
+				<ul>
+					<li>creer table</li>
+					<li>creer models et controller (insert, select)</li>
+				</ul>
+				<ul>
+					<li> au controleur: log session si on le met direct dans la fonction du controller </li>
+					<li> si on veut tout enregistrer, dans le index.
+						<ul>
+							<li>creer controller pour le journal de bord ou direct dans le model.</li>
+							<li>Creer fonction qui recupere variable et tests logique</li>
+							<li>appel cette fonction au debut de l'index</li>
+				</ul>
+			</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Email</h2>
+		<p>gmail ou hebergeur donne souvent un serveur email. donc pas besoin de créer un serveur web</p>
+		<p>pas de controller pour le email. mais integre fonction dans l'action/controlleur que on veut</p>
+		<p>but: intégrer le serveur Web de de gmail (ou autre provideur)</p>
+		<ul>
+			<li>envoyer des emails à partir d'un serveur PHP</li>
+			<li>doit voit avec notre providor</li>
+		</ul>
+		<ul>
+			<li>peut utiliser librairie: PHP Mailer</li>
+			<li>mot de passe: generer un mot de passe pour application dans le compte gmail</li>
+			<li>from: doit utiliser</li>
+			<li>reply to: pas obligé d'expliquer</li>
+			<li>pas obligé d'utiliser tous les attributs du model</li>
+		</ul>
+	</section>
+	<section>
+		<h2>enregistrer format PDF</h2>
+		<ul>
+			<li>domppdf : converti HTML en pdf</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Televerser</h2>
+		<input type="file">
+		<p>ca devient comme un formulaire</p>
+		<ul>
+			<li>php field upload</li>
+			<li>ATT: enctype</li>
+			<li>modifier php init</li>
+			<li>ne sauvegarde pas le fichier dans la bd. e.g. avatar de profile. sauvegarde pas direct dans bd. on va sauvergarder chemin</li>
+			<li>creer repertoire "upload" dans le projet (comme public, css, etc)</li>
+			<li>si probleme php: voir php init</li>
+		</ul>
+	</section>
+	<section>
+		<h2>traduction</h2>
+		<h2><?php echo $_lang['txt_hello']; ?></h2>
+		<div>
+			en.php
+			return $_lang = [
+			"txt_hello" => "hello",
+			"txt_greeting" = > "How are you?",
+			]
+		</div>
+		<div>
+			fr.php
+			return $_lang = [
+			"txt_hello" => "Bonjour",
+			"txt_greeting" = > "Comment allez-vous?",
+			]
+		</div>
+		<div>
+			index.php
+			require_once("en.php");
+			à besoin d'un déclencheur
+		</div>
+		<div>
+			<nav>
+				<a href="lang.php?lang=en">Englais</a>
+				<a href="lang.php?lang=gt">Francais</a>
+			</nav>
+		</div>
+		<div>
+			lang.php
+			if($_GET['lang'] == 'fr') {
+				$_COOKIER['lang'] = 'fr'
+			} else {
+				$_COOKIE['lang'] == 'en'
+			}
+		</div>
+	</section>
+</body>
+</html>

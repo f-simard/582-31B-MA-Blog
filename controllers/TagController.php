@@ -7,39 +7,46 @@ use App\Models\Article_has_Tag;
 
 use App\Providers\View;
 use App\Providers\Validator;
+use App\Providers\Auth;
 
 use App\Controllers\AdminController;
 
 class TagController {
 
+	public function __construct(){
+		Auth::isAdmin();
+	}
+
 	public function update($data){
 
-		$tag = new Tag();
-		$select = $tag->select();
-
-		if(isset($data['idTag']) && $data['idTag']) {
-
-			$idTag = $data['idTag'];
-
-			$validator = new Validator();
-			$validator->field('tag', $data['label'])->trim()->min(1)->max(45);
-
-			if($validator->isSuccess()){
-				$update = $tag->update($data, $idTag);
-				$select = $tag->select();
-
-				return View::render('admin/tag', ['success'=>'Mise à jour réussie', 'tags'=>$select]);
-
+		if($_SESSION['isAdmin'] === 1) {
+			$tag = new Tag();
+			$select = $tag->select();
+	
+			if(isset($data['idTag']) && $data['idTag']) {
+	
+				$idTag = $data['idTag'];
+	
+				$validator = new Validator();
+				$validator->field('tag', $data['label'])->trim()->min(1)->max(45);
+	
+				if($validator->isSuccess()){
+					$update = $tag->update($data, $idTag);
+	
+					return View::redirect('admin/tag?successUpdate');
+	
+				} else {
+					$errors = $validator->getErrors();
+	
+					//print_r($errors);
+					return View::render('admin/tag', ['errors'=>$errors, 'tags'=>$select]);
+				}
 			} else {
-				$errors = $validator->getErrors();
-
-				//print_r($errors);
-				return View::render('admin/tag', ['errors'=>$errors, 'tags'=>$select]);
+				$adminController = new AdminController();
+				$adminController->showTag();
 			}
-		} else {
-			$adminController = new AdminController();
-			$adminController->showTag();
 		}
+		
 	}
 
 	public function delete($data=[]) {
@@ -56,7 +63,7 @@ class TagController {
 
 
 			if($deleteArticleTagRelation) {
-				return View::redirect('admin/tag');
+				return View::redirect('admin/tag?successDelete');
 			} else {
 				$errors['msg'] = 'Erreur lors de la suppression';
 				$select = $category->select();

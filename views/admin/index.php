@@ -5,9 +5,15 @@
 	</section>
 	<section class="option-admin">
 		<a href="{{base}}/admin/article" class="bouton">Articles</a>
-		<a href="{{base}}/admin/user" class="bouton">Comptes</a>
-		<a href="{{base}}/admin/category" class="bouton">Catégories</a>
-		<a href="{{base}}/admin/tag" class="bouton">Tags</a>
+		{% if session.isAdmin == 1 %}
+			<a href="{{base}}/admin/user" class="bouton">Comptes</a>
+			<a href="{{base}}/admin/category" class="bouton">Catégories</a>
+			<a href="{{base}}/admin/tag" class="bouton">Tags</a>
+			<a href="{{base}}/admin/log" class="bouton">Journal de bord</a>
+		{% endif %}
+		{% if not session.isAdmin %}
+			<a href="{{base}}/user/show?idUser={{session.idUser}}" class="bouton">Profil</a>
+		{% endif %}
 	</section>
 
 {{ include('layouts/footer.php')}}

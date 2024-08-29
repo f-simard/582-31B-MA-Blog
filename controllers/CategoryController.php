@@ -7,10 +7,15 @@ use App\Models\Article_has_Category;
 
 use App\Providers\View;
 use App\Providers\Validator;
+use App\Providers\Auth;
 
 use App\Controllers\AdminController;
 
 class CategoryController {
+
+	public function __construct(){
+		Auth::isAdmin();
+	}
 
 	public function store($data=[]){
 
@@ -26,9 +31,8 @@ class CategoryController {
 
 			if($validator->isSuccess()){
 				$store = $category->insert($data);
-				$select = $category->select();
 
-				return View::render('admin/category', ['success'=>'Ajout réussi', 'categories' => $select]);
+				return View::redirect('admin/category?successAdd');
 
 			} else {
 				$errors = $validator->getErrors();
@@ -57,9 +61,8 @@ class CategoryController {
 
 			if($validator->isSuccess()){
 				$update = $category->update($data, $idCategory);
-				$select = $category->select();
 
-				return View::render('admin/category', ['success'=>'Mise à jour réussie', 'categories'=>$select]);
+				return View::redirect('admin/category?successUpdate');
 
 			} else {
 				$errors = $validator->getErrors();
@@ -87,9 +90,8 @@ class CategoryController {
 			if($deleteArticleCategoryRelation) {
 
 				$deletecategory = $category->delete($idCategory);
-				$select = $category->select();
 
-				return View::render('admin/category', ['success'=>'Suppression réussie', 'categories'=>$select]);
+				return View::redirect('admin/category?successDelete');
 
 			} else {
 				$errors['msg'] = 'Erreur lors de la suppression';

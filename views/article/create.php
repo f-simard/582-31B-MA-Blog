@@ -14,11 +14,6 @@
 			{% if errors.content is defined %}
             	<span class="error">{{errors.content}}</span>
             {% endif %}
-			<label for="username">Nom d'utilisateur</label>
-			<input required type="text" name="username" id="username" value="{{article.username}}">
-			{% if errors.username is defined %}
-            	<span class="error">{{errors.username}}</span>
-            {% endif %}
 			<fieldset>
 				<legend>Catégories</legend>
 				{% if categories %}

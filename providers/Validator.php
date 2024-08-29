@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models;
+
 class Validator {
 
 	private $errors = array();
@@ -64,6 +66,67 @@ class Validator {
 		return $this;
 	}
 
+	//unique, vérifier si la valeur pour le champ entrée existe déjà dans la base de donnée
+	public function unique($model, $fieldException = null, $valueException = null){
+		$model = 'App\\Models\\'.$model;
+		$model = new $model;
+
+		if($fieldException && $valueException){
+			$unique = $model->unique($this->key, $this->value, $fieldException, $valueException);
+			
+		} else {
+			$unique = $model->unique($this->key, $this->value);
+		}
+
+		if($unique){
+			$this->errors[$this->key]="$this->name must be unique";
+		}
+		return $this;
+	}
+
+	public function exist($model, $field = 'id'){
+		$model = 'App\\Models\\'.$model;
+		$model = new $model;
+
+		$exist = $model->unique($field, $this->value);
+		if(!$exist){
+			$this->errors[$this->key]="$this->name doit exister";
+		}
+		return $this;
+	}
+
+	public function image() {
+
+		echo 'email validation';
+
+		if($this->value["fileToUpload"]["error"] == 1) {
+			$this->errors[$this->key]="Une erreur est survenue avec l'image.";
+			return $this;
+		};
+
+		$target_file = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($this->value["fileToUpload"]["name"]);
+		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+		
+		// Check if image file is a actual image or fake image
+		$check = getimagesize($this->value["fileToUpload"]["tmp_name"]);
+		if($check == false) {
+			$this->errors[$this->key]="Format de $this->name invalide.";
+		};
+
+		// Check file size
+		if ($this->value["fileToUpload"]["size"] > 200000) {
+			$this->errors[$this->key]="L'image est trop grande.";
+		}
+
+		// Allow certain file formats
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+		&& $imageFileType != "gif" ) {
+			$this->errors[$this->key]="Seul les JPG, JPEG, PNG & GIF sont acceptés";
+		}
+
+		return $this;
+	}
+
 	//if no errors, then success
 	public function isSuccess(){
 		if(empty($this->errors)) return true;
@@ -73,5 +136,7 @@ class Validator {
 	public function getErrors(){
 		if(!$this->isSuccess()) return $this->errors;
 	}
+
+
 
 }

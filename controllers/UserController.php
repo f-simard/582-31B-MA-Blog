@@ -7,6 +7,7 @@ use App\Models\User;
 
 use App\Providers\View;
 use App\Providers\Validator;
+use App\Providers\Auth;
 
 class UserController {
 
@@ -18,7 +19,8 @@ class UserController {
 
 	public function show($data = []) {
 
-		
+		Auth::session();
+
 		if(isset($data['idUser']) && $data['idUser']!=null){
 
 			$idUser = $data['idUser'];
@@ -43,6 +45,7 @@ class UserController {
 
 	public function edit($data = []) {
 
+		Auth::session();
 		
 		if(isset($data['idUser']) && $data['idUser']!=null){
 
@@ -72,9 +75,12 @@ class UserController {
 		$validator = new Validator();
 		$validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
 		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
-		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45);
-		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->max(45);
-		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100);
+		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45)->unique('User');
+		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->min(3)->max(45);
+		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100)->unique('User');
+		if($_FILES["fileToUpload"]["size"] > 0 || $_FILES["fileToUpload"]["error"] == 1 ){
+			$validator->field('fileToUpload', $_FILES, "Image")->image();
+		}
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){
@@ -84,16 +90,32 @@ class UserController {
 		}
 		
 		if($validator->isSuccess()){
-
 			//créer utilisateur
 			$user = new User();
+
+			//encrypter mot de passe
+			$password = $user->hashPassword($data['password']);
+			$data['password'] = $password;
+
+			//sauvegarder sur le serveur
+			// https://stackoverflow.com/questions/15211231/server-document-root-path-in-php
+			$target_file = $_SERVER["DOCUMENT_ROOT"] . UPLOAD . basename($_FILES["fileToUpload"]["name"]);
+			$moved = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+
+			//sauvegarder le chemin dans la base de donnée
+			$data['avatar'] = basename($_FILES["fileToUpload"]["name"]);
+
+			//créer utilisateur
 			$insertUser = $user->insert($data);
 
-			return View::redirect('user/show?idUser=' . $insertUser);
+			// return View::redirect('user/show?idUser=' . $insertUser);
+			return View::redirect('login');
 
 		} else {
 
 			$errors = $validator->getErrors();
+
+			print_r($errors);
 
 			return View::render('user/create', ['errors'=>$errors, 'user'=>$data]);
 		}
@@ -101,13 +123,22 @@ class UserController {
 	}
 
 	public function update($data, $data_get){
+
+		Auth::session();
+
+		$idUser = $data_get['idUser'];
+		print_r($data);
+
 		//valider donnée
 		$validator = new Validator();
 		$validator->field('firstName', $data['firstName'], "Prénom")->trim()->min(2)->max(45);
 		$validator->field('lastName', $data['lastName'], "Nom de famille")->trim()->min(2)->max(45);
-		$validator->field('username', $data['username'], "Nom d'usager")->required()->trim()->min(3)->max(45);
-		$validator->field('password', $data['password'], "Mot de passe")->required()->trim()->max(45);
-		$validator->field('email', $data['email'], "courriel")->required()->trim()->email()->max(100);
+		$validator->field('email', $data['email'], "courriel")->trim()->required()->email()->max(100)->unique('User', 'idUser', $idUser);
+		if($data['password'] != ''){
+			$validator->field('password', $data['password'], "Mot de passe")->trim()->required()->min(3)->max(45);
+		} else {
+			unset($data['password']);
+		}
 
 		//donner valeur tinyint à isAdmin
 		if(isset($data['isAdmin'])){
@@ -118,10 +149,15 @@ class UserController {
 		
 		if($validator->isSuccess()){
 
-			$idUser = $data_get['idUser'];
-
-			//créer utilisateur
 			$user = new User();
+
+			//encrypter mot de passe si la donnée est présente dans le tableau
+			if(array_key_exists('password', $data)){
+				$password = $user->hashPassword($data['password']);
+				$data['password'] = $password;
+			}
+
+			//mettre à jour utilisateur
 			$updateUser = $user->update($data,$idUser);
 
 			return View::redirect('user/show?idUser=' . $idUser);
@@ -130,12 +166,14 @@ class UserController {
 
 			$errors = $validator->getErrors();
 
-			return View::render('user/create', ['errors'=>$errors, 'user'=>$data]);
+			return View::render('user/edit', ['errors'=>$errors, 'user'=>$data]);
 		}
 
 	}
 
 	public function delete($data=[]) {
+
+		Auth::session();
 
 		if(isset($data['idUser']) && $data['idUser']!=null) {
 
@@ -145,7 +183,7 @@ class UserController {
 			$deleteUser = $user->delete($idUser);
 
 			if($deleteUser) {
-				return View::redirect('admin/user');
+				return View::redirect('admin/user?successDelete');
 			} else {
 				$errors['msg'] = 'Erreur lors de la suppression';
 				$select = $user->select();

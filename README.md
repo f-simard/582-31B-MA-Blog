@@ -1,6 +1,10 @@
 # 582-31B-MA-Blog
 Projet Programmation avancée
 
+## TP3
+Le TP3 applique les privilèges aux actions possible.
+
+
 ## TP2
 Le sujet du TP2 2 est le même que celui du TP1. L'entiéreté du projet a été modifié en MVC.
 

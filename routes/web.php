@@ -15,6 +15,7 @@ Route::get('/admin/article', 'AdminController@indexArticle');
 Route::get('/admin/tag', 'AdminController@indexTag');
 Route::get('/admin/category', 'AdminController@indexCategory');
 Route::get('/admin/user', 'AdminController@indexUser');
+Route::get('/admin/log', 'AdminController@indexLog');
 
 Route::post('/admin/tag/update', 'TagController@update');
 Route::post('/admin/tag/delete', 'TagController@delete');
@@ -29,5 +30,10 @@ Route::post('/user/create', 'UserController@store');
 Route::get('/user/show', 'UserController@show');
 Route::get('/user/edit', 'UserController@edit');
 Route::post('/user/edit', 'UserController@update');
+
+Route::get('/login', 'AuthController@index');
+Route::post('/login', 'AuthController@store');
+Route::get('/logout', 'AuthController@delete');
+Route::get('/accessDenied', 'AuthController@accessDenied');
 
 Route::dispatch();
