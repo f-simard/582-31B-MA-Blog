@@ -7,6 +7,9 @@
 	{% if success is not null %}
 		<span class="success">{{success}}</span>
 	{% endif %}
+	{% if msg is defined %}
+		<p>{{ msg }}</p>
+	{% endif %}
 	{% if errors.category is defined %}
 		<span class="error">{{errors.category}}</span>
 	{% endif %}

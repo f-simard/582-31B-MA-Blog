@@ -56,7 +56,7 @@ class AdminController {
 		if ($select) {
 			return View::render('admin/tag', ['success'=>$msg,'tags'=> $select]);
 		} else {
-			return View::render('error', ['msg'=>"Page not found"]);
+			return View::render('admin/tag', ['msg'=>'Aucun tag', 'articles'=> $select]);
 		}
 	}
 
@@ -69,10 +69,12 @@ class AdminController {
 
 		$msg = $this->msg($data);
 
+		print_r($select);
+
 		if ($select) {
 			return View::render('admin/category', ['success'=>$msg, 'categories'=> $select]);
 		} else {
-			return View::render('error', ['msg'=>"Page not found"]);
+			return View::render('admin/category', ['msg'=>'Aucune catégorie', 'articles'=> $select]);
 		}
 	}
 

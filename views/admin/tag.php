@@ -10,6 +10,9 @@
 	{% if errors.tag is defined %}
 		<span class="error">{{errors.tag}}</span>
 	{% endif %}
+	{% if msg is defined %}
+		<p>{{ msg }}</p>
+	{% endif %}
 	{% if errors.msg is defined %}
 		<span class="error">{{errors.msg}}</span>
 	{% endif %}
