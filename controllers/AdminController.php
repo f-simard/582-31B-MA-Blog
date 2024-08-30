@@ -69,8 +69,6 @@ class AdminController {
 
 		$msg = $this->msg($data);
 
-		print_r($select);
-
 		if ($select) {
 			return View::render('admin/category', ['success'=>$msg, 'categories'=> $select]);
 		} else {

@@ -38,7 +38,6 @@ class TagController {
 				} else {
 					$errors = $validator->getErrors();
 	
-					//print_r($errors);
 					return View::render('admin/tag', ['errors'=>$errors, 'tags'=>$select]);
 				}
 			} else {

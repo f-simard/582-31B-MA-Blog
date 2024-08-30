@@ -115,8 +115,6 @@ class UserController {
 
 			$errors = $validator->getErrors();
 
-			print_r($errors);
-
 			return View::render('user/create', ['errors'=>$errors, 'user'=>$data]);
 		}
 
@@ -127,7 +125,6 @@ class UserController {
 		Auth::session();
 
 		$idUser = $data_get['idUser'];
-		print_r($data);
 
 		//valider donnée
 		$validator = new Validator();
