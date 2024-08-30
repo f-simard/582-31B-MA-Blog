@@ -6,8 +6,9 @@ CREATE TABLE IF NOT EXISTS `e2396414`.`User` (
   `lastName` VARCHAR(45) NULL,
   `firstName` VARCHAR(20) NULL,
   `email` VARCHAR(100) NULL,
-  `password` VARCHAR(45) NULL,
+  `password` VARCHAR(255) NULL,
   `isAdmin` INT DEFAULT 0,
+    `avatar` VARCHAR(255) NULL,
   
   PRIMARY KEY (`idUser`));
   
@@ -40,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `e2396414`.`Article_has_Category` (
     `idCategory` INT NOT NULL,
     
     PRIMARY KEY (`idArticle`, `idCategory`),
-	CONSTRAINT `idArticle_fk` FOREIGN KEY (`idArticle`) REFERENCES `e2396414`.`Article` (`idArticle`) ON UPDATE CASCADE ON DELETE SET CASCADE,
-	CONSTRAINT `idCategory_fk`  FOREIGN KEY (`idCategory`) REFERENCES `e2396414`.`Category` (`idCategory`) ON UPDATE CASCADE ON DELETE SET CASCADE
+	CONSTRAINT `idArticle_fk` FOREIGN KEY (`idArticle`) REFERENCES `e2396414`.`Article` (`idArticle`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT `idCategory_fk`  FOREIGN KEY (`idCategory`) REFERENCES `e2396414`.`Category` (`idCategory`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `e2396414`.`Article_has_Tag` (
@@ -49,6 +50,16 @@ CREATE TABLE IF NOT EXISTS `e2396414`.`Article_has_Tag` (
     `idTag` INT NOT NULL,
     
 	PRIMARY KEY (`idArticle`, `idTag`),
-	CONSTRAINT `idArticle_tag_fk`  FOREIGN KEY (`idArticle`) REFERENCES `e2396414`.`Article` (`idArticle`) ON UPDATE CASCADE ON DELETE SET NULL,
-	CONSTRAINT `idTag_fk` FOREIGN KEY (`idTag`) REFERENCES `e2396414`.`Tag` (`idTag`) ON UPDATE CASCADE ON DELETE SET NULL
+	CONSTRAINT `idArticle_tag_fk`  FOREIGN KEY (`idArticle`) REFERENCES `e2396414`.`Article` (`idArticle`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT `idTag_fk` FOREIGN KEY (`idTag`) REFERENCES `e2396414`.`Tag` (`idTag`) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+  CREATE TABLE IF NOT EXISTS `e2396414`.`Log` (
+  `idLog` INT NOT NULL AUTO_INCREMENT,
+  `ipAddress` VARCHAR(120) NOT NULL,
+  `username` VARCHAR(120) NOT NULL,
+  `page` VARCHAR(120) NOT NULL,
+  `createTimestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`idLog`)
 );
