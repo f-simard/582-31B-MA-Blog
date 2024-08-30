@@ -97,8 +97,6 @@ class Validator {
 
 	public function image() {
 
-		echo 'email validation';
-
 		if($this->value["fileToUpload"]["error"] == 1) {
 			$this->errors[$this->key]="Une erreur est survenue avec l'image.";
 			return $this;
