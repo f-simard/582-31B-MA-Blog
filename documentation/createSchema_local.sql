@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `blog`.`User` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NULL,
-  `firstName` VARCHAR(20) NULL,
+  `firstName` VARCHAR(45) NULL,
   `email` VARCHAR(100) NULL,
   `password` VARCHAR(255) NULL,
   `isAdmin` INT DEFAULT 0,

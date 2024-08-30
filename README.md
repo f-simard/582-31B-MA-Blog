@@ -2,8 +2,23 @@
 Projet Programmation avancée
 
 ## TP3
-Le TP3 applique les privilèges aux differentes action, ajoute un journal de bord qui enregistre les pages accédées par chaque utilisateur et ajoute la fonctionalité d'ajouter un avatar au profil.
+Le TP3 applique les privilèges aux différentes actions, ajoute un journal de bord qui enregistre les pages accédées par chaque utilisateur et ajoute la fonctionnalité d'ajouter un avatar au profil.
 
+### Privilèges et utulisateurs
+Les administrateurs ont tous les droits d'ajout, modification et suppression.
+Les utilisateurs enregistrés peuvent ajouter des articles; modifier et supprimer ceux dont ils sont l'auteur. Ils peuvent aussi modifier leur profil, à l'exception de leur username et avatar.
+Les invités peuvent consulter les articles et se créer un compte.
+
+###Liens
+Le log est accessible dans le menu Admin
+
+###Fonctionnalité au choix
+La fonctionnalité ajoutée est celle pour téléverser des images à la création d’un compte. Celle-ci est utilisée comme avatar. Elle est visible dans le profil de l’utilisateur
+**Note** : Le chemin pour sauvegarder les fichiers est *hardcodé* sur WebDev mais elle est dynamique dans le fichier github.
+
+
+### Liens
+https://e2396414.webdev.cmaisonneuve.qc.ca/blog/
 
 ## TP2
 Le sujet du TP2 2 est le même que celui du TP1. L'entiéreté du projet a été modifié en MVC.
